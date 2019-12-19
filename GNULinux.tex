@@ -1,0 +1,1759 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %Copyright (C) 2018-2020 YuZJ.
+%使用CC-BY-NC-SA授权。一份完整版本的许可证已位于附录。这个版本原始作者YuZJ，
+%邮箱theafamily@126.com（最后连接于2019年06月20日17:32:17）。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Perform Daily-Teaching Task under GNU/Linux}
+\section{Windows操作系统上的高级反病毒技巧}
+当一般的反病毒软件无法将病毒清除时，你就应该考虑使用GNU/Linux反病毒\footnote{当然你也可以重装系统。但这么做无法清除系统盘以外的病毒。}。
+\subsection{使用以GNU/Linux为操作系统的计算机急救工具}
+GNU/Linux可用于Windows反病毒原因是：Windows二进制文件与GNU/Linux二进制文件的结构是不同的（具体请参考其他专业书籍），因此Windows的EXE病毒大多数情况下无法在GNU/Linux上运行（使用Wine \footnote{一种类似于虚拟机的技术，它可允许Windows应用程序在GNU/Linux，BSD等操作系统上运行。} 或其他类似技术除外），也就是说，Windows下的病毒一般无法感染GNU/Linux操作系统。\par
+大多数反病毒软件厂商都提供了“急救盘”，用于给无法启动或严重感染的计算机反病毒。大多数急救盘基于GNU/Linux \footnote{如Dr.Web和AVIRA基于Ubuntu 14（Dr.Web凭借Wine运行），Kaspersky基于Gentoo Linux x86\_64，ESET基于其它GNU/Linux操作系统。}，也有少部分（如Avast!）基于Windows。\par
+现将以Kaspersky Rescure Disk以演示GNU/Linux反病毒。至于如何安装GNU/Linux并反病毒请参见\pageref{sec:avgl}页\ref{sec:avgl}\par
+现在你将计算机开启，将光盘插入光驱后重启。你将被引导到光盘启动。你将发现：
+\begin{center}
+	\includegraphics[scale=0.7]{pic/krd1}
+\end{center} \par
+此时，快速按下ESC键（它应位于你键盘左上角），进入左图所示界面，选择“English”--英语，敲击回车，进入右图界面。此时你应该选择“Kaspersky Rescure Disk, Graphic Mode”（图形界面）\footnote{下面“Limited graphic mode”为限制的图形界面，“Hardware info”为探测硬件信息，“Boot from hard disk”为从硬盘启动（意思就是说，启动硬盘里已经安装的操作系统），“Reboot”与“Shutdown”指重启与关机。当然高手请随意。}
+\begin{center}
+	\includegraphics[scale=0.25]{pic/krd2}	\includegraphics[scale=0.25]{pic/krd3}\\
+	\includegraphics[scale=0.35]{pic/krd4}	\includegraphics[scale=0.35]{pic/krd5}
+\end{center} \par
+这就启动好了。KRD提示你整个系统正在内存上运行，所有新病毒库、日志、隔离等在关机后都将丢失。之后你会看见右图界面：我们使用卡巴斯基病毒移除工具（Kaspersky Virus Removal Tool，KVRT）演示它们的使用。下载：\url{https://www.kaspersky.com.cn/downloads/thank-you/free-virus-removal-tool}（最后连接于2019年06月20日18:44:31，网速较慢）。
+\begin{center}
+	\includegraphics[scale=0.5]{pic/kvrt_eula.PNG}        \includegraphics[scale=0.6]{pic/kvrt_ready.PNG}\\
+	\includegraphics[scale=0.6]{pic/kvrt_conf.PNG}
+	\includegraphics[scale=0.4]{pic/kvrt_ing.PNG}    \includegraphics[scale=0.4]{pic/kvrt_compl.PNG}
+\end{center} \par
+上图分别是KVRT显示最终用户许可声明及隐私保护条例，准备查杀，配置扫描范围，正在查杀，查杀完成的界面。\par
+首先你应该同意最终用户许可声明及隐私保护条例（注意，你首先应该看过它）。选中两个复选框再单击“Accept”即可。之后它会“初始化”（initialization）一段时间，并显示“准备好”界面。注意到上面黄色的一块区域了吗？它的出现说明这个版本已经过时了，你可以选择重新下载最新版。\par
+现在选择查杀范围。单击“change parameters”，你将发现图3所示对话框。其中“System memory”指“系统内存”，“Startup objects”指启动项，“Boot sectors”指启动扇区，“System drive”指系统盘（一般是“C:\textbackslash”）。你还可以单击“Add object”添加其它文件或磁盘。单击“Start scan”开始扫描\footnote{需要消耗一（大）段时间并占用大量系统资源}。如果发现病毒，KVRT将在GNU/Linux下删除它们。
+除了反病毒，KRD还提供了网络浏览器Firefox、终端、任务管理器Htop与Task Manager（参见\pageref{sec:pm}页\ref{sec:pm}）、图像查看器Ristretto Imagine Viewer、文件管理器Midnight Commander与Thunar File Manager、文本编辑器Mousepad等。默认以root用户登录。其余设置较为复杂，请参照“高级”章。
+In this chapter, we'll use Lubuntu 19.04 to teach computer administrators how to install GNU/Linux alongside Windows, simple GNU/Linux settings and use GNU/Linux to satisfy daily teaching task. The reason why this chapter is written in English is that most GNU/Linux documents are in English.\par
+\section{Introduction: }
+Because of the different design philosophy, the usage of GNU/Linux differs with Windows in many aspects. Please ensure that you've read the following contents before proceeding into the next section:
+\begin{enumerate}
+	\item You've completed Vim Tutor and you'd know the basic usage of vi/vim such as open, close or save a file. Most GNU/Linux distribution has Vi installed by default even if you're under a CIL interface. If not, learn them NOW!
+	\item You've backed up all your data. Always backup your data--GNU/Linux \textbf{ASSUMES} that you know what you're doing all the time even if you actually not.
+\end{enumerate}
+Please be aware that I'm not saying ``GNU/Linux is better than Windows'' or any other bullshit of this kind. To myself, what matters most is efficiency under the people who are using these tools. Although GNU/Linux can be very good at setting up servers, it can also be DISASTROUS for a pool trained computer programmer.
+\section{Use GNU/Linux Under Windows Platform: CygWin}
+The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the filesystem of both versions of WSL is weird. However, if you use Cygwin, you'll not have such a problem. CygWin is a program which allows GNU/Linux program to be executed under Windows by re-compiling their source code. The official site of CygWin is \url{http://www.cygwin.com/}(Date: 2019-07-06,16:22:55)。Download the installation package first and do as follows:
+\begin{enumerate}
+	\item Click ``Install from Internet'' to install by using online mirrors.
+	\item Choose ``C:\textbackslash cygwin'' as ``Root  Directory'' recommended because it would be easy to manage the installation.
+	\item Choose  ``C:\textbackslash cygwin\textbackslash var\textbackslash install'' as ``Local Package Directory'' is recommended for the same reason.
+	\item Choose ``TUNA'' or ``USTC'' as mirror cite where you download software package.
+	\item Install ``Best'' configuration and bash, bzip2, clamav (optional), coreunits, cygwin, dash, gcc-* (optional), man-db, shutdown (optional), tar, vim, xz, p7zip, zip. Please be aware that install any package related with X-Windows System is not recommended.
+	\item Add /bin, /sbin, /usr/bin to PATH variable of MS Windows or use ``export'' command if you don't want to allow CMD/Powershell to use CygWin's command.
+	\item There's no APT/YUM/PacMan. If you want to add/remove a package, just run the installation again.
+\end{enumerate}
+\section{GNU/Linux and Its Distributions}
+\label{sec:gnulinux} GNU/Linux产生于Minix，而Minix产生于Unix。具体产生历史不再赘述。\par
+首先，GNU/Linux是以Linux为内核，辅以GNU\footnote{GNU（GNU is Not Unix的递归缩写）是一个由理查德·斯托曼为推广自由软件发起的运动（自由软件运动）的一部分。它产生了一些如 Gnu Emacs、gcc（GNU Compiler Collection，即GNU编译器套件，包含 C、C++、Objective-C、Fortran、Ada、Go、D 等语言的编译器及这些语言的运行库，由 Richard Stallman 于 1987 年发布，最新版本 7.4）、GIMP（GNU Image Manipulation Program，图像处理软件，号称“GNU/Linux下的 PhotoShop”）等自由软件。具体请参看附录中的“GNU宣言”。}工具集的操作系统。在自由软件界，“GNU/Linux”是一种较为保守且“政治正确”的说法。我们将在本书中使用这种说法。\par
+（通俗地讲，）发行版是你可以下载安装的GNU/Linux版本。基于学习难度、兼容性及易用性，我们主要使用以下GNU/Linux发行版：
+\begin{description}
+	\item [【Arch Linux】] 一个具有极强的自定义的发行版，安装过程较为复杂，不适合用于教学（大牛或者有善解人意的班主任者除外）。
+	\item [【CentOS】] 由Red Hat基金会支持的，社区维护的“社区企业操作系统”的缩写，稳定性较强，社区维护，免费下载安装。软件过少且落后，不适用于教学。
+	\item [【Debian GNU/Linux】] 虽然软件更新较慢，但稳定性过强导致软件落后（仅限于Stable分支）或者不稳定（Unstable分支）。
+	\item [【Gentoo Linux】] 一个具有极强的自定义的发行版，安装过程极为复杂，不适合用于教学（大牛除外）。
+	\item [【Fedora】] 前瞻性性较强，社区维护并由Red Hat基金会支持。免费下载安装。软件过少（需要启用额外的软件源），不适用于教学。
+	\item [【Kali Linux】] 内含大部分网络渗透工具，使用apt软件包管理器，默认使用root用户执行操作导致其非常不适合用于教学。
+	\item [【Red Hat Enterprise Linux （RHEL）】] 稳定性和保密程度极强，付费下载安装。不适合用于教学。
+	\item [【Ubuntu】] 一个基于Debian GNU/Linux的发行版，前瞻性性较强，支持的软件包极多，非常适合用于教学。在“高级”章中我们将会使用此发行版作为示例。
+	\item [【Linux Mint】] 同上。目前最适合于初学者的GNU/Linux发行版。十分人性化，建议初学者选用（大牛将在此略感蹩脚）。非常适合用于教学。
+	\item [【Pure OS】] 一个认证“完全自由”的发行版。官方软件源存在软件过少和下载速度慢的问题。但如果你是自由软件运动的铁杆支持者，你可以使用它。
+	\item [【（半）国产操作系统】]这里不再赘述。
+\end{description}
+\subsubsection{GNU/Linux的优点}
+\begin{enumerate}
+	\item  适用于配置较低的或生产较早的机器。运行速度快（比如说\LaTeX 编译速度）。\par
+	\item 自由软件支持者可以选用（仅限于其中的部分发行版，参见【自由的GNU/Linux发行版】\url{http://www.gnu.org/distros/free-distros.html}（最后连接于2019年06月20日18:16:24））。\par
+	\item 拥有权力无限大的root用户，不会受到类似于Window操作系统中“System”或“TrustedInstaller”等权限超级大的“用户”制约（如：Windows操作系统在Administrator权限下尝试删除“C:\textbackslash Windows\textbackslash notepad.exe”（即“记事本”）会出错，而在Linux下删除整个根目录“/”都几乎不会出问题）。\par
+	\item 具有功能十分强大的软件（如“rm”——个删除文件的命令行工具）。
+	\item 几乎不可能中毒。
+\end{enumerate}
+\subsubsection{GNU/Linux的缺点}
+\begin{enumerate}
+	\item 入门门槛高。
+	\item 硬件驱动少（尤其是完全使用自由软件时）。原因在于自由软件开发者有限，自由的硬件厂商有限因此在新型号的机器上某些驱动无法被加载。如Debian GNU/Linux对于最新硬件的兼容性就弱于Ubuntu Linux。
+	\item 软件数量有限（这里的意思是说，比较“大众化”的软件（如微信）有限（但是有有道词典、搜狗输入法、WPS2019办公软件）），并且对“.exe”的可执行文件支持极差（即使采用Wine或其它类似技术）。	
+\end{enumerate}
+\subsection{（半）国产操作系统概况}
+国产操作系统主要以GNU/Linux或BSD为内核。在MS Windows进入中国前曾经繁荣过一段时间。但目前其民用桌面操作系统在国内占有的市场份额极小，大部分国产操作系统为政府或军事机构服务。现列举一些著名的操作系统：
+\subsubsection{Deepin Linux}
+\url{https://www.deepin.org/}\par
+\cite{deepininfo}深度操作系统基于Linux内核，以桌面应用为主的开源GNU/Linux操作系统，支持笔记本、台式机和一体机。深度操作系统（deepin）包含深度桌面环境（DDE）和近30款深度原创应用，及数款来自开源社区的应用软件，支撑广大用户日常的学习和工作。另外，通过深度商店还能够获得近千款应用软件的支持，满足你对操作系统的扩展需求。深度操作系统由专业的操作系统研发团队和深度技术社区（www.deepin.org）共同打造，其名称来自深度技术社区名称“deepin”一词，意思是对人生和未来深刻的追求和探索。
+\paragraph{实测}
+免费下载安装，安装较为方便。APT镜像源较多，更新较快。同样拥有WineQQ与Electric WeChat，体验接近Ubuntu（桌面除外）。适合用于教学。\par
+缺陷：一部分预装软件的界面（如深度软件安装器）过于简洁，不够强大。应用程序卸载不需要root权限。桌面的形式不适用于高效率教学生活，较难适应。
+\begin{center}
+	\includegraphics[scale=0.5]{pic/deepin}
+\end{center}
+\subsubsection{Ubuntu Kylin}
+\url{https://www.ubuntukylin.com/}\par
+优麒麟（Ubuntu Kylin）是由天津麒麟信息技术有限公司主导开发的全球开源项目，其宗旨是通过研发用户友好的桌面环境以及特定需求的应用软件，为全球 Linux 桌面用户带来非凡的全新体验！\par
+优麒麟操作系统是 Ubuntu 官方衍生版，得到来自 Debian、Ubuntu、Mate、LUPA 等国际社区及众多国内外社区爱好者的广泛参与和热情支持。其开发贡献者可参见Ubuntu Kylin开发者团队列表。\cite{ukinfo}
+\paragraph{实测}
+免费下载安装。除了切换桌面，增加默认安装WPS、搜狗拼音输入法等外，与Ubuntu区别不大。适合用于教学。确实针对中国消费者做了不少优化。
+\begin{center}
+	\includegraphics[scale=0.4]{pic/uk}
+\end{center} \par
+\section{安装GNU/Linux：以Lubuntu19.04为例}
+需要注意的是：GNU/Linux不同发行版的安装方法各不相同，因此在安装其它发行版（如Arch Linux）时就应该格外注意下文所述方法并不是“放诸四海而皆准”的。警告！安装时不要联网（这次主要是为了防止安装器从原始软件源下载文件——这将会使安装过程难以忍受的长）！\par
+首先你需要一张Ubuntu Linux的启动光盘或U盘。我仍旧推荐TUNA源：\url{https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/lubuntu/releases/19.04/release/lubuntu-19.04-desktop-amd64.iso}（最后连接于2019年06月20日18:44:45）。之后使用与Windows相同的方法写入光盘（或U盘）。现在你将计算机开启，将光盘插入光驱后重启。你将被引导到光盘启动。你将看到（如果你使用UEFI启动，你将看不到此界面。此时你应在“GNU Grub”界面选择“Try Ubuntu 19.04”）左图所示界面。选择“English”（不推荐安装中文的GNU/Linux操作系统，这将会使终端乱码）并敲两下回车键。在一段时间的等待后，你将看到：
+\begin{center}
+	\includegraphics[scale=0.5]{pic/lubinst1}	\includegraphics[scale=0.4]{pic/lubinst2}
+\end{center} \par
+现在你在Lubuntu Live的桌面上。Live系统可以让你体验Lubuntu系统。在这里对系统的任何更改都不会被保存（当然，如果你更改了硬盘，那就不是一回事了）。双击“Install Lubuntu 19.04”以启动安装程序。你将看到左图界面。设置语言，时区与键盘。这些选项保持默认即可。
+\begin{center}
+	\includegraphics[scale=0.4]{pic/lubinst3}	\includegraphics[scale=0.4]{pic/lubinst7}\\
+	\includegraphics[scale=0.4]{pic/lubinst5}
+\end{center} \par
+现在开始高难度操作：硬盘分区。首先你应该看到左图，界面右上方有一个下拉列表让你选择硬盘。选择另一块硬盘后，你将看到右图。\par
+现在介绍一下我们有可能用到的单选框中的选项：
+\begin{itemize}
+	\item Install alongside：并行安装。这个选项将会自动调整已存在的分区大小来为安装Lubuntu制造空间。为避免发生未知错误，我们不选择此选项。
+	\item Erase disk：删除磁盘上的所有数据安装Lubuntu。你将丢失此硬盘上的所有数据，不选择此选项。
+	\item Manual partitioning：手动分区。就是你了！
+\end{itemize}
+\begin{center}
+	\includegraphics[scale=0.4]{pic/lubinst6}	\includegraphics[scale=0.4]{pic/lubinst7}
+\end{center} \par
+现在你应该选择另外一块硬盘，完成后界面位于左图。首先单击“New partition table”新建GPT分区表如右图（这里抱歉地说一下：我的计算机Windows选用了MBR分区，GNU/Linux选用GPT分区，是由于主板已经有更换——请放心，BIOS-Legacy能够从GPT分区启动GNU/Linux，但无法启动Windows。因此如果你的主板不支持BIOS-UEFI，请不要使用工具将MBR转换为GPT。否则Windows将无法启动）：
+\begin{center}
+	\includegraphics[scale=0.4]{pic/lubinst8}	\includegraphics[scale=0.4]{pic/lubinst9}\\
+	\includegraphics[scale=0.4]{pic/lubinst10}	\includegraphics[scale=0.4]{pic/lubinst11}
+\end{center} \par
+选中“Free Space”（空白空间），单击“Create”新建分区。先建立根目录（/）分区。注意到“Monut point”（挂载点）选项了吗？在那里修改为/。这是GNU/Linux最重要的分区，分配60000MB。再以相同的方法建立“/home”分区，分配40000MB。剩余约2GB建立一个“Swap”（这是在“File system”，文件系统中设置的，设置为“Linuxswap”）分区。该分区将被当成内存使用，因此不需要特别大。一般6GB已经是上限了。\par
+再单击“Next”之前，请确保“Boot loader”（启动引导器）被安装在了安装Windows的硬盘。这主要是为了防止在BIOS中再次调整启动磁盘。
+\begin{center}
+	\includegraphics[scale=0.6]{pic/lubinst12}
+\end{center} \par
+设置用户。我们选择“SGComputers”作为用户名。再设置密码，不设置自动登录（“Automatically login”）。确认后即可安装了。与Debian GNU/Linux、RHEL或Cent OS不同的是Ubuntu习惯先刷入整个操作系统再删除软件包而不是先安装基本系统再安装软件包。
+\section{GNU/Linux开箱设置}
+\subsection{基本概念及操作}
+这一章将会介绍GNU/Linux的一些基本知识。你可以阅读以下内容的man帮助（见下）：intro，ascii，fstab，mount，chmod，filesystem。我还推荐青木修的《Debian 参考手册》\url{https://www.debian.org/doc/manuals/debian-reference/}（最后连接于2019年06月20日18:47:54）和《Debian维护指南》\url{https://www.debian.org/doc/manuals/debmake-doc/}（最后连接于2019年06月20日18:46:56）及【C语言中文网-->Linux学习教程，Linux入门教程（超详细）】，地址\url{http://c.biancheng.net/linux_tutorial/}（最后连接于2019年06月20日17:31:40）。\par
+\subsubsection{登录系统，（伪）终端及shell} 
+\cite{intro1}\par
+显然到了这一步，你已经安装好基本的操作系统了。现在你已经将其重启，并在GNU Grub里选择刚安装的操作系统。
+\begin{center}
+	\includegraphics[scale=0.6]{pic/lubstart}
+\end{center} \par
+如果你安装了图形界面（GUI，graphical user interfaces）和相关桌面环境，你将面对一个友好的图形界面（显示管理器gdm3或litegdm）。但如果你一不小心没有安装图形界面（比如说，你安装了Arch Linux，Ubuntu Server或不带图形界面的Debian GNU/Linux），一个终端界面（或称终端界面，CLI，command line interfaces）将会被启动，然后打印出（以Debian GNU/Linux不稳定分支为例）：
+\begin{verbatim}
+Debian GNU/Linux bullseye/sid
+debian login:
+\end{verbatim} \par
+（同图形界面，）你应在此输入你刚创建的用户名（按照操作应该是\verb|sgcomputers|。用户登录名不同于用户名，它是由小写字母构成的。）并回车。之后它会要求你输入密码。注意，在终端界面小你输入的密码不会在显示器上显示出来。不是键盘的问题（不然你怎么输入用户名的？）。并回车。此时你就登录了操作系统。排障提示：注意用户名与密码是大小写敏感的。也就是说，你需要检查“大写锁定”（即“Caps Lock”）是否被按下。\par
+终端界面中，在登录后，你将继续面对终端界面。
+\begin{verbatim}
+Debian GNU/Linux bullseye/sid
+debian login: sgcomputers
+Password:
+Last login: Wed Aug  7 17:12:21 CST 2019 on tty1
+Linux debian 4.19.0-5-amd64 #1 SMP Debian 4.19.37-6 (2019-07-18) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+You have mail.
+sgcomputers@debian:~$
+\end{verbatim}
+此时你就应使用命令来管理系统。登录以后你将位于一个shell下，由shell来解释你的命令。shell又被称为“外壳”（与Kernel——内核——相对），用于执行用户输入的命令。常有的shell为bash（GNU Bourne-Again SHell）、csh、zsh、dash、sh等。本书以下命令全部基于bash。图形界面中，你将在稍等后面对一个图形界面。在终端界面使用“\verb|startx|”命令显示图形界面。注意，你需要安装“xinit”软件包。如果你需要安装图形界面，你可以使用apt（或者pacman，yum，etc.以下教程仅以APT为例，使用pacman及rpm等的电教委员等请自行查找man帮助）安装你喜欢的图形界面。\par
+在大多数界面下（如在“fbterm”界面中就不行），你可以使用“Ctrl”+“Alt”+“F[x]（[x]为具体数字）”来切换虚拟控制台。你可以使用它们执行多个任务。\par
+那么什么是终端（Terminal）？简而言之，终端就是你能够输入命令的地方。比如说“终端界面”（见左图）。那么在图形界面下我如何输入命令呢？此时你就需要一个“终端模拟器”（又称“伪终端”）（Terminal Emulator）。比如说右图就是Lubuntu默认伪终端QTerminal。
+\begin{center}
+	\includegraphics[scale=0.9]{pic/term1} \includegraphics[scale=0.9]{pic/term2}
+\end{center} \par
+现在教你一个有用的命令：“\verb|shutdown now|”，作用是关机。“\verb|shutdown -r now|”或“\verb|reboot|”则为重启。还有，你可以在一个（伪）终端中使用上下键显示之前的命令，或者依据之前的命令在输入命令的一部分时敲击Tab键自动补全。
+\subsubsection{用户管理（注意！重要内容！）}
+\cite{DebianRef}\par
+在GNU/Linux中，你会发现某些操作（如“\verb|apt install aptitude|”）是普通用户无法执行的。此时你就需要root用户。\par
+与Windows操作系统不同（比如说Windows操作系统上权力最大的用户不是管理员（“Administrator”）而是系统本身（“System”）），GNU/Linux上有一个权力无限大的用户，它就是root。你可以使用root来忽略文件权限地阅读任何文件，执行任何命令，以及其它神奇的事情（例如使用“\verb|rm|”命令格式化磁盘。）。\par
+一般为了防止不经意间的破坏，我们不直接以root用户登录。“提权”指的是将你目前用户的权限提升为root权限。你可以使用“\verb|su|”命令\footnote{全称Switch User，切换用户。你需要知道root用户的密码。Debian等发行版会在安装时设置，而Ubuntu与Deepin Linux需要使用“sudo passwd”命令修改root账号的密码才能使用。}切换为root用户（这个命令等价于“\verb|su root|”。“\verb|su|”命令的正确用法是“\verb|su [用户]|”，用来切换到另一个用户。root可切换到任意用户无需输入密码）或在命令前加上“\verb|sudo|”（这个命令的使用有如下限制：你必须在“sudo”这个用户组里。Ubuntu及Deep in会自动将安装系统时创建的用户添加到该用户组中，而Debian等发行版不会，需要在root用户下使用“\verb|usermod -a [用户名] -G sudo|”并重新登录以手动添加）。\par
+{\color{red}警告！root用户的不正确操作可能对系统造成不可逆的致命破坏！因此，请：\par
+	1.确保你输入了正确的命令！GNU/Linux的命令是大小写敏感的。\par
+	2.不要使用root用户登录桌面环境。\par
+	3.警告！不要与任何人透露root密码！}\par
+\subsubsection{获取帮助}
+\cite{manman}\par
+当发现有问题时，你需要参见帮助。以下是一些常见方法：\par
+\paragraph{man}
+man是系统手册。我们可以在这里获取许多帮助内容。例如，我们通过“\verb|man apt|”查看针对“apt”的帮助。伪终端将输出以下内容（\verb|##|后的是注释。终端中并不会输出这些内容。下同。：
+\begin{verbatim}
+APT(8)                               APT                              APT(8)
+##内容及第几部分（括号之内）
+NAME ##名称
+apt - command-line interface
+SYNOPSIS ##用法（如参数/选项，等等）
+apt [-h] [-o=config_string] [-c=config_file] [-t=target_release]
+[-a=architecture] {list | search | show | update |
+install pkg [{=pkg_version_number | /target_release}]...  |
+remove pkg...  | upgrade | full-upgrade | edit-sources |
+{-v | --version} | {-h | --help}}
+DESCRIPTION ##简要描述
+apt provides a high-level commandline interface for the package
+Manual page apt(8) line 1 (press h for help or q to quit)
+##最后一行是白底黑字（区分于一般的黑底白字）。它将显示文件名，
+##当前行号（有时还会显示百分比）。按“h”键显示帮助即“man man”，
+##“q”退出帮助系统。
+\end{verbatim}
+用法具体请参见man的帮助：“\verb|man -a man|”。\par 这里提供一些man的其它知识：\par 1.man命令的基础用法是“\verb|man [选项] [page].[section]|。其中[page]是需要查找的帮助手册名称。\par 2.下述的“第n部分”是有特殊含义的。大致为：1-可执行程序或shell命令，2-调用系统核心，3-调用运行库，4-特殊文件，5-配置文件结构，6-游戏，7-多方面内容（杂项），8-系统管理命令（一般需要root权限），9-内核惯例。比如说，“\verb|man foo|”显示foo的帮助。“\verb|man foo.7|”显示man的帮助，第7部分。“\verb|man -a foo|”逐个显示所有foo的帮助。\par
+如果你需要一个man的图形前端，使用apt\footnote{参见\pageref{sec:apt}页\ref{sec:apt}}安装以下软件包：xman或gman（依赖man2html，需手动安装）。你可以在伪终端使用“\verb|gman|”或“\verb|xman|”命令显示它们的图形界面。我更倾向于gman。它能够修改manpath（man文件的目录）（而不是使用export命令或修改“.bashrc”命令）并使用不同的文档浏览器。
+\paragraph{info}
+info是另一种帮助系统。这里暂时略去。在（伪）终端中输入“info”查看更多内容。你也可以使用“whatis foo”寻找有关“foo”的帮助。
+\subsubsection{环境变量}
+现在我们已经知道可以在Shell中输入命令并执行它。那么Shell是如何执行命令的？其实除了几个内建命令（如\verb|cd|），大多数命令都是特定文件夹中的可执行文件。如\verb|ls|就位于/bin。这些特定文件夹都被记录在PATH环境变量中。\par
+那么如何修改GNU/Linux中的环境变量呢？你需要修改对应用户的（每个用户都有一个，你需要一个一个修改）“.bashrc”文件。现在我们要将“/usr/local/texlive/2019/bin/x86\_64-linux”\footnote{如果你喜欢\LaTeX 排版，对于这个路径你不会陌生。}加入PATH变量，切换到对应用户，并输入命令：
+\begin{verbatim}
+vim ~/.bashrc
+##注意：是“/.”不是“./”！
+##当然你也可以使用你喜欢的编辑器，
+\end{verbatim} \par
+对此，你将打开一个shell脚本文件。内容大致如下：
+\begin{verbatim}
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+# If not running interactively, don't do anything
+case $- in
+*i*) ;;
+*) return;;
+esac
+##省略大部分内容。
+\end{verbatim} \par
+在它的末端加上：
+\verb|export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH|再重新启动bash（如，新建一个终端窗口）就行了。\par
+现在解释一下命令：\verb|export [环境变量名，如PATH]=[绝对路径]:\$[环境变量名]|。这个命令的意思是让[环境变量]自加[绝对路径]，而.bashrc是每次bash启动都会执行的文件。\par
+保险起见，我建议先使用export命令得到环境变量。如：
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ export
+##大量内容被省略了。
+PATH="/usr/local/texlive/2019/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin
+:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+##大量内容被省略了，增加了额外的断行符。
+\end{verbatim} \par
+如果你的错误操作使计算机丢失了环境变量，你可以再次修改.bashrc改回来。或者，如果你需要100\% 保险，你可以将命令改为：
+\verb|export PATH=/usr/local/texlive/2019/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:[此处省略一些内容]:$PATH|。仅仅加上了一些原有的环境变量。\par
+我希望你已经将vim学得够好了。如果你不希望使用vim，请输入“\verb|echo "export PATH=/usr/local/texlive/2019/bin/x86\_64-linux:\$PATH" >> $\sim$/.bashrc|”，为什么这条命令会起作用参见\pageref{sec:nf}页\ref{sec:nf}）
+\subsubsection{批处理}
+\label{sec:bat}如果你想要将两条命令写在一起，你可以使用“\verb| && |”（注意，使用“\verb|&&|”连接的命令仅当前面一个命令没有返回值（一般是执行成功）才执行后一个命令！）或“\verb|;|”（无此限制）。如“\verb|sudo apt update && sudo apt upgrade|”，这两条命令写在一起将产生极好的效果（具体请参见\pageref{sec:apt}页\ref{sec:apt}）。我们也可以先使用vim新建一个“.sh”文件（希望你vim已经学得足够好了。没有？参见\pageref{sec:nf}页\ref{sec:nf}），将命令一行一行写进去，使用“\verb|chmod +x [文件名]|”实现可运行，再“\verb|./[文件名]|”来运行它。\par
+bash还提供了选择语句、循环语句等多种高级功能，这里不再赘述。\par
+如何调整命令输出的内容（比如说，如果你使用“\verb|ls -A -R /|”命令后屏幕会发疯（不要尝试））？一方面我们可以将命令输出的结果保存在文件中（参见\pageref{sec:nf}页\ref{sec:nf}），另一方面我们可以使用重定向符“\verb/|/”，作用是将前一个命令输出的结果输入后一个命令。如：“\verb/ps -A  all | grep [查找内容]/”就是将“\verb|ps -A all|”的输出输入到“\verb|grep [查找内容]|”。其他常用的命令有“\verb|more|”与“\verb|less|”，参见\pageref{sec:nf}页\ref{sec:nf}）。
+\subsection{软件包管理器：以APT为例}
+\label{sec:apt}APT是一个Debian及其衍生版 （包括但不限于：Ubuntu Linux及其衍生版，Pure OS，Deepin Linux）中默认的强大的软件包管理器。它可用于从远程服务器及本地的软件源上安装Debian软件包（*.deb）。
+\subsubsection{首先，切换软件源！}
+不同的软件源下载速度不同，因此我们应该使用快速的软件源。如果你安装了图形界面，进入“Software Sources”或者“Sofyware\& Updates”，一个大部分Debian及其衍生版会安装的小工具。截图：
+\begin{center}
+	\includegraphics[scale=0.4]{pic/src1}	\includegraphics[scale=0.4]{pic/src2}
+\end{center} \par
+进入“Download From”，选择“Other...”中的中国的服务器（如TUNA源。我选择了网易源）。单击“Close”，软件包索引文件就会重新加载。\par
+如果你没有这个工具，请修改Sources.list。\par
+对于安装了Debian操作系统的电教委员，请在Debian官网获取详细信息后选择是否安装Testing以取代Stable获得更好的体验。严厉禁止电教委员（即使是大牛级的）使用Unstable。
+\subsubsection{APT}
+\cite{manAPT}\par
+APT为软件包管理系统提供了一个高级的终端界面，且包含了一些比默认工具（如apt-get或apt-cache之类特殊化的APT工具）更容易交互使用的选项。（注意，某些命令会在apt-get或apt-cache中介绍。 \par “[软件包名]”仅代表“某个软件包”，并不针对某一特殊软件包）\footnote{来自于man命令输出的结果。我将尽可能贴切地翻译。 }\par apt命令包含一些来自于apt-get及apt-cache之类特殊化的APT工具的命令，如“\verb|apt install [软件包名]|”来自于“\verb|apt-get install [软件包名]|”，“\verb|apt list|”或“\verb|apt show [软件包名]|”来自于apt-cache。\par
+\paragraph{update} 
+在终端中键入“\verb|man apt|”以查看完整帮助文件。“\verb|apt update|”命令来自于apt-get，被用于从所有设置的软件源下载软件包列表信息。其它的命令（如升级或搜索）将在这个数据上操作并显示所有可安装的软件包信息。apt-get的man帮助（某些重复内容将被删除，下同）为：“\verb|apt-get update|”命令被用于从它们的软件源重新同步包含所有可用软件包的索引文件。这些索引将会从在“/etc/apt/sources.list”文件中定义的地址中下载。例如，当使用 Debian archive时，这条命令接收并扫描Packages.gz文件（位于“/var/lib/apt/lists”，内容为软件包索引文件如“mirrors.aliyun.com\_ubuntu\_dists\_cosmic\_main\_binary-amd64\_Packages”和压缩包如“mirrors.aliyun.com\_ubuntu\_dists\_cosmic\_main\_dep11\_icons-64x64.tar.gz”），得到新的和可更新的软件包信息。这个操作应在“\verb|apt-get upgrade|”或“\verb|apt-get dist-upgrade|”之前进行。注意，由于软件包索引文件（或其压缩包）的大小不能被事先了解，总进程进度条可能不确切。如：
+\begin{verbatim}
+sgcomputers@sgcomputers:/home/sgcomputers:~$ sudo apt update
+Get:1 http://security.ubuntu.com/ubuntu cosmic-security InRelease [88.7 kB]|
+Hit:2 http://archive.ubuntukylin.com:10006/ubuntukylin xenial InRelease
+##为了避免出版社说我骗稿费，这里有一些内容被省略了（下同）。
+Fetched 88.7 kB in 26s (3,446 B/s)
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+All packages are up to date.
+##如果有软件包需要更新，它将会在这一行显示出来。比如说：
+97 packages can be upgraded. Run 'apt list --upgradable' to see them.
+\end{verbatim}
+\subparagraph{错误：（有一些额外的断行符）}
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ apt update
+Reading package lists... Done
+E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)
+E: Unable to lock directory /var/lib/apt/lists/
+W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13:
+Permission denied)
+W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13:
+Permission denied)
+\end{verbatim} \par
+错误原因：没有提权。你参阅man命令后会发现apt的某些操作（也包括apt-get）是需要root权限的。  \par
+解决方案：使用“\verb|sudo apt upgrade|”命令，或以root用户登录。  \par
+\subparagraph{错误：}
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ sudo apt update
+[sudo] password for sgcomputers:
+Err:1 https://dl.winehq.org/wine-builds/ubuntu cosmic InRelease
+Temporary failure resolving 'dl.winehq.org'
+##这里有一些内容被省略了。
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+All packages are up to date.
+W: Failed to fetch http://mirrors.aliyun.com/ubuntu/dists/cosmic/InRelease
+Temporary failure resolving 'mirrors.aliyun.com'
+##这里也有一些内容被省略了。
+W: Some index files failed to download. They have been ignored, or old ones used
+instead.
+\end{verbatim} \par
+错误原因：不能连接到软件源。 \par
+解决方案：检查网络连接，再检查你是否将软件源的网址写错，或者使用本地软件源。 \par
+\subparagraph{错误：}
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ sudo apt update
+[sudo] password for sgcomputers:
+E: Could not get lock /var/lib/dpkg/lock-frontend - open 
+(11: Resource temporarily unavailable)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), 
+is another process using it?
+\end{verbatim} \par
+错误原因：无法获得排它锁——有进程占用apt。\par
+解决方案：删除锁文件：“\verb|sudo rm -rf /var/cache/apt/archives/lock|”。或终结另一进程。参见\pageref{sec:pm}页\ref{sec:pm}。
+\paragraph{upgrade}
+“\verb|apt upgrade|”命令来自于apt-get，被用于从软件源（配置于sources.list）中更新所有已安装且存在可用更新的软件包。当且仅当新的软件包满足依赖关系（依赖关系：举例说明。假设软件包a需要b的功能才能正常运行，那么它们之间就形成了依赖关系。a依赖b，b依赖于a，安装时先安装b）时它才会被安装。这个操作不会移除已安装的软件包 （APT更新软件包的操作不是“先卸再装”，而是覆盖安装）。若一个更新操作要求移除已安装的软件包，它将不会被执行。apt-get的man命令输出为：已安装的软件包不会被重新安装。已安装软件包的新版本如果在不更改其他软件包的安装状态时无法安装，它将会保持现有版本。必须先使用“\verb|apt-get update|”操作来使apt-get明白哪个软件包具有新版本。可用选项：“\verb|--allow-unauthenticated|”。它将会忽视由于软件包数字签名无法被检查。它将在使用本地源时十分有用，但在数据来源无法被认证是这个选项将十分危险。
+\begin{verbatim}
+root@sgcomputers:/# apt upgrade
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Calculating upgrade... Done
+The following packages were automatically installed and are no longer required:
+libdouble-conversion1 libigdgmm5 libio-string-perl libparse-debianchangelog-perl libreadline7 libvpx5
+Use 'apt autoremove' to remove them.
+##可以移除的软件包
+The following NEW packages will be installed:
+libdouble-conversion3 libfile-find-rule-perl libio-async-loop-epoll-perl liblinux-epoll-perl libnumber-compare-perl libtext-glob-perl linux-image-5.2.0-2-amd64
+The following packages will be upgraded:
+clamav clamav-base clamav-freshclam coreutils debhelper diffstat e2fsprogs ifupdown 
+##此处有省略
+97 upgraded, 7 newly installed, 0 to remove and 0 not upgraded.
+Need to get 135 MB of archives.
+After this operation, 275 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://mirrors.ustc.edu.cn/debian unstable/main amd64 
+coreutils amd64 8.30-3+b1 [2,708 kB]
+##此处有省略
+Get:104 http://mirrors.ustc.edu.cn/debian unstable/main amd64 
+xsettingsd amd64 0.0.20171105+1+ge4cf9969-1+b1 [27.4 kB]
+Fetched 135 MB in 20s (6,832 kB/s)
+Reading changelogs... Done
+Extracting templates from packages: 100%
+Preconfiguring packages ...
+(Reading database ... 173183 files and directories currently installed.)
+Preparing to unpack .../coreutils_8.30-3+b1_amd64.deb ...
+Unpacking coreutils (8.30-3+b1) over (8.30-3) ...
+##准备升级
+Preparing to unpack .../75-xsettingsd_0.0.20171105+1+ge4cf9969-1+b1_amd64.deb ...
+Unpacking xsettingsd (0.0.20171105+1+ge4cf9969-1+b1) over (0.0.20171105+1+ge4cf9969-1) ...
+##此处有省略
+iio-sensor-proxy.service is a disabled or a static unit, not starting it.
+##此处有省略
+I: /vmlinuz is now a symlink to boot/vmlinuz-5.2.0-2-amd64
+I: /initrd.img is now a symlink to boot/initrd.img-5.2.0-2-amd64
+/etc/kernel/postinst.d/initramfs-tools:
+update-initramfs: Generating /boot/initrd.img-5.2.0-2-amd64
+/etc/kernel/postinst.d/zz-update-grub:
+Generating grub configuration file ...
+Found background image: /usr/share/images/desktop-base/desktop-grub.png
+Found linux image: /boot/vmlinuz-5.2.0-2-amd64
+Found initrd image: /boot/initrd.img-5.2.0-2-amd64
+Found linux image: /boot/vmlinuz-4.19.0-5-amd64
+Found initrd image: /boot/initrd.img-4.19.0-5-amd64
+done
+##Linux内核升级
+Setting up xfwm4 (4.12.5-1+b1) ...
+Setting up libpcre16-3:amd64 (2:8.39-12+b1) ...
+Setting up libtext-glob-perl (0.10-1) ...
+Setting up traceroute (1:2.1.0-2+b1) ...
+update-alternatives: using /usr/bin/traceroute.db to provide 
+/usr/bin/traceroute (traceroute) in auto mode
+##此处有省略
+update-alternatives: using /usr/sbin/tcptraceroute.db to provide 
+/usr/sbin/tcptraceroute (tcptraceroute) in auto mode
+Setting up libgbm1:amd64 (19.1.4-1) ...
+##此处有省略
+Setting up libqt5opengl5-dev:amd64 (5.11.3+dfsg1-2+b1) ...
+Processing triggers for systemd (241-7) ...
+##此处有省略
+update-initramfs: Generating /boot/initrd.img-5.2.0-2-amd64
+\end{verbatim}
+\paragraph{full-upgrade}
+“\verb|apt full-upgrade|”命令来自于apt-get，将执行upgrade命令的功能。但如果需要，它将会在更新整个系统时，移除已安装的软件包。 \par
+\paragraph{autoremove}
+{\color{red}警告！这个命令可能对系统造成不可逆的致命破坏！}  \par
+“\verb|apt autoremove|”用于移除由于需要满足依赖关系而被自动安装且现在由于（被）其所依赖的软件包被卸载或其它依赖关系改变不被需要的软件包。 \par
+例：你安装了依赖于a的b软件包，则在你安装b时，a也会自动被安装。但当你卸载b时，a不会自动被卸载。此时你就可以使用这个命令来移除它们。你通过install安装的软件包也（理论上）不会被自动移除。 \par
+{\color{red}你需要检查列出的将被卸载的软件的列表，确保其不包括你需要的软件包（尽管它们有可能作为另一个软件包的依赖而被安装）。你可以通过apt-mark将它们标记为“手动（Manual）”}。apt-get的man命令输出为：“\verb|apt-get dist-upgrade|”（命令名称不同）高级地执行upgrade命令的功能并智能地处理改变的依赖关系。apt-get有一个“聪明”的冲突处理系统。如果必要，它将以较为不重要的软件包为代价首先升级最重要的软件包。因此本命令有可能移除某些软件包。参见apt\_preferences的man帮助（第5部分）来了解并更改针对个别软件包的策略（这一段我翻译不好。请参见原文）。\par
+\begin{verbatim}
+root@sgcomputers:/# apt autoremove
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following packages will be REMOVED:
+libdouble-conversion1 libigdgmm5 libio-string-perl
+libparse-debianchangelog-perl libreadline7 libvpx5
+0 upgraded, 0 newly installed, 6 to remove and 0 not upgraded.
+After this operation, 3,542 kB disk space will be freed.
+Do you want to continue? [Y/n] Y
+(Reading database ... 179097 files and directories currently installed.)
+Removing libdouble-conversion1:amd64 (3.1.0-3) ...
+Removing libigdgmm5:amd64 (18.4.1+ds1-1) ...
+Removing libparse-debianchangelog-perl (1.2.0-13) ...
+Removing libio-string-perl (1.08-3) ...
+Removing libreadline7:amd64 (7.0-5) ...
+Removing libvpx5:amd64 (1.7.0-3) ...
+Processing triggers for man-db (2.8.6.1-1) ...
+Processing triggers for libc-bin (2.28-10) ...
+\end{verbatim}
+\paragraph{edit-sources}
+“\verb|apt edit-sources|”命令允许你用你喜欢的文本编辑器修改sources.list并提供基本的完整性检查。（我希望你已经把VIM学好了。你也可以使用其他的编辑器）  \par
+\paragraph{install，remove，purge}
+将会在apt-get中介绍。“\verb|apt install [软件包名]|”提供一条显示在屏幕底部的进度条，而apt-get没有。使用“\verb|--show-progress|”选项已显现。\par
+\paragraph{show}
+“\verb|apt show [软件包名]|”命令来自于apt-cache，展示给出的软件包的信息，包括：依赖关系，下载和安装数据量，可用的安装源，对软件包所含内容的描述，等等。例如，它可以在需要在使用apt命令移除或搜索并安装新的软件包时提供帮助。如：
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ apt show apt-mirror
+##例如我们查询apt-mirror软件包（已安装）的信息。
+Package: apt-mirror ##软件包名称
+Version: 0.5.4-1 ##软件包版本
+Priority: optional
+Section: universe/net ##类别
+Origin: Ubuntu ##来源
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+##维护者
+Original-Maintainer: Brandon Holtsclaw <me@brandonholtsclaw.com>
+##最初的维护者
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug ##Bug上报
+Installed-Size: 66.6 kB ##安装大小
+Depends: adduser, wget, perl:any ##依赖于以上软件包。其中perl需要任何版本（any）
+Homepage: http://apt-mirror.github.com/ ##主页
+Download-Size: 14.3 kB ##下载大小
+APT-Manual-Installed: yes
+APT-Sources: http://mirrors.aliyun.com/ubuntu cosmic/universe amd64 Packages
+##apt安装来源（下载自）
+Description: APT sources mirroring tool
+A small and efficient tool that lets you mirror a part of or
+the whole Debian GNU/Linux distribution or any other apt sources.
+##对软件包的描述
+Main features: ##主要功能
+* It uses a config similar to apts <sources.list>
+##这里有几行被省略了。
+\end{verbatim}
+\paragraph{search}
+“\verb|apt search [软件包名]|”来自于apt-cache，可用于在可用的软件包列表中搜索符合提供的正则表达式\footnote{regular expression ，（缩写为regex）参见regex的man帮助，第7部分。}的软件包并显示。例如，它可在你寻找某一个具有特定功能的软件包时发挥作用。你应使用apt-file来搜索包含特定文件的软件包。注意，似乎搜索得到的为在“软件包名”+“描述”中的搜索结果。\par
+示例：
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ apt search cinnamon
+Sorting... Done
+Full Text Search... Done
+blackbird-gtk-theme/bionic,bionic 0.4+20160704~ab4a30e-1 all
+dark GTK+ theme from the Shimmer Project
+
+cinnamon/tessa,now 4.0.10+tessa amd64 [installed]
+Modern Linux desktop
+
+cinnamon-common/tessa,tessa,now 4.0.10+tessa all [installed]
+Cinnamon desktop (Common data files)
+
+cinnamon-control-center/tessa,now 4.0.1+tessa amd64 [installed]
+utilities to configure the Cinnamon desktop
+##大量内容被省略了。
+\end{verbatim}
+\paragraph{list}
+“\verb|apt list [软件包名] [选项]|”在某方面接近“\verb|dpkg-query --list|”，它可以显示满足特定要求的软件包。它支持使用glob查找（参见glob的man帮助，第7部分。注意：glob不是正则表达式！）软件包名称以及[选项]例如已安装（\verb|--installed|），可更新（\verb|--upgradeable|）或所有可用版本（\verb|--all-versions|）。\par
+示例：
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ apt list --installed
+Listing... Done
+accountsservice/bionic,now 0.6.45-1ubuntu1 amd64 [installed]
+acl/bionic,now 2.2.52-3build1 amd64 [installed]
+acpi-support/bionic,now 0.142 amd64 [installed]
+acpid/bionic,now 1:2.0.28-1ubuntu1 amd64 [installed]
+##大量内容被省略了。
+
+sgcomputers@sgcomputers:~/COM_Zh_CN/TeX$ sudo apt list apt*  --installed 
+Listing...Done
+apt-config-icons/disco,disco,now 0.12.6-2 all [已安装，自动]
+apt-utils/disco-updates,now 1.8.1 amd64 [已安装]
+apt-xapian-index/disco,disco,now 0.47ubuntu13 all [已安装，自动]
+apt/disco-updates,now 1.8.1 amd64 [已安装]
+aptdaemon-data/disco,disco,now 1.1.1+bzr982-0ubuntu21 all [已安装，自动]
+aptdaemon/disco,disco,now 1.1.1+bzr982-0ubuntu21 all [已安装，自动]
+
+
+##你也可以使用“apt list --option | grep [字符串]” 来查找内含[字符串]的软件包。
+sgcomputers@sgcomputers:~/COM_Zh_CN/TeX$ sudo apt list --installed | grep apt
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+apt-config-icons/disco,disco,now 0.12.6-2 all [installed]
+apt-utils/disco-updates,now 1.8.1 amd64 [installed]
+python-apt-common/disco,disco,now 1.8.4 all [installed]
+python3-apt/disco,now 1.8.4 amd64 [installed]
+synaptic/disco,now 0.84.5 amd64 [installed]
+##大量内容被省略了。
+\end{verbatim}
+\subsubsection{dpkg}
+\cite{mandpkg}\par
+dpkg是一个、管理Debian软件包的工具。它拥有一个友好的用户界面aptitude。dpkg本身完全通过命令行控制，命令包含有且仅有一个动作及零或多个选项。软件包按照状态（states）及标记（selection states）分类。（有一些不常用的内容被省略了。）状态包括：未安装（not-installed），仅有配置文件（config-files），安装未完成（half-installed），已解包但未完成配置（unpacked），已安装（installed）等。标记包括：将安装（install），锁定（hold）（当参数“ \verb|--force-hold|”被指定时，这些软件包也会被处理），将被删除（deinstall），将被完整删除（purge）\par
+动作：\verb|-i |（我认为安装软件包方面只讲这个动作就足够了。其它卸载等操作我们使用apt）或\verb|--install|将安装软件包。一个完整的安装过程包含：从软件包中解压缩控制文件，检查是否有旧版本（若存在，执行旧版本的“prerm”脚本），执行“preinst”脚本（若存在），备份旧版本（若有）并解包新版本（原位置），执行新版本（若存在旧版本）的“postrm”脚本，配置软件包（使用“\verb|--configure|”选项查看它的过程）。若出现依赖关系问题，请在安装完成后使用“\verb|apt -f install|”来修正它。\par
+用法：“\verb|dpkg -i [软件包名].deb|”\par
+示例：
+\begin{verbatim}
+##先演示一个失败的安装：
+sgcomputers@sgcomputers:~/Downloads$ sudo dpkg -i texstudio-qt4_2.12.14-1_amd64.deb
+[sudo] password for sgcomputers: 
+Selecting previously unselected package texstudio-qt4.
+(Reading database ... 269615 files and directories currently installed.)
+Preparing to unpack texstudio-qt4_2.12.14-1_amd64.deb ...
+Unpacking texstudio-qt4 (2.12.14-1) ...
+dpkg: dependency problems prevent configuration of texstudio-qt4:
+texstudio-qt4 depends on libpoppler-qt4-4 (>= 0.34.0); however:
+Package libpoppler-qt4-4 is not installed.
+texstudio-qt4 depends on libqt4-svg (>= 4:4.5.3); however:
+Package libqt4-svg is not installed.
+dpkg: error processing package texstudio-qt4 (--install):
+dependency problems - leaving unconfigured
+Processing triggers for gnome-menus (3.13.3-11ubuntu1.1) ...
+Processing triggers for desktop-file-utils (0.23+linuxmint4) ...
+Processing triggers for mime-support (3.60ubuntu1) ...
+Processing triggers for hicolor-icon-theme (0.17-2) ...
+Errors were encountered while processing:
+texstudio-qt4
+##出现依赖关系错误
+
+sgcomputers@sgcomputers:~/Downloads$ sudo apt -f install
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Correcting dependencies... Done
+The following packages will be REMOVED:
+texstudio-qt4
+0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.
+1 not fully installed or removed.
+After this operation, 95.9 MB disk space will be freed.
+Do you want to continue? [Y/n] Y
+(Reading database ... 269766 files and directories currently installed.)
+Removing texstudio-qt4 (2.12.14-1) ...
+Processing triggers for mime-support (3.60ubuntu1) ...
+Processing triggers for desktop-file-utils (0.23+linuxmint4) ...
+Processing triggers for gnome-menus (3.13.3-11ubuntu1.1) ...
+Processing triggers for hicolor-icon-theme (0.17-2) ...
+##这个依赖关系错误无法被修复，因此这个软件包被删除了。
+##如果pat能够修复依赖关系，它将毫无疑问修复。
+##现在演示一个成功的安装：
+
+sgcomputers@sgcomputers:~/Downloads$ sudo dpkg -i google-chrome-stable_current_amd64.deb
+[sudo] password for sgcomputers: 
+Selecting previously unselected package google-chrome-stable.
+(Reading database ... 269615 files and directories currently installed.)
+Preparing to unpack google-chrome-stable_current_amd64.deb ...
+Unpacking google-chrome-stable (73.0.3683.103-1) ...
+Setting up google-chrome-stable (73.0.3683.103-1) ...
+update-alternatives: using /usr/bin/google-chrome-stable to provide /usr/bin/x-www-browser 
+(x-www-browser) in auto mode
+update-alternatives: using /usr/bin/google-chrome-stable to provide /usr/bin/gnome-www-browser
+(gnome-www-browser) in auto mode
+update-alternatives: using /usr/bin/google-chrome-stable to provide /usr/bin/google-chrome
+(google-chrome) in auto mode
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for gnome-menus (3.13.3-11ubuntu1.1) ...
+Processing triggers for desktop-file-utils (0.23+linuxmint4) ...
+Processing triggers for mime-support (3.60ubuntu1) ...
+
+\end{verbatim} \par
+它有一个图形界面：GDebI。可以在软件源中找到。\par
+动作：\verb|-l [软件包名]|（等价于\verb|dpkg-query -l [软件包名]|）列出软件包（你需要按q来退出）。如：
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ sudo dpkg -l *apt*
+##列出所有内含“apt”的软件包。
+[sudo] password for sgcomputers: 
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name                          Version                Architecture Description
++++-=============================-======================-============-======================
+ii  apt                           1.8.1                  amd64        commandline package manager
+ii  apt-config-icons              0.12.6-2               all          APT configuration snippet 
+un  apt-doc                       <none>                 <none>       (no description available)
+un  apt-listchanges               <none>                 <none>       (no description available)
+un  apt-show-versions             <none>                 <none>       (no description available)
+un  apt-transport-https           <none>                 <none>       (no description available)
+ii  apt-utils                     1.8.1                  amd64        package management related 
+ii  apt-xapian-index              0.47ubuntu13           all          maintenance and search 
+ii  aptdaemon                     1.1.1+bzr982-0ubuntu21 all          transaction based package 
+ii  aptdaemon-data                1.1.1+bzr982-0ubuntu21 all          data files for clients
+un  aptitude                      <none>                 <none>       (no description available)
+ii  laptop-detect                 0.16                   all          system chassis type checker
+un  laptop-mode-tools             <none>                 <none>       (no description available)
+un  python-aptdaemon-gtk          <none>                 <none>       (no description available)
+##大部分内容被省略了。
+
+sgcomputers@sgcomputers:~$ sudo dpkg -l *apt
+##列出所有以apt结尾的软件包
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name                   Version      Architecture Description
++++-======================-============-============-=================================
+ii  apt                    1.8.1        amd64        commandline package manager
+un  packagekit-backend-apt <none>       <none>       (no description available)
+un  python-apt             <none>       <none>       (no description available)
+ii  python3-apt            1.8.4        amd64        Python 3 interface to libapt-pkg
+un  python3.7-apt          <none>       <none>       (no description available)
+
+##关于状态：中文帮助
+##期望状态=未知(u)/安装(i)/删除(r)/清除(p)/保持(h)
+##| 状态=未安装(n)/已安装(i)/仅存配置(c)/仅解压缩(U)/配置失败(F)/不完全安装(H)/触发器等待(W)/触发器未决(T)
+##|/ 错误?=(无)/须重装(R) (状态，错误：大写=故障)
+##“期望状态”就是“将要发生的事”。
+##“状态”就是目前的状态。
+##例如：ii 已安装。
+## rc 软件包删除，配置存在。使用apt remove --purge [软件包名]清除。
+## un 未安装。
+\end{verbatim} \par
+
+动作：\verb|-s [软件包名]|（等价于\verb|dpkg-query -l [软件包名]|）列出软件包及其信息。如：
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ sudo dpkg  -s apt-mirror
+dpkg-query: package 'apt-mirror' is not installed and no information is available
+Use dpkg --info (= dpkg-deb --info) to examine archive files.
+##我尚未安装此软件。
+
+sgcomputers@sgcomputers:~$ sudo dpkg  -s apt-mirror
+##现在我安装了它。
+Package: apt-mirror
+Status: install ok installed
+Priority: optional
+Section: net
+Installed-Size: 65
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Architecture: all
+Version: 0.5.4-1
+Depends: adduser, wget, perl:any
+Conffiles:
+/etc/apt/mirror.list 6f67e39749e797009b510873bea9a301
+/etc/cron.d/apt-mirror 9f2263c62f5bf0acfd64a81796cf2786
+Description: APT sources mirroring tool
+A small and efficient tool that lets you mirror a part of or
+##省略大部分内容。
+\end{verbatim}
+\begin{center}
+	\includegraphics[scale=0.4]{pic/gdebi.png}
+\end{center}
+\subsubsection{apt-get}
+\cite{manaptget}\par
+apt-get是处理软件包的命令行工具，它有时作为用户的使用使用APT库的其它工具的“后端”。存在一些如“aptitude”或“synaptic”的前端工具。某些与apt相同的命令不再赘述。具体为：\verb|update|、\verb|upgrade|、\verb|dist-update|、\verb|autoremove|。这里只列举了一些常用的命令。\par
+\paragraph{install}
+用法：“\verb|apt-get install [软件包名]|”或“\verb|apt-get install [软件包名1] [软件包名2] [软件包名3] ... [软件包名n]|”\par
+“\verb|apt-get install|”命令后应连接一个或多个需要安装或升级的软件包。请注意使用软件包名称，而不是软件包文件名。例如，如果你想要在Ubuntu上安装apt-utils，你应使用“apt-utils”作为参数（即将“[软件包名]”替换为“apt-utils”）而不是“apt-utils\_1.7.2\_amd64.deb”。所有被将要安装的软件包需要的软件包（通常是由于依赖关系）也将会被下载安装。apt-get会按“/etc/apt/sources.list”寻找需要的软件包。软件包的版本可以通过在软件包名称后连接等号及软件包版本被指定。版本选择系统都有可能降级软件包（回退到以前版本），因此它们必须被谨慎地使用。不像“upgrade”命令（将升级所有可升级的软件包），“install”命令（将安装软件包的最新版本）允许你升级单个软件包（包括配置依赖关系，等等）。最终，apt\_preferences中提供的机制允许你为单个软件包创造可选的安装政策。\par
+可用选项：“\verb|-f|”或“\verb|--fix-broken|”。用法：“\verb|apt-get -f install|”。它将会修复破损的依赖关系。\par
+可用选项：“ \verb|-y|”或“\verb|--yes|”或“\verb|--assume-yes| ”。它将将自动回答所有的问题为“Y”（是）。反义选项：“\verb|--assume-no|”。同义选项：“\verb|--force-yes|”。{/color{red}警告！这个命令可能对系统造成不可逆的致命破坏！}\par
+示例：
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ sudo apt-get install inkscape
+[sudo] password for sgcomputers: 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+libmagick++-6.q16-7 libpotrace0
+##由于依赖关系需要安装的软件包
+Suggested packages:
+dia libsvg-perl libxml-xql-perl pstoedit python-uniconvertor
+Recommended packages:
+imagemagick libimage-magick-perl libwmf-bin python-lxml python-numpy
+python-scour transfig
+##推荐及建议。
+The following NEW packages will be installed:
+inkscape libmagick++-6.q16-7 libpotrace0
+##最终将会安装的软件包
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 16.8 MB of archives.
+##下载量
+After this operation, 129 MB of additional disk space will be used.
+##安装总大小
+Do you want to continue? [Y/n] Y
+##APT会在这里停止。你应该选择Y。
+Get:1 http://mirrors.cn99.com/ubuntu bionic-updates/main amd64 libmagick
+++-6.q16-7 amd64 8:6.9.7.4+dfsg-16ubuntu6.4 [138 kB]
+##开始下载
+Get:2 http://mirrors.cn99.com/ubuntu bionic/main amd64 libpotrace0 amd64 1.14-2 [17.4 kB]
+Get:3 http://mirrors.cn99.com/ubuntu bionic/universe amd64 inkscape amd64 0.92.3-1 [16.7 MB]
+Fetched 16.8 MB in 2s (10.4 MB/s)
+##下载完毕 
+Selecting previously unselected package libmagick++-6.q16-7:amd64.
+##开始解包
+(Reading database ... 269722 files and directories currently installed.)
+Preparing to unpack .../libmagick++-6.q16-7_8%3a6.9.7.4+dfsg-16ubuntu6.4_amd64.deb ...
+Unpacking libmagick++-6.q16-7:amd64 (8:6.9.7.4+dfsg-16ubuntu6.4) ...
+##省略一些内容
+Processing triggers for mime-support (3.60ubuntu1) ...
+##开始处理触发器，省略一些内容
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for gnome-menus (3.13.3-11ubuntu1.1) ...
+Processing triggers for hicolor-icon-theme (0.17-2) ...
+Setting up inkscape (0.92.3-1) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+\end{verbatim}
+\paragraph{remove}
+“\verb|apt-get remove [软件包名]|”与“\verb|install|”命令用法相同，只是它将移除软件包而不是安装。注意：移除软件包时，它的配置文件将会被保留{/color{red}警告！这个命令可能对系统造成不可逆的致命破坏！}。\par
+可选选项：“\verb|--purge|”。用法：“\verb|apt-get remove --purge [软件包名]|”。效果同“\verb|apt-get purge [软件包名]|”\par
+示例：
+\begin{verbatim}
+sgcomputers@sgcomputers:~/COM_Zh_CN/TeX$ sudo apt-get remove rhythmbox
+[sudo] password for sgcomputers: 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+rhythmbox rhythmbox-plugin-tray-icon rhythmbox-plugins
+0 upgraded, 0 newly installed, 3 to remove and 0 not upgraded.
+After this operation, 2,386 kB disk space will be freed.
+Do you want to continue? [Y/n] Y
+(Reading database ... 270809 files and directories currently installed.)
+Removing rhythmbox-plugins (3.4.2-4ubuntu1) ...
+Removing rhythmbox-plugin-tray-icon (2016.11.23.2) ...
+Removing rhythmbox (3.4.2-4ubuntu1) ...
+Processing triggers for mime-support (3.60ubuntu1) ...
+Processing triggers for desktop-file-utils (0.23+linuxmint4) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for gnome-menus (3.13.3-11ubuntu1.1) ...
+\end{verbatim}
+\paragraph{purge}
+“\verb|apt-get purge [软件包名]|”与“\verb|remove|”命令用法相同，只是它将移除且完整删除软件包。注意：它的配置文件将会被删除{/color{red}警告！这个命令可能对系统造成不可逆的致命破坏！}。\par
+\paragraph{ download}
+“\verb|apt-get download [软件包名]|”将下载软件包到当前目录。（一个愚蠢的建议：你可以使用“\verb|apt-get download *|”制作镜像源。{\color{red}不要这么做。}）
+\paragraph{clean}
+“\verb|apt-get clean|”删除（除了lock文件）“/var/cache/apt/archives/”与“/var/cache/apt/archives/partial/”文件夹中已下载的软件包。
+\subsubsection{apt-cdrom}
+\cite{manaptcd}\par
+apt-cdrom被用来添加新的只读CD到apt的sources.list。它还具有修正一些小小的烧录错误（我们将数据写入cd-r等可写的光盘的操作称作“烧录”或“刻录”）的功能。注意：若你的盘片为一个集合（如Debian的DVD安装版就有3张盘片），你需要依次扫描所有盘片。\par
+用法：“\verb|apt-cdrom add [-d=[mntpoint]]|”。它会自动扫描插入的盘片。你也可以使用“\verb|-d|”选项指定挂载点为[mntpoint]。\par
+\subsubsection{apt-mirror}
+描述：apt-mirror是一个能够制作全部或部分Debian GNU/Linux发行版或任何apt源的镜像的小而高效的工具。它使用“/etc/apt/mirror.list”作为配置文件。默认地它使用官方的Debian或Ubuntu镜像源。如果你需要，可以改变它。配置示例（你会发现它的结构与sources.list十分相似）：
+\begin{verbatim}
+##示例：Debian操作系统下的配置
+deb http://example.com/debian stable main contrib non-free
+##正常情况（non-free包含非自由软件）
+deb-powerpc http://example.com/debian stable main contrib non-free
+##特定结构（architecture，你可以使用amd64）
+deb http://user:pass@example.com:8080/debian stable main contrib non-free
+##HTTP或FTP或非标准的软件源
+deb-src http://example.com/debian stable main contrib non-free
+##下载源代码
+\end{verbatim}
+\subsubsection{apt-mark}
+\cite{manaptmark}\par
+apt-mark是一种用来标记软件包状态的工具。\par
+用法：\verb|apt-mark [软件包名称] [参数]|
+[参数]：“\verb|auto|”（在“\verb|apt autoremove|”时，若没有被标记为“\verb|manual|”的软件包依赖，它们将会被移除。），“\verb|manual|”（在“\verb|apt autoremove|”时，将不会被自动移除。{\color{red}这个命令可以防止“\verb|apt autoremove|”对系统造成不可逆的致命破坏。}），“\verb|hold|”（保护软件包不被自动升级，移除或安装。），“\verb|unhold|”（与“\verb|hold|”相反。）
+\subsubsection{图形化的APT：以Synaptic为例}
+显然当图形界面可用时，大多数人会选择图形界面。因此这一章将会介绍图形界面。
+synaptic中文名称为“新立德软件包软利器”。截图（Ubuntu版本，0.84.4）：
+\begin{center}
+	\includegraphics[scale=0.5]{pic/synaptic.png} 	
+\end{center} \par
+获得方法：“\verb|apt install synaptic|” \par
+启动方法（首先你需要安装图形界面）：在伪终端中输入“\verb|synaptic|”或在相关桌面环境中启动（不需要root权限，系统将会询问密码）。\par
+注意事项：没有。几乎纯傻瓜式操作。
+\subsubsection{安装缺失的固件：对于Debian GNU/Linux}
+在使用无非自由固件的Debian GNU/Linux时，某些固件是不可用的。现在提供修复（部分）。其实即使安装全部的非自由固件，Debian GNU/Linux的针对最新硬件的硬件兼容性也是较差的。你可以选用硬件兼容性更好的Ubuntu、Mint或Deep in。固件的方法。注意，如果网卡出错（这经常发生），你需要有线连接。设置好软件源（注意！需要“\verb|nonfree|”）后运行“\verb|sudo apt update|”，使用“\verb|sudo apt install firmware-*|”即可安装全部非自由固件。
+\subsubsection{命令行界面查找安装软件包}
+首先要告诉你--下面只是一个例子。最后一步不要安装vsftpd。我们会用到它的。
+\begin{verbatim}
+比如说，我们要查找并安装一个ftp服务器解决方案。
+sgcomputers@sgcomputers:~$ sudo apt list *ftp*
+Listing... Done
+atftp/disco 0.7.git20120829-3build1 amd64
+atftp/disco 0.7.git20120829-3build1 i386
+atftpd/disco 0.7.git20120829-3build1 amd64
+atftpd/disco 0.7.git20120829-3build1 i386
+cl-ftp/disco,disco 1.6.0-1 all
+curlftpfs/disco 0.9.2-9build1 amd64
+curlftpfs/disco 0.9.2-9build1 i386
+erlang-ftp/disco 1:21.2.6+dfsg-1 amd64
+erlang-ftp/disco 1:21.2.6+dfsg-1 i386
+erlang-tftp/disco 1:21.2.6+dfsg-1 amd64
+erlang-tftp/disco 1:21.2.6+dfsg-1 i386
+ftp-cloudfs/disco,disco 0.35-0ubuntu1 all
+ftp-proxy-doc/disco,disco 1.9.2.4-10build1 all
+ftp-proxy/disco 1.9.2.4-10build1 amd64
+ftp-proxy/disco 1.9.2.4-10build1 i386
+ftp-ssl/disco 0.17.34+0.2-4.1 amd64
+ftp-ssl/disco 0.17.34+0.2-4.1 i386
+##大量内容被省略了。
+##此时我们不需要关注phyton与lib开头的软件包，因为它们大多是运行库。
+##此时我们就需要搜索网络：“Linux ftp服务器”。我们发现了vsftpd（非常安全FTP服务器）。
+
+sgcomputers@sgcomputers:~$ sudo apt show vsftpd
+Package: vsftpd
+Version: 3.0.3-12
+Priority: extra
+Section: net
+Origin: Ubuntu
+##省略大部分。
+##先了解一下vsftpd的信息。
+
+sgcomputers@sgcomputers:~$ sudo apt install vsftpd
+##安装。
+\end{verbatim}
+\subsection{中文输入法和终端：以搜狗拼音输入法和fbterm为例}
+如果你现在使用Ctrl+Alt+F[x]来切换虚拟控制台，你会发现准确无误英文输出（毫无乱码）。但如果你安装了中文操作系统，你就会发现乱码（如下图）（任何在上一章中学得好的人都能猜出输出的内容）。此时就需要安装“fbterm”软件包以解决此问题。
+\begin{center}
+	\includegraphics[scale=0.8]{pic/fbt1}
+\end{center} \par
+请注意，fbterm需要在root权限下启动（\verb|sudo fbterm|）。如果需要绕过此限制，使用“\verb|sudo usermod -a -G video [username]|”更改video组即可。\par
+现在安装中文界面语言。使用apt安装软件包“language-selector-gnome”，你的菜单上就会多出一个“Language Support”（语言支持）软件包。如果完整性检查失败，选择“remind me later”（稍后提示）。现在在“Install/remove language”（添加或删除语言）添加“Chinese Simplyfied”（中文（简体））并输入密码（如果需要）。在主界面的列表框中将汉语（中国）移动至首位并单击“Apply System-wide”并注销（菜单“Leave”-“Logout”）重新登录，你就有中文界面了。别忘了再次进入语言支持以安装完整的语言包。\par
+现在安装输入法。首先安装fcitx并移除ibus*。之后使用firefox网络浏览器查找访问\url{https://pinyin.sogou.com/linux/?r=pinyin}（最后连接于2019年06月20日18:48:32），（也许你需要先设置默认搜索引擎为“百度”），下载64位包，使用dpkg安装它（也许还要使用“\verb|sudo apt -f install|”修复依赖关系）。重启。从菜单中启动fcitx配置，单击底部的“+”号添加搜狗拼音输入法与键盘-英语（美国）并用底部“-”号删除其它输入法，设置“额外的激活输入法快捷键”为“两侧Shift”。重启。然后开始享受输入法吧。（搜狗输入法启动略慢）
+\begin{center}
+	\includegraphics[scale=0.7]{pic/fbt2}
+\end{center}
+\section{-文件管理：图形和终端界面}
+\subsection{文件系统：基础}
+\subsubsection{类Unix文件系统}
+GNU/Linux的文件组织方式与Windows不同。GNU/Linux上，设备、文件夹等内容也被视为文件（文件夹是特殊的文件）。我们将这种方式称为“类Unix文件系统”。如果你会获取android设备的root权限，你会发现android也使用类似的文件组织方式那么GNU/Linux是如何管理它们的呢？\par
+GNU/Linux上有一个根目录（/ ），一切文件都被“挂载”（mount）在根目录上。其中重要的目录有：
+\begin{verbatim}
+/bin ##系统的二进制文件目录。其实就是/usr/bin。
+##二进制文件是可以直接被执行的文件。
+##这里可以找到一些基本的命令，如“bash”“rm”“cp”“mv”。
+/boot ##启动必须文件。
+/dev ##设备（如可挂载的NTFS磁盘），等等。
+/etc ##系统配置文件。
+/home ##大部分用户的“家”目录。
+/home/sgcomputers ##用户“sgcomputers”的“家”目录，即“~/”。
+##通常包括“Documents”“Downloads”“Video”（“文件”“下载内容”“视频”）等文件夹。
+##在特定用户下，你可以使用“cd ~”来切换到该用户的“家”目录。
+##注意，root用户的“家”目录位于“/root/”。
+~/.bashrc ##注意，这是一个隐藏文件。这个文件记录了你在刚刚登录系统时执行的操作
+（如果你的登录shell是bash的话——当然默认就是bash）。
+`/.bash\_history ##这个文件记载了你所有输入过的命令。
+~/.minttyrc ##这是你在CygWin上使用mintty终端的配置文件。我建议你把它的内容改成：
+##Font=仿宋
+##FontHeight=15
+##Locale=zh_CN
+##Charset=UTF-8
+##Language=zh_CN
+##这样阅读起来稍微方便一点。
+/lib ##运行库文件。
+/proc ##进程。你不应该操作此目录。
+/root ##root用户的“家”目录。
+/sbin ##基本系统命令，如shutdown。其实就是/usr/sbin。
+/tmp ##临时文件目录。
+/usr ##系统资源。
+/var ##可变文件
+\end{verbatim} \par
+注意，同一个目录下的文件夹无法与文件重名。
+\subsubsection{绝对路径与相对路径}
+\label{sec:path}先讲一讲绝对路径。诸如“/media/win10/Users/SGComputers/AppData/Roaming/Adobe/Flash Player/NativeCache”或“C:\textbackslash Users\textbackslash SGComputers\textbackslash AppData\textbackslash Roaming\textbackslash Adobe\textbackslash Flash Player\textbackslash NativeCache”（阅读下一节后你会知道它们其实是同一个目录）的，起始于根目录（或磁盘根目录（C:\textbackslash），如果你使用Windows的话）路径就是绝对路径。相对路径就是相对于一个有效路径（这个路径可以是相对路径或绝对路径，但必须是有效的）的路径。相对路径最终是可以还原为绝对路径的。比如说有如下绝对路径：
+\begin{verbatim}
+/
+/a
+/a/b
+/a/b/c
+\end{verbatim} \par
+那么，“/a/b/c”相对于“/a/b”就是“c”目录。\par
+相对路径十分有用。它可以避免我们多次重复键入绝对路径。具体参见\pageref{sec:cd}页\ref{sec:cd}。
+\subsection{-常用命令}
+\subsubsection{pwd}
+这个命令用于显示当前工作目录的绝对路径。如：
+\begin{verbatim}
+sgcomputers@sgcomputers-pc:~$ pwd
+/home/sgcomputers
+\end{verbatim} \par
+注意不要与“\verb|passwd|”命令搞混。
+\subsubsection{touch}
+\label{sec:nf}“\verb|touch|”命令可以新建文件（不过它的用途不只是新建文件）。如：
+\begin{verbatim}
+sgcomputers@sgcomputers-pc:~$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+##先看一看这里有什么。
+
+sgcomputers@sgcomputers-pc:~$ touch a b c
+##新建文件
+
+sgcomputers@sgcomputers-pc:~$ ls
+a  b  c  Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+##再看看这里有什么
+
+sgcomputerssgcomputers:~/Documents$ echo "echo Yeah!"> d
+##向文件“d”中写入内容“echo Yeah!”
+##“>”是一个重定向符，用于将输出内容写入到一个文件中（删除原有内容）。
+##追加内容请使用“>>”。
+\end{verbatim}
+\subsubsection{ls}
+\cite{manls}\par
+列出目录内含内容。请注意是“\verb|ls|”不是“\verb|sl|”，否则你会得到一辆开过屏幕的蒸汽机车（在安装了“sl”软件包的情况下。官方说明为该命令旨在帮助那些记忆力可怜的人）\footnote{当然它也可以帮助那些无聊的人——你可以试一试在Vim中打出这个图案——或者使用bash编出类似的程序！}。
+\begin{center}
+	\includegraphics[scale=2.2]{pic/sl}
+\end{center} \par
+\begin{verbatim}
+sgcomputers@sgcomputers:~$ ls
+##“~”就是当前用户的“家”目录，如“/home/sgcomputers”（本用户的“家”目录）
+##或“/root”（root用户的“家”目录）
+##最普通的“ls”命令，简单列出工作目录内的文件夹和文件（不包括隐藏的文件，即文件名以“.”开头的文件）。
+COM_Zh_CN  Documents  Music     Public        Templates
+Desktop    Downloads  Pictures  smartgit.lic  Videos
+
+sgcomputers@sgcomputers:~$ ls /
+bin   dev  home        initrd.img.old  lib32  libx32      
+media  opt   root  sbin  srv  tmp  var      vmlinuz.old
+boot  etc  initrd.img  lib             lib64  lost+found  
+mnt    proc  run   snap  sys  usr  vmlinuz
+##带参数“/”，意为列出“/”目录下的内容。
+
+sgcomputers@sgcomputers:~$ ls -l
+##列出一张详细的表来！
+total 40
+##总用量40
+drwxrwxrwx 5 sgcomputers sgcomputers 4096 Apr 26 09:44 COM_Zh_CN
+drwxr-xr-x 2 sgcomputers sgcomputers 4096 Apr 19 18:03 Desktop
+-r--rw-r-- 1 root sgcomputers    0 Jun 26 08:37 a
+lrwxrwxrwx 1 sgcomputers sgcomputers    1 Jun 26 08:47 a1 -> a
+##这个“drwxr-xr-x 2 sgcomputers sgcomputers”是什么意思？
+##第一位：“d”说明是一个目录文件（俗称是一个文件夹）（刚才已经讲过，GNU/Linux中目录文件是一种特殊的文件）
+##目录文件显示为蓝色。
+##第一位：“-”说明是一个普通文件，显示为白色。
+##第一位：“l”说明是一个链接文件。显示为天蓝色，并且显示源文件。
+##可执行文件会显示为绿色。
+##第2、3、4（记为第一组，以此类推），5、6、7，8、9、10位显示文件权限。
+##其中第一组为文件所有者的权限，第二组为与所有组的权限，第三组为其他用户的权限。
+##这里的“所有”是“拥有”的意思。
+##目录的“x”为可以进入。如根目录下有“root”目录：
+##drwx------  16 root root  4096 Jun 25 15:03 root
+##这个目录就不可被除root用户以外其他用户进入。
+##使用“chmod +x”命令后变为“drwx--x--x  16 root root  4096 Jun 25 15:03 root”
+##省略一部分
+
+sgcomputers@sgcomputers-Latitude-5290:~$ ls -R
+##我想查看该目录下的全部文件！递归显示所有文件
+##警告！这个命令能够大大消耗系统资源！如“ls / -R -a -l”
+##其实你会发现在大多数情况下，“-r”的意思都是“递归”（recursive）。
+.:
+##句点“.”的意思是当前目录（即你输入“ls”命令的工作目录“~”）
+##啊！此时就需要相对路径的知识了。
+COM_Zh_CN  Desktop  Documents  Downloads  dwhelper  Music  Pictures  Public 
+smartgit.lic  Templates  Videos
+##先显示该目录下的所有的文件夹和文件。
+./COM_Zh_CN:
+##以下显示的是“.”与“:”中间的目录“COM_Zh_CN”（没错，就是这个工程）的内容。
+Abstract.utf8.md  Doing  LICENSE.md  ReadMe.md  TeX
+##再显示其内容
+##省略一大部分
+
+sgcomputers@sgcomputers:~$ ls -a -l
+##显示所有的文件，包括隐藏的。
+total 392
+drwxr-xr-x 28 sgcomputers sgcomputers   4096 May  1  2019 .
+drwxr-xr-x  4 root root   4096 Apr 19 17:37 ..
+##两个句点“..”的意思是上一个目录。
+-rw-------  1 sgcomputers sgcomputers    612 Apr 30 16:48 .bash_history
+-rw-r--r--  1 sgcomputers sgcomputers    220 Apr 19 17:37 .bash_logout
+##省略一大部分
+\end{verbatim}
+\subsubsection{cd}
+\label{sec:cd}切换工作目录（比如说“sgcomputers@sgcomputers-pc:/\$ ”，此时工作目录就是“/”。工作目录位于“[用户名]@[计算机名]：”与“\$”（root用户是“\#”）中间）。{\color{red}注意！GNU/Linux区分大小写！}如：
+\begin{verbatim}
+##现在我们位于sgcomouters的“家”目录，即“/home/sgcomputers”。
+sgcomputers@sgcomputers-pc:/$ cd /
+##使用“cd”命令到根目录。
+
+sgcomputers@sgcomputers-pc:/$ ls -l
+total 76
+lrwxrwxrwx   1 root root     7 4月  17 02:57 bin -> usr/bin
+##省略一些内容。
+drwx------  17 root root  4096 6月  20  2019 root
+drwxr-xr-x  27 root root   840 6月  19 18:02 run
+lrwxrwxrwx   1 root root     8 4月  17 02:57 sbin -> usr/sbin
+##省略一些内容。
+lrwxrwxrwx   1 root root    29 6月  19 17:00 vmlinuz -> boot/vmlinuz-5.0.0-17-generic
+lrwxrwxrwx   1 root root    29 6月  19 17:00 vmlinuz.old -> boot/vmlinuz-5.0.0-16-generic
+
+sgcomputers@sgcomputers-pc:/$ cd /sbin
+##使用“cd”命令到“/sbin”（绝对路径）。
+
+sgcomputers@sgcomputers-pc:/sbin$ cd ..
+##使用“cd”命令到父级目录
+
+sgcomputers@sgcomputers-pc:/$ cd /media/win10
+##仍旧是绝对路径。
+##下面演示一个错误：
+
+sgcomputers@sgcomputers-pc:/media/win10$ cd Users/SGComputers/AppData
+/Roaming/Adobe/Flash Player/NativeCache
+bash: cd: too many arguments
+##报错内容：过多参数。这时就应该使用引号“"”将路径括起来。就如：
+
+sgcomputers@sgcomputers-pc:/media/win10$ cd "Users/SGComputers/AppData
+/Roaming/Adobe/Flash Player/NativeCache"
+##相对路径！
+##该命令等价于“cd "/media/win10/Users/SGComputers/AppData
+/Roaming/Adobe/Flash Player/NativeCache"”
+##我不得不说我增加了许多断行符。
+##系统自动根据相对路径推得绝对路径。
+##因此相对路径确实可以节省输入。
+
+sgcomputers@sgcomputers-pc:/media/win10/Users/SGComputers/AppData
+/Roaming/Adobe/Flash Player/NativeCache$ ls -a
+.  ..
+##这里没东西。
+
+sgcomputers@sgcomputers-pc:/media/win10/Users/SGComputers/AppData
+/Roaming/Adobe/Flash Player/NativeCache$ cd ~
+##回家！此命令等价于“cd /home/sgcomputers”
+
+sgcomputers@sgcomputers-pc:~$ 
+\end{verbatim}
+\subsubsection{rm}
+{\color{red}警告！这是一个删除命令！这个命令的不正确操作可能会对操作系统产生不可逆的致命破坏！如果可行，请使用图形界面！}\par
+\cite{manrm} 现在开始正式教学。\verb|rm|是一个用来删除文件或目录的指令。以下是详细用法：
+\begin{verbatim}
+##[dir]表示被删除的应该是目录（文件夹）。
+rm -r [dir] ##递归删除，即删除此目录和此目录下所有目录中的内容。
+rm -d [dir] ##删除空目录。
+##下面用实例演示还有两个常用选项的用法：
+
+sgcomputers@sgcomputers:~$ touch a
+##新建空文件a。
+
+sgcomputers@sgcomputers:~$ rm -v a
+已删除'a'
+##加上“-v”后，“rm”会告诉你它干了什么。
+
+sgcomputers@sgcomputers:~$ touch a
+
+sgcomputers@sgcomputers:~$ rm -i a
+rm：是否删除普通空文件 'a'？ Y
+##加上“-i”后，“rm”会先询问。
+
+\end{verbatim}
+\subsubsection{mkdir}
+制造一个目录（新建文件夹）。如：
+\begin{verbatim}
+sgcomputers@sgcomputers-pc:~$ ls -l
+##先看一下这里有什么。
+total 32
+drwxrwxr-x 2 sgcomputers sgcomputers 4096 6月  19 18:03 Desktop
+##省略一些内容。
+
+sgcomputers@sgcomputers-pc:~$ mkdir aaaaaa
+##新建目录“aaaaaa”。
+
+sgcomputers@sgcomputers-pc:~$ ls -l
+##再看一下这里有什么。
+total 36
+drwxrwxr-x 2 sgcomputers sgcomputers 4096 6月  19 18:13 aaaaaa
+drwxrwxr-x 2 sgcomputers sgcomputers 4096 6月  19 18:03 Desktop
+##省略一些内容。
+
+sgcomputers@sgcomputers-pc:~$ rm -d aaaaaa
+##现在把它删除。
+
+sgcomputers@sgcomputers-pc:~$ ls -l
+##最后看一下这里有什么。
+total 32
+drwxrwxr-x 2 sgcomputers sgcomputers 4096 6月  19 18:03 Desktop
+##省略一些内容
+\end{verbatim}
+\subsubsection{cp}
+复制文件。用法：
+\begin{verbatim}
+cp [源文件] [目的文件]
+cp [源文件] [目的目录]
+##选项：
+-r ##递归复制目录。类似于rm。
+-u ##更新模式，仅当目标旧于源文件或目标不存在是复制。
+-l ##创建硬链接（注意，这里的“链接”不同于Windows的“快捷方式”）。
+##等价命令“ln [源文件] [链接]”
+##硬链接与软链接的区别过于复杂，这里不再赘述。
+\end{verbatim}
+\subsubsection{ln}
+\cite{ln}\par
+正宗创建链接命令，用法在上面。选项“\verb|-s|”用来创件软链接（又称“符号链接”）（类似于于Windows的“快捷方式”）。注意！软链接的源文件必须写成绝对路径！硬链接不能链接目录或跨文件系统。
+\subsubsection{mv}
+移动文件，相当于图形界面剪切-粘贴。再进行文件备份时十分有用。用法类似于\verb|cp|（但是没有“\verb| -r|”），这里不再赘述。
+\subsubsection{文件系统的常用命令}
+那么我们如何挂载其它设备（如，挂载未挂载的硬盘及u盘？NTFS文件系统的磁盘一般不会自动挂载。除非修改fstab文件）？此时我们就应该使用\verb|mount|及\verb|umount|命令。在图形界面的文件管理器上（如pcmanfm，dolphin，Konqueror或nemo）你可以在对应的设备上单击即可挂载。但我们不推荐使用此方法：它无法自定义挂载点。\par
+\paragraph{mount命令}
+\cite{manmnt}\par
+\verb|mount|命令是一个非常有用的命令。它能够挂载设备和文件夹。注意，如果你需要挂载NTFS文件系统，你需要使用apt安装ntfs-3g。\verb|mount|命令基本用法：\verb|mount [[−t] [type]] [device] [dir]|\par
+例如，有如下磁盘结构：
+\begin{verbatim}
+#磁盘树                     GNU/Linux对应    挂载点（计划将磁盘挂载到这里）
+#磁盘1                      \dev\sda
+分区0，系统保留         \dev\sda1
+分区1，NTFS（C:/）      \dev\sda2        \media\win10
+分区2，NTFS（D:/）      \dev\sda3        \media\docs
+#磁盘2                      \dev\sdb
+分区1，ext4（\）        \                \
+分区2，ext4（\）        \home            \home
+分区2，swap
+#U盘                        \dev\sdc
+分区，NTFS（E:/）       \dev\sdc         \media\fldisk
+##同理，你可以明白一个硬盘设备（或软盘设备）
+##都将被显示为\dev\sdx（x为具体字母）；
+##而它们的分区将会被显示为加上分区对应的号码。
+\end{verbatim} \par
+以C盘为例。现在我们应操作如下，使它们挂载到预定义的挂载点：
+\begin{verbatim}
+mount -t ntfs-3g \dev\sda2 \media\win10
+##以root权限执行！
+\end{verbatim} \par
+注意，如果你不带“\verb|-t ntfs-3g|”选项，你将得到一个只读的挂载。\par
+\verb|mount −−bind [olddir] [newdir]|命令将挂载一个文件夹到另一个位置。\par
+\verb|mount|命令将列出所有已挂载的文件系统。\par
+\begin{verbatim}
+root@sgcomputers-Latitude-5290:/home/sgcomputers# mount
+/dev/sda4 on /media/sgcomputers/E086190E8618E736 type fuseblk
+(rw,nosuid,nodev,relatime,user_id=0,group_id=0,default_permissions,
+allow_other,blksize=4096,uhelper=udisks2)
+##大部分内容被省略了。
+\end{verbatim} \par
+常见错误（如果你的磁盘存在坏道或者权限不正确也会导致挂载失败）：
+\begin{verbatim}
+sgcomputers@sgcomputers-pc:~$ sudo mount -t ntfs-3g /dev/sda2 /media/win10
+ntfs-3g-mount: failed to access mountpoint /media/win10: No such file or directory
+\end{verbatim} \par
+挂载点不存在。此时我们使用“\verb|sudo mkdir /media/win10|”创建目录（即挂载点）后再次运行此命令成功。\par
+你也可以使用umount命令取消挂载。如“\verb|umount /dev/sda1|”\par
+\paragraph{自动化：fstab文件}
+为了使硬盘里的分区自动挂载，我们可以修改“/etc/fstab”文件（需要root权限）。如：
+\begin{verbatim}
+# /etc/fstab: static file system information.
+# <file system>             <mount point>  <type>  <options>  <dump>  <pass>
+UUID=3bcb6202-9e06-4a32-8745-ee22d069f326 /              ext4    defaults   0 1
+UUID=f86fcaf9-2d5c-4560-a844-66a758a953c5 /home          ext4    defaults   0 2
+UUID=34cfd28f-530f-4d56-86b4-94131033f7c7 swap           swap    defaults   0 2
+\end{verbatim} \par
+现在解释一下这是什么：第一列，即“UUID=3bcb6202-9e06-4a32-8745-ee22d069f326”指设备。你可以这么生成它：
+\begin{verbatim}
+root@sgcomputers-pc:~# ls /dev/disk/by-uuid -l
+total 0
+lrwxrwxrwx 1 root root 10 6月  16  2019 1A1A4AE81A4AC10D -> ../../sda1
+lrwxrwxrwx 1 root root 10 6月  16  2019 34cfd28f-530f-4d56-86b4-94131033f7c7 -> ../../sdb3
+lrwxrwxrwx 1 root root 10 6月  16  2019 3bcb6202-9e06-4a32-8745-ee22d069f326 -> ../../sdb1
+lrwxrwxrwx 1 root root 10 6月  16  2019 9AFA3F56FA3F2E3F -> ../../sda2
+lrwxrwxrwx 1 root root 10 6月  16  2019 f86fcaf9-2d5c-4560-a844-66a758a953c5 -> ../../sdb2
+\end{verbatim} \par
+第二列，即“/”指挂载点。后面几列较为复杂（文件系统--“ntfs-3g”，挂载选项--默认“defaults”，自动备份--NTFS免备份设0，开机检查--免检设0），请参考fstab的man帮助，不再赘述。\par
+所以，我们只需要在文件末端添上“UUID=9AFA3F56FA3F2E3F  /media/win10 ntfs-3g defaults   0 0”并重启（仔细检查！！！）即可。
+\subsubsection{文件权限的相关命令}
+文件权限大致上分“读”（r）、“写”（w）与“执行”（w）三种。你可以使用“\verb|chmod|”命令改变它。标准用法：“\verb|chmod [用户][运算符][权限] [文件] [参数]|”。可使用参数“\verb|-R|”递归更改目录权限。如：
+\begin{verbatim}
+sgcomputerssgcomputers:~/Documents$ echo "echo Yeah!"> d
+##向文件“d”中写入内容“echo Yeah!”
+##这其实是一条命令，要求终端输出“Yeah!”
+
+sgcomputerssgcomputers:~/Documents$ cat d
+##查看文件内容
+echo Yeah!
+
+sgcomputerssgcomputers:~/Documents$ ./d
+##尝试执行，发现权限不足。
+bash: ./d: Permission denied
+
+sgcomputerssgcomputers:~/Documents$ ls -l
+##使用ls命令检查权限。
+total 8
+drwxrwxr-x 4 sgcomputers sgcomputers 4096 Jun 26 08:17 COM_Zh_CN
+-rw-rw-r-- 1 sgcomputers sgcomputers   11 Jun 26 09:04 d
+##发现没有“执行”权限。
+
+sgcomputerssgcomputers:~/Documents$ chmod a+x d
+##对所有用户（a）增加执行权限
+##所有组：g。所有者：u。如“ chmod u+x [文件名]”仅仅增加所有者权限。
+
+sgcomputerssgcomputers:~/Documents$ ./d
+##尝试执行成功。
+Yeah!
+
+sgcomputerssgcomputers:~/Documents$ ls -l
+total 8
+drwxrwxr-x 4 sgcomputers sgcomputers 4096 Jun 26 08:17 COM_Zh_CN
+-rwxrwxr-x 1 sgcomputers sgcomputers   11 Jun 26 09:04 d
+
+\end{verbatim} \par
+使用“\verb|chown|”命令能够更改文件的所有者。标准用法：“\verb|chown [所有者]:[所有组] [文件] [参数]|”。可使用参数“\verb|-R|”递归更改目录权限。如：
+\begin{verbatim}
+##我们还是以上文中的“d”文件为例。
+sgcomputerssgcomputers:~/Documents$ chown root:root d
+##更改所有者为root：报错。
+chown: changing ownership of 'd': Operation not permitted
+
+sgcomputerssgcomputers:~/Documents$ sudo chown root:root d
+##使用root权限，成功。
+[sudo] password for sgcomputers: 
+
+sgcomputerssgcomputers:~/Documents$ ls -l
+##确认一下。
+total 8
+drwxrwxr-x 4 sgcomputers sgcomputers 4096 Jun 26 08:17 COM_Zh_CN
+-rwxrwxr-x 1 root root   11 Jun 26 09:04 d
+\end{verbatim} \par
+这是非常好用的命令，能够在不删除数据的情况下防止学生打开游戏（当然，“不法分子”也会利用这个命令防止老师读取游戏文件夹。技术是把双刃剑，因此请妥善掌握你的root密码）。
+\subsubsection{打开文件并显示里面的内容}
+你当然可以使用“\verb|vim [文件名]|”来打开文件，但对于vim学习得不好的同学来说恐怕事情会复杂得多：vim一打开就无法退出了（这种情况经常在初学者身上发生。如果你被卡住了，请单击“ESC”，键入“\verb|:qa!|”并回车）！我们使用以下命令：\verb|cat|、\verb|more|与\verb|less|。\par
+我们先用“\verb|ls -l -A -R > 1|”得到一个较大的文件“1”。命令“\verb|cat 1 -n|”（标准用法：“\verb|cat [文件名] [参数]|”，参数“\verb|-n|”会显示行号）将会使屏幕发疯。现在使用“\verb|more 1|”：
+\begin{verbatim}
+::::::::::::::
+1
+::::::::::::::
+##上面显示了文件名。
+.:
+total 288
+-rw-------  1 sgcomputers sgcomputers    100 Jun 26 08:18 .Xauthority
+-rw-------  1 sgcomputers sgcomputers   4013 Jun 26 09:15 .bash_history
+-rw-r--r--  1 sgcomputers sgcomputers    220 Jun 24 13:16 .bash_logout
+-rw-r--r--  1 sgcomputers sgcomputers   3830 Jun 24 14:05 .bashrc
+drwx------ 14 sgcomputers sgcomputers   4096 Jun 25 18:11 .cache
+drwxrwxr-x 31 sgcomputers sgcomputers   4096 Jun 25 18:11 .config
+--More--(0%)
+##刚好一屏！输入“q”退出。
+\end{verbatim} \par
+“\verb|less 1|”也会得到类似的效果（请读者自己尝试）。\par
+还可以使用“\verb/cat 1 -n | more/”（如果你学得好的话，你就会知道管道符的含义。参见\pageref{sec:bat}页\ref{sec:bat}）得到：
+\begin{verbatim}
+1  .:
+2  total 288
+3  -rw-------  1 sgcomputers sgcomputers    100 Jun 26 08:18 .Xauthority
+4  -rw-------  1 sgcomputers sgcomputers   4013 Jun 26 09:15 .bash_history
+5  -rw-r--r--  1 sgcomputers sgcomputers    220 Jun 24 13:16 .bash_logout
+6  -rw-r--r--  1 sgcomputers sgcomputers   3830 Jun 24 14:05 .bashrc
+7  drwx------ 14 sgcomputers sgcomputers   4096 Jun 25 18:11 .cache
+8  drwxrwxr-x 31 sgcomputers sgcomputers   4096 Jun 25 18:11 .config
+--More--
+\end{verbatim}
+\subsubsection{-处理压缩文件}
+GNU/Linux中常见的压缩文件算法是tar（*.tar）、gz（*.gz *.tar.gz *.tgz *.z *.tar.z *.taz）、bzip2（*.bz2 *.tar.bz2 *.tbz）、deflate（*.zip）与LZMA（*.7z *.xz *.zip *.tar.xz *.txz *.lzma *.tlz）。RAR是专有软件，在GNU/Linux上面不常见。\par
+现在解释一下那些扩展名的由来：tgz、txz、tbz、tlz、taz分别是tar.gz、tar.xz、tar.bz2、tar.lzma、tar.z的缩写，其效果是相同的。一般tar压缩算法不减小文件的体积，但可包含多个文件；gzip、bzip2与xz算法能减小文件体积，但无法处理两个以上的文件。因此GNU/Linux的开发者们就经常将一个文件夹压缩为tar格式后再使用gzip算法压缩，这就产生了tar.gz的扩展名。\par
+\paragraph{-xz及其衍生命令}
+首先，以下命令是等价的：\par
+\begin{verbatim}
+unxz = xz --decompress.
+xzcat = xz --decompress --stdout.
+lzma = xz --format=lzma.
+unlzma = xz --format=lzma --decompress.
+lzcat = xz --format=lzma --decompress --stdout.
+\end{verbatim}\par
+其次，xz不会压缩已经具有“xz”“txz”“lzma”“txz”扩展名的文件。请注意，\verb|xz|在压缩时会删除源文件。语法：“\verb|xz [选项] [文件]|”可用的选项：\par
+\begin{verbatim}
+-z 压缩，默认选项。
+
+-d 解压缩，等价于“--uncompress”或“--decompress”。
+
+-k 在（解）压缩完成以后不删除源文件，等价于“--keep”。
+
+-l 打印压缩文件信息。
+YuZJ@DESKTOP-8862SKL /
+$ xz -l  Cygwin.bat.xz
+Strms  Blocks   Compressed Uncompressed  Ratio  Check   Filename
+1       1        148 B         88 B  1.682  CRC64   Cygwin.bat.xz
+
+
+-F [格式] 等价于“--format=[格式]”，以[格式]保存压缩文件。
+[格式]可以为xz或lzma。
+\end{verbatim}
+\paragraph{-gzip及其衍生命令}
+\verb|gzip|能够解压缩deflate算法压缩的zip文件以及扩展名为“z”“gz”的文件。同样拥有“\verb|gunzip|”。\par
+\begin{verbatim}
+-d 解压缩，等价于“--uncompress”或“--decompress”。
+
+-k 在（解）压缩完成以后不删除源文件，等价于“--keep”。
+
+-l 打印压缩文件信息。
+YuZJ@DESKTOP-8862SKL /$ gzip Cygwin.bat -l
+compressed        uncompressed  ratio uncompressed_name
+116                  88   1.1% Cygwin.bat
+
+\end{verbatim}
+\paragraph{-zip及其衍生命令}
+同样拥有“\verb|unzip|”。语法：\verb|zip [参数] [文件名] [要求]|。我不得不（不负责任地）告诉大家它的man帮助很难读懂。\par
+\begin{verbatim}
+-m 从压缩文件外移动文件到压缩文件。
+
+-O [文件] 产生特定的文件，等价于“--output-file [文件]”。
+
+-P [密码] 使用密码，等价于“--password [密码]”。注意这么做不安全，
+其他人也能读到你在终端的输入。
+
+-r 递归压缩。
+
+-R [文件夹名] [要求] 按照要求压缩文件。
+
+-u [压缩文件名] [要求] 按照要求更新压缩文件。
+
+-x [要求/文件名] （按要求）排除文件。
+\end{verbatim}\par
+比如说：\par
+\begin{verbatim}
+YuZJ@DESKTOP-8862SKL /cygdrive/d/VS$ zip -r VSAll *
+##把当前文件夹下所以内容压缩到VSAll.zip（不包含隐藏的文件）
+adding: IP▒▒ַ▒▒▒▒▒▒/.gitignore (172 bytes security) (deflated 57%)
+adding: IP▒▒ַ▒▒▒▒▒▒/IP▒▒ַ▒▒▒▒▒▒/ (260 bytes security) (stored 0%)
+adding: IP▒▒ַ▒▒▒▒▒▒/IP▒▒ַ▒▒▒▒▒▒/App.config (172 bytes security) (deflated 26%)
+adding: IP▒▒ַ▒▒▒▒▒▒/IP▒▒ַ▒▒▒▒▒▒/bin/ (260 bytes security) (stored 0%)
+adding: IP▒▒ַ▒▒▒▒▒▒/IP▒▒ַ▒▒▒▒▒▒/bin/Debug/ (260 bytes security) (stored 0%)
+##省略一些内容
+adding: IP▒▒ַ▒▒▒▒▒▒/IP▒▒ַ▒▒▒▒▒▒.sln (172 bytes security) (deflated 60%)
+
+YuZJ@DESKTOP-8862SKL /cygdrive/d/VS$ ls -l
+总用量 1
+drwxrwx---+ 1 YuZJ YuZJ   0 7月  31 17:13 IP地址计算器
+-rwxrwx---+ 1 YuZJ YuZJ 339 8月   5 17:39 VSAll.zip
+
+YuZJ@DESKTOP-8862SKL /cygdrive/d/VS$ zip -d VSAll *git*
+##删去“git”的文件匹配项
+deleting: IP▒▒ַ▒▒▒▒▒▒/.gitignore
+\end{verbatim}
+\paragraph{-7z}
+标准语法“\verb|7z [模式] [开关] [文件名] [参数]|”，模式包含“\verb|a|”（创建压缩文件/向压缩文件中添加文件）、“\verb|d|”（从压缩文件删除）、“\verb|e|”（解压缩，不顾压缩文件内部的树结构将所有文件解压到一个目录）、“\verb|u|”（升级压缩文件）、“\verb|t|”（测试压缩文件）、“\verb|l|”（显示详细信息）、“\verb|x|”（解压缩并保留树结构）。开关我们只需要了解“\verb|-y|”（对所有问题回答“是”）即可。
+\paragraph{-tar}
+\verb|tar|命令除了产生tar包外，还能调用其余压缩算法。
+\subsection{图形化文件管理器}
+你现在已经有一个PCManFM的文件管理器了。如果你喜欢cinnamon的文件管理器，安装“nautilus”。KDE，“dolphin”。注意，默认的文件管理器有一个bug：请到Edit-Preference-advanced中修改默认伪终端（这东西的英文你应该知道了）。你可以使用“ark”或“xarchiver”来管理压缩文件（请保证gz、p7zip等软件包已经安装）。
+\subsection{终端文件管理器MC}
+MC全称“Midnight Commandar”，是一个强大的终端界面文件管理器。使用apt安装“\verb|mc|”后用“\verb|mc|”启动，你将得到：
+\begin{center}
+	\includegraphics[scale=0.7]{pic/mc}
+\end{center} \par
+图形界面伪终端支持鼠标操作。终端界面需要fbterm（如果你的语言是中文）。注意下方有一行数字[x]，你需要按F[x]来实现。如退出：F10。
+\section{进程管理}
+\label{sec:pm}图形界面工具有gnome-system-monitor、ksysguard、htop（命令行启动）与qps。这些工具使用简单，不再赘述。以下为ksysguard与htop的截图。
+\begin{center}
+	\includegraphics[scale=0.7]{pic/ksysg}	\includegraphics[scale=0.7]{pic/htop}
+\end{center} \par
+下面介绍命令方法：
+\subsection{ps}
+显示进程（以root权限运行）。如：
+\begin{verbatim}
+sgcomputers@sgcomputers:~/COM_Zh_CN/TeX$ ps all
+##参数all用于显示进程所有信息（此时你需要一个宽屏显示器或将伪终端字号调小）
+F   UID   PID  PPID PRI  NI    VSZ   RSS WCHAN  STAT TTY        TIME COMMAND
+4  1000  1587  1545  20   0 168436  6316 poll_s Ssl+ tty2       0:00 /usr/lib/gdm3/gdm-x-session 
+4  1000  1589  1587  20   0 362264 96812 ep_pol Sl+  tty2       4:35 /usr/lib/xorg/Xorg vt2 
+0  1000  1598  1587  20   0 264460 23312 poll_s Sl+  tty2       0:02 lxqt-session
+0  1000  1729  1598  20   0 3134192 164668 poll_s Sl+ tty2      4:55 /usr/bin/kwin
+0  1000  1827  1598  20   0 1469004 80732 poll_s Sl+ tty2       0:18 /usr/bin/pcmanfm-qt 
+0  1000  1828  1598  20   0 338052 22492 poll_s Sl+  tty2       0:01 /usr/bin/lxqt-globalkeysd
+0  1000  1829  1598  20   0 402736 45728 poll_s Sl+  tty2       0:01 /usr/bin/lxqt-notificationd
+0  1000  1830  1598  20   0 749484 68260 poll_s Sl+  tty2       0:15 /usr/bin/lxqt-panel
+0  1000  1831  1598  20   0 532776 41444 poll_s Sl+  tty2       0:01 
+0  1000  1832  1598  20   0 288916 31732 poll_s Sl+  tty2       0:01 /usr/bin/lxqt-runner
+0  1000  1975  1598  20   0 383732 43432 poll_s Sl+  tty2       0:02 
+0  1000  3563  1827  20   0 1008960 175312 poll_s Sl+ tty2      2:53 texstudio
+0  1000  4325     1  20   0 431008 47636 -      Rl+  tty2       0:04 qterminal
+0  1000  4328  4325  20   0  13800  4788 do_wai Ss   pts/0      0:00 /bin/bash
+0  1000 15074  1830  20   0   2568   724 do_wai S+   tty2       0:00 /bin/sh 
+4     0 15075 15074  20   0 355072 175152 -     Sl+  tty2       0:04 /usr/sbin/synaptic
+0  1000 15701  4328  20   0  14424  3544 -      R+   pts/0      0:00 ps all
+\end{verbatim} \par
+显示特定进程（以root权限运行）：\verb/ps -A  all | grep [进程]/。如：
+\begin{verbatim}
+sgcomputers@sgcomputers:~/COM_Zh_CN/TeX$ sudo apt install evince
+[sudo] sgcomputers 的密码： 
+E: 无法获得锁 /var/lib/dpkg/lock-frontend - open (11: 资源暂时不可用)
+E: 无法获取 dpkg 前端锁 (/var/lib/dpkg/lock-frontend)，是否有其他进程正占用它？
+##apt安装evince失败--有进程占用！是谁？
+
+sgcomputers@sgcomputers:~/COM_Zh_CN/TeX$ sudo ps -A all | grep apt
+0  1000 15074  1830  20   0   2568   724 do_wai S+   tty2       0:00 /bin/sh 
+4     0 15075 15074  20   0 378132 186172 poll_s Sl+ tty2       0:11 /usr/sbin/synaptic
+0  1000 17120  4328  20   0  11940   920 pipe_w S+   pts/0      0:00 grep --color=auto apt
+##原来是新立得软件包管理器。
+\end{verbatim}
+\subsection{-pidof}
+\subsection{kill}
+用来强制终结进程。用法：kill -9 [pid]。其中[pid]由ps命令给出。如：如果我们想终结上一个例子中新立得的进程，我们可以：“\verb|sudo kill -9 15075|”。\par
+一般我们以root权限运行此命令，并且只在一个你熟悉的应用程序失去响应或需要终结一个失败的apt（如，启动时自动更新）使用这个命令。{\color{red}不要终结你不熟悉的进程，它可能是系统进程！}
+\subsection{-killall}
+\section{GNU/Linux下的反病毒软件}
+\label{sec:avgl}这一章将会介绍运行于GNU/Linux的反病毒软件ClamAV。当然如果你需要类似于Windows的反病毒体验，你可以使用ESET，Dr. Web或FSopt（付费）。\par
+在使用前，你需要到软件源安装它。注意！ClamAV不提供实时保护！
+\subsection{优点及不足}
+优点：
+\begin{enumerate}
+	\item 大部分GNU/Liux发行版均可用
+	\item 命令操作简便。
+	\item 自由软件。
+\end{enumerate}
+缺点：
+\begin{enumerate}
+	\item 误报率高。
+	\item 在GNU/Linux机器上资源占用极大。其CygWin版本好多了。
+	\item 查杀速度较慢。
+\end{enumerate}
+\subsection{命令行模式}
+\subsubsection{clamscan}
+\cite{mancs}\par
+这是用于查杀的命令。命令用法：\verb|clamscan [选项] [目录，文件或省略]|。\par
+[选项]列表：\par
+\begin{verbatim}
+-i ##只显示被感染的文件
+--bell ##找到被感染的文件时响铃
+-o ##停止显示正常文件
+--stdout ##标准输出
+--log[=FILE] ##输出扫描结果到FILE
+-r ##递归查找子目录（常用）
+--remove[=yes][=no] ##是否移除被感染的文件
+−−move=[DIRECTORY] ##将感染的文件移至该目录
+−−copy=[DIRECTORY] ##将感染的文件复制至该目录
+--exclude=[DIRECTORY] ##排除目录
+\end{verbatim} \par
+示例：“\verb|clamscan −r /home|”  递归查杀“/home”文件夹。\par
+示例：
+\begin{verbatim}
+sgcomputers@sgcomputers:/sbin$ clamscan --stdout
+LibClamAV Warning: **************************************************
+LibClamAV Warning: ***  The virus database is older than 7 days!  ***
+LibClamAV Warning: ***   Please update it as soon as possible.    ***
+LibClamAV Warning: **************************************************
+##这说明病毒库已经过期了。
+/sbin/telinit: Symbolic link
+/sbin/unix_chkpwd: OK
+/sbin/swaplabel: OK
+/sbin/iwgetid: OK
+##大量内容被省略了。
+/sbin/wpa_action: OK
+/sbin/dosfslabel: Symbolic link
+----------- SCAN SUMMARY -----------
+Known viruses: 6120148
+Engine version: 0.100.3
+Scanned directories: 1
+Scanned files: 115
+Infected files: 0
+Data scanned: 10.95 MB
+Data read: 10.87 MB (ratio 1.01:1)
+Time: 45.656 sec (0 m 45 s)
+\end{verbatim} \par
+{\color{red}注意，我非常建议你使用root权限！否则大部分病毒会移除失败！\par 误报率较高，建议不要使用“\verb|--remove=yes|”或“\verb|--move=[dir]|”选项。}\par
+我刚刚对我的计算机进行了反病毒。命令“\verb|clamscan --stdout -r  --log=/home/sgcomputers/Documents/2.log --copy=/home/sgcomputers/Documents|”，查杀999829个文件，142126个目录，总读取78855.88 MB，用时346分钟。
+\subsubsection{freashclam}
+\cite{mancf}\par
+这个命令联网更新病毒数据库。命令用法：\verb|freashclam [选项] |\par
+[选项]列表：\par
+\begin{verbatim}
+--stdout ##标准输出
+−−show−progress ##展示下载进度
+--log[=FILE] ##输出更新结果到FILE
+\end{verbatim} \par
+示例：
+\begin{verbatim}
+sgcomputers@sgcomputers:/sbin$sudo  freshclam
+Tue Apr 30 18:49:28 2019 -> ClamAV update process started at Tue Apr 30 18:49:28 2019
+Tue Apr 30 18:49:28 2019 -> ^Your ClamAV installation is OUTDATED!
+Tue Apr 30 18:49:28 2019 -> ^Local version: 0.100.3 Recommended version: 0.101.2
+Tue Apr 30 18:49:28 2019 -> DON'T PANIC! Read https://www.clamav.net/documents/upgrading-clamav
+Tue Apr 30 18:49:28 2019 -> main.cvd is up to date (version: 58, sigs: 4566249, f-level: 60, builder: sigmgr)
+Tue Apr 30 18:49:28 2019 -> daily.cld is up to date (version: 25435, sigs: 1565349, f-level: 63, builder: raynman)
+Tue Apr 30 18:49:28 2019 -> bytecode.cvd is up to date (version: 328, sigs: 94, f-level: 63, builder: neo)
+\end{verbatim} \par
+错误：
+\begin{verbatim}
+sgcomputers@sgcomputers:/sbin$sudo  freshclam
+##问题原因：freshclam已在后台运行。
+ERROR: /var/log/clamav/freshclam.log is locked by another process
+ERROR: Problem with internal logger (UpdateLogFile = /var/log/clamav/freshclam.log).
+##现在我们解决这个问题。
+sgcomputers@sgcomputers:/sbin$sudo service clamav-freshclam stop
+##停止服务。
+##之后就可以正常运行了。
+##使用以下命令重启：
+sgcomputers@sgcomputers:/sbin$sudo service clamav-freshclam start
+\end{verbatim}
+\subsection{图形界面：ClamTK}
+不推荐。可以使用apt安装。截图如下：
+\begin{center}
+	\includegraphics[scale=0.5]{pic/ctk}
+\end{center} \par
+为获得最佳杀毒效果，你需要在root终端下启动它（就像我现在这样）。你需要在“settings”中设置使“scan diretories recursively”（递归扫描文件夹）再设置“update assistant”使“I would like to update signatures myself”（手动接受更新）并应用（apply）。之后你就可以“scan a directory”来递归扫描目录了。
+\section{-自动化操作：crontab}
+\section{Wine}
+Wine——一种能够让Windows程序运行于GNU/Linux的程序。\par
+官网【WineHQ - 在 Linux，BSD，Solaris 和 macOS 上运行 Windows 应用】\url{https://www.winehq.org/}（最后连接于2019年6月21日14:21:57）。在\url{https://wiki.winehq.org/Ubuntu_zhcn}（最后连接于2019年6月21日14:23:01）有详细的安装方法，这里不再赘述。\par
+不建议在GNU/Linux上使用官方的Wine。原因：1.Wine官方服务器下载速度极慢。2.Wine效果比较卡。3.中文需要特殊配置，否则易产生乱码。
+\section{媒体播放器}
+我们同样使用vlc作为默认媒体播放器。配置较低的机器请选择MPV。\par
+如果你需要一个现代化的音乐播放器，你可以安装rhythmbox。如果你需要一个终端界面下的音乐播放器，请选择moc（使用“\verb|mocp|”命令启动）。以下为截图。
+\begin{center}
+	\includegraphics[scale=0.9]{pic/moc}
+\end{center}
+\section{GNU/Linux的教学实现}
+这一章将会谈到如何使用GNU/Linux实现日常教学任务。\par
+1.安装操作系统：我们选择Lubuntu Linux 19.04或Ubuntu 18.10或Linux Mint 19 或Deepin Linux。。注意，请安装图形界面：cinnamon或lxde（它们与Windows操作系统界面风格更接近，因此将会被更多人接受）。请安装非自由固件及第三方媒体解码器和驱动程序。安装过程不再赘述。下同。对于初学者，我十分推荐Linux Mint Cinnamon。\par
+2.配置软件源，使用“\verb|sudo apt update && sudo apt upgrade -y|”更新软件包索引文件和软件包并安装以下软件（如果你使用了Debian GNU/Linux10 最小安装，你还要安装man、less与sudo）：
+\begin{verbatim}
+##你可以从软件源中下载绝大部分软件。
+##软件源中也许软件名称不同。
+##你也可以从它们的官网中下载。
+synaptic ##可选，或aptitude。
+cinnamon-core ##可选，或lxqt-core（仅限于较新的ubuntu及其衍生版发行版，如19.04）。
+gcc ##可选
+g++ ##可选
+cpp ##可选
+alien ##可选。
+make ##可选
+libreoffice
+##建议到官网下载。地址：https://www.libreoffice.org
+##tuna：https://mirrors.cnnic.cn/libreoffice/libreoffice/stable/6.2.2/deb/x86_64/
+##上面为Debian x86_64下载地址。
+##也可以替换为Apache OpenOffice。
+fbterm ##可选。如果你需要终端的中文支持的话。
+w3m ##可选。
+vlc ##或mpv或smplayer。
+vim
+emacs ##可选。
+vim-gtk ##可选。
+chromium ##或firefox。
+moc ##可选。
+apt-mirror ##网络不稳定可选。
+ntfs-3g
+p7zip
+zip
+clamav
+clamtk ##可选。
+gnome-disk-utility ##提供分区工具及磁盘映像写入工具。
+kate ##可选。或gedit或leafpad或featherpad。
+gimp ##可选。
+wpsoffice ##请自己到官网下载。地址：
+##http://www.wps.cn/product/wpslinux
+sougoupinyin ##可选。请自己到官网下载。地址：
+##https://pinyin.sogou.com/linux/?r=pinyin
+htop ##任务管理器，可选，或gnome-system-monitor
+\end{verbatim} \par
+3.移除其它软件包（谨慎操作！）（如果你安装了Lubuntu，你可以移除qtpass、compton、2048-qt、ibus*、inkscape、abiword、gnumeric、noblenote、transmission*、trojita*、quassel、qpdfview、mpv、discover*、plasma-discover、qapt-deb-installer、qps、muon、partitionmanager），再用“\verb|apt autoremove|”完善依赖关系，最后使用synaptic（新立得软件包管理器）完全移除（purge）“not installed(residual config)”（未安装（残存配置））的软件包。\par
+4.配置搜狗拼音输入法。
+\section{给我强大的生产力！}
+在GNU/Linux下面也可以使用Windows中提到的工具。但是注意：
+\begin{enumerate}
+	\item 如果你从软件源中下载Filezilla，你将得到一个英文版。建议使用官方的deb软件包。
+	\item 如果需要使用Telnet，请安装“telnet”软件包。之后使用“\verb|telnet [服务器地址]|”即可。
+	\item GNU/Linux下面可用的Git图形界面稍微少了一点，建议使用SmartGit或deepgit（英文版，两者是同一个生产厂商出品的）。你需要在它的官网\url{https://www.syntevo.com/smartgit/}（最后连接于2019年7月28日18:01:48）上申请一张非商业许可证\url{https://www.syntevo.com/cn/smartgit/register-non-commercial/}（最后连接于2019年7月29日9:14:22）。
+\end{enumerate}
+\section{救命！我的系统炸了！}
+回忆一下你进行的操作后按照以下步骤排障：
+\subsection{启动管理器工作正常吗？}
+如果启动管理器工作正常，你就应该发现安装的操作系统排列在一个窗口里。此时请进入GNU/Linux操作系统。如果不是这样，请检查：\par
+1.请确定不是主板原因，比如说主板启动自检发出了很长的“嘟——”（或者是“嘀——”）说明你的内存坏了。如果主板正常并且你发现了一个“\verb|grub rescure>|”的shell，进入下一环节。\par
+2.硬盘都插好了吗？正在启动的硬盘是否安装了grub？\par
+3.是不是删除了一个分区？如果你删除了根目录并想启动Windows操作系统，你可以使用大多数PE系统都有的启动修复功能。如果不是，请按以下步骤操作：
+\begin{center}
+	\includegraphics{pic/grubrescure}\\
+	这是完整操作。
+\end{center} \par
+（1）输入\verb|ls|查看连接在主板上的磁盘和分区。\par
+（2）确定/boot/grub所在分区。通过“\verb|ls (磁盘，分区)|”查找对应的分区格式，我们只需要关注ext2分区（似乎我这个版本还识别不出ext4）。使用“\verb|ls （磁盘，分区）/|”来识别根目录。\par
+（3）使用“\verb|set root|”与\verb|“set prefix|”命令设置启动目录。\par
+（4）使用“\verb|insmod|”命令设置normal.nod。\par
+（5）使用“\verb|normal|”并回车启动grub。
+\subsection{进入了initramfs？}
+请参考下一步提示信息：如果告诉你“\verb|a manual fsck is needed|”，请使用fsck命令对根目录及其它相关目录进行检查（一路y过来即可）。如果要求你输入root密码，那么可能是fstab文件出错，使用vim修改一下。
+\section{强大的生产力所需的网络架构：以Ubuntu Server 19.10为操作系统搭建服务器}
+这一部分是针对电教员的。对于一所学校来说，强大的网络架构是强大生产力的保证。但在开始之前，你首先需要安装一台具有固定IP的Ubuntu Server 19.04（或者其它类似的操作系统）。
+\subsection{防火墙与固定IP}
+请使用文本编辑器编辑“/etc/netplan/”目录下“[网卡名称].yaml”的文件。你将得到：
+\begin{verbatim}
+network:
+version: 2
+renderer: networkd
+ethernets:
+addresses: [192.168.0.101/24]##IP地址及网络号长度（对应子网掩码255.255.255.0）
+gateway4: 192.168.0.1##默认网关
+nameservers:##DNS服务器
+addresses: [8.8.8.8]
+\end{verbatim}\par
+我们现在使用一款名为“ufw”的防火墙软件（从软件源里安装它）。ufw能够进行一些简单的网络设置。注意更改设置需要使用root权限。常用的命令如（具体请参照man手册）：
+\begin{verbatim}
+ufw enable##开启ufw
+ufw disable##关闭ufw
+ufw allow in to 192.168.0.102##允许来自于192.168.0.102的进入。
+##这个命令语法是“ufw [规则]”，上例中“allow in to 192.168.0.102”属于[规则]。
+##这个规则语法是
+[allow/deny/reject] proto [协议名] [in/out] on [网卡名] from [IP地址] to [IP地址]
+##其它常见规则语法：
+[allow/deny/reject][端口号]/[协议名，如TCP]
+[allow/deny/reject][协议名，如SMTP]
+##deny为禁止进入（丢弃传入的数据包），reject为拒绝进入（返回一个错误信息）。
+ufw defaut [allow/deny/reject]##选择默认政策。
+ufw logging [on/off]##是否使用日志。
+ufw delete [规则]##删除规则。
+\end{verbatim}
+\subsection{使用VSFTPD配置FTP服务器}
+VSFTPD（非常安全FTP守护进程）是一个在GNU/Linux平台被广泛使用的ftp服务器。下面以Ubuntu Server 19.04为例教你如何使用VSFTPD。\par
+案例背景：现在我们需要为教师配置FTP服务，具体要求为：教师都要有一个私有云盘（完全控制）和公用区域（仅下载）。我们还需要一个管理员账户管理所有的公共文件。
+\subsubsection{配置文件系统：将FTP放在分别的磁盘上}
+\begin{verbatim}
+root@server:/etc#mkdir /var/ftp
+##新建FTP根目录
+root@server:/etc#cd /var/ftp
+root@server:/var/ftp#chown root.root /var/ftp
+##请注意，VSFTPD要求FTP根目录不可写。
+root@server:/var/ftp#chmod a-w /var/ftp
+root@server:/var/ftp#mkdir main
+root@server:/var/ftp#chown ftplink.ftplink main
+root@server:/var/ftp#chmod u+w+r+x /var/ftp/main
+##建立可写目录main。
+##/var/ftp/main/Public用于存放公共文件。
+##/var/ftp/main/Private/[用户名]用于存放用户文件。
+##（现在先不要新建这两个文件夹）
+root@server:/j# chown root.root/etc/vsftpd*
+root@server:/# chmod a-r-w-x /etc/vsftpd*
+##保证VSFTPD配置文件不能被其它用户读取。
+\end{verbatim}\par
+之后，我们需要使用图形界面或者命令行方式建立一个ftp分区并将其添加到“/etc/fstab”文件自动挂载，其挂载点应为“/var/ftp”。使用“mount -a”挂载它。就像：\\
+\verb|UUID=00000000-0000-0000-0000-00000000000 /var/ftp/main ext4 defaults 0 0|\par
+现在你可以完成新建文件夹了。
+\subsubsection{配置VSFTPD基础设置}
+此时我建议你先使用“\verb|su|”命令切换到root账户。这能节省时间。使用APT下载安装后，当前的VSFTPD最高版本为3.0.3，配置文件位于“/etc/vsftpd.conf”。使用文本编辑器打开它并更改为：
+\begin{verbatim}
+listen=YES
+##监听ipv4协议
+listen_ipv6=NO
+##太显然了吧
+anonymous_enable=NO
+##禁止匿名用户登录。这将大大提高服务器安全性。
+local_enable=YES
+##允许使用“本地用户”模式登录。
+write_enable=YES
+##允许写入。
+dirmessage_enable=YES
+use_localtime=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+##设置连接端口号
+ascii_upload_enable=YES
+ascii_download_enable=YES
+allow_writeable_chroot=YES
+anon_root=/var/ftp/
+secure_chroot_dir=/var/vsftpd/empty
+pam_service_name=vsftpd.vu
+##“可插拔认证模块”文件。
+rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+ssl_enable=NO
+guest_enable=YES
+##允许虚拟用户
+guest_username=ftplink
+user_config_dir=/etc/vusers_dir
+##虚拟用户设置
+local_umask=022
+userlist_enable=YES
+tcp_wrappers=YES
+\end{verbatim}
+现在添加使用上述方法登陆的内建用户。这个内建用户是必须的，其主要作用是将虚拟用户（比如说“01”“02”...）映射到一个实际存在的用户“ftplink”以便管理文件的权限。
+\begin{verbatim}
+root@server:/etc#useradd ftplink
+##新建用户
+root@server:/etc#passwd ftplink
+##修改密码
+Newpassword:
+Retypenew password:
+passwd:password updated successfully
+root@server:/#mkdir /home/ftplink
+\end{verbatim}\par
+修改“/home/ftplink/.bashrc”文件，删除所有内容并添加
+\begin{verbatim}
+logout
+exit
+\end{verbatim}\par
+来确保无法通过Telnet或SSH远程登录这个用户。
+\subsubsection{配置VSFTPD认证设置}
+为了使用“可插拔认证模块（PAM）”验证用户，增加“/etc/pam.d/vsftp.vu”。
+\begin{verbatim}
+auth required pam_userdb.so db=/etc/vuser
+account required pam_userdb.so db=/etc/vuser
+\end{verbatim}
+为了防止关键用户登录，添加“/etc/vsftpd.user\_list”。这一步的配置可以防止骇客使用ftp暴力破解关键用户的密码。
+\begin{verbatim}
+root
+bin
+daemon
+adm
+lp
+sync
+shutdown
+halt
+mail
+news
+uucp
+operator
+games
+nobody
+\end{verbatim}\par
+现在配置虚拟用户。新建文件“/etc/vuser.list”，以一行用户名，一行密码方式添加。如：
+\begin{verbatim}
+01
+01
+02
+02
+\end{verbatim}\par
+现在我们就有两个用户了。为了避免明文储存密码，我们使用命令“\verb|db_load -T -t hash -f vuser.list vuser.db|”加密并删除“/etc/vuser.list”文件。现在配置用户权限。创建目录“/etc/vusers\_dir”，添加以用户名为文件名的文件。以“01”为例：
+\begin{verbatim}
+local_root=/var/ftp/main/Private/01
+anon_umask=022
+write_enable=YES
+anon_mkdir_write_enable=YES
+anon_upload_enable=YES
+download_enable=YES
+anonymous_enable=YES
+anon_other_write_enable=YES
+\end{verbatim}
+\subsubsection{调试}
+\begin{verbatim}
+root@server:/#service vsftpd start
+\end{verbatim}\par
+开始服务，现在使用你FTP客户端试验上传、下载、删除文件等操作。如果你需要配置多个用户，只需要重复以上操作即可。请注意“main”目录的拥有者应为“ftplink”，并且拥有全部权限：“drwx------  6 ftplink ftplink 4096 Sep 13 13:23 main”。
+\subsubsection{更强大的服务器}
+\paragraph{需要在浏览器中查看ftp服务？}您可以将公共服务放在http服务上！我们以Apache2为例。首先，使用软件源下载安装apache2软件包。在“/etc/fstab”中增加\verb|/var/ftp/main/Public /var/www/html/Public  none bind|。这样只需要键入“http://[服务器地址]/Public”即可访问！请注意在“/etc/apache2/apache2.conf”末尾添加“IndexOptions Charset=UTF-8”与“IndexOptions NameWidth=*”以解决文件名乱码以及文件名长度过长导致无法完全显示等问题。
+\paragraph{阻止病毒传播！}使用ClamAV + Crontab即可。
+\subsection{在Windows下配置FTP服务器}
+你不需要使用ServU，有一个自由免费的软件可以替代它——Filezilla Server。你不需要使用Windows Server（它的IIS已经可以搭建优秀的服务器了），一台具有固定IP的Winsows10即可！
+\begin{center}
+	\includegraphics[scale=0.6]{pic/fzs}
+\end{center} \par
+从上图中可以看到整个服务器是完全图形界面的。现在请跟我做：\par
+1.打开防火墙。找到“控制面板”-“系统和安全”-“Windows Defender防火墙”-“允许应用通过Windows防火墙”，单击“更改设置”-“允许其他应用”，添加Filezilla Server（它应为于C:\textbackslash Program Files (x86)\textbackslash FileZilla Server\textbackslash FileZilla Server.exe）。“确定”保存。\par
+2.现在开始配置服务器。双击图标进入服务器，对弹出框单击“Connect”（就是要连接本地服务器）。现在进入“Edit”-“Users”添加用户。在“General”页中单击“Add”添加用户和密码，在“Shared folders”页针对每一个用户添加目录和对应的权限即可。这样一个简单地FTP服务器就设置好了。
+\subsection{-使用Telnetd/SSHD配置远程登录服务器}
+如果你仅仅满足于Telnet（“远程登录”）这种上个世纪的、不安全的解决方式，这太简单了。安装“telnetd”（CentOS是“telnet-server”）软件包并设置防火墙即可。但请注意，你的命令将会明文传输——包括你的密码！此时只需要一个抓包软件即可截获你的密码。\par
+为了更加安全与更加强大，我们选择ssh。ssh是“Secure Shell”的缩写，一切采用密文！我们需要在
+\subsection{-使用SSHD与Git配置Git服务器}
+现在将使用sshd与git配置git版本控制服务器。首先使用软件源安装这两个应用，设置好防火墙并使用“\verb|sudo service sshd start|”开启sshd服务。大部分命令与上一节创建FTP服务器类似，这里不再赘述。
+\subsubsection{初始化}
+同样的，我还是建议使用一块挂载到“/gitserver”的磁盘分区。\par
+先使用“\verb|useradd git|”新建用户“git”并修改密码，新建“/home/git/.ssh”目录并在里面创建“ authorized\_keys”文件。为了允许授权的用户访问服务器，请各位授权的用户运行“ssh-keygen”命令并将产生的“id\_rsa.pub”公钥文件发送到电教员手中（比如说，使用FTP或者scp命令），电教员将它们中的内容添加到“ authorized\_keys”文件末尾，一条公钥一行。\par
+为了防止入侵，请修改“/etc/passwd”文件的“git”用户对应的一行末尾“/bin/bash”为“/usr/bin/git-shell”，使他大致呈现“git:x:xxxx:xxxx:xxx:/home/git:/usr/bin/git-shell”（某些内容用x表示）。
+\subsubsection{创建仓库}
+使用远程方式创建仓库。新建一个“gitadd”用户并将其默认shell改为“/home/gitadd/init”，在该文件中写入以下内容并添加执行权限：
+\begin{verbatim}
+#!/bin/bash
+##使用bash执行。
+clear
+##清空终端的输出。
+echo "This user is used to add git repos. Use Ctrl-C to exit."
+echo "What repo do you want to add?"
+read -p "Please enter the name of the repo HRER:>" NAME
+##读取用户的输入并存入“NAME”变量。
+sudo -u git git init --bare --share /gitserver/$NAME
+##以“git”权限执行新建git仓库命令。
+echo "$NAME Added! Here are the existing repos in the server:"
+ls  /gitserver
+echo "Use "git clone git@[服务器IP地址]:/gitserver/$NAME.git" to clone this repo 
+into your working directory."
+##存在多余的换行符。
+echo "Run the command "git remote add gitserver git@[服务器IP地址]:/gitserver/$NAME.git" 
+to add this server to your remote servers."
+##存在多余的换行符。
+echo "Use "git push gitserver master" to push your commits of the branch "master"."
+logout &>>/dev/null
+exit &>>/dev/null
+##退出登录。
+\end{verbatim}
+再在“/etc/sudores”中加入“\verb|gitadd  ALL=(git)NOPASSWD:/bin/gitadd|”“\verb|gitadd  ALL=(git)NOPASSWD:/bin/ls|”。防止验证失败。
+\subsection{从此告别U盘}
+我相信所有的电教员一定很反感U盘在教育教学中的使用：U盘以经成为了病毒以及游戏软件的“特快车道”。通过完善的网络配置即可除去U盘在教育教学中的使用。\par
+首先，请使用硬件或软件方法禁用学生机的USB接口。之后搭建一个高速FTP服务器，确保每台教师机和学生机都能登录服务器。这样教学资源可以通过学校内网传输。

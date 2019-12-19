@@ -1,0 +1,79 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %Copyright (C) 2018-2020 YuZJ.
+%使用CC-BY-NC-SA授权。一份完整版本的许可证已位于附录。这个版本原始作者YuZJ，
+%邮箱theafamily@126.com（最后连接于2019年06月20日17:32:17）。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[twocolumn]{ylbook}
+\usepackage[LoadFandol=false]{xeCJK} %中文支持
+\usepackage{fontspec}
+\setmainfont{SourceHanSerifSC}[
+    Path = Fonts/,
+    Extension = .otf ,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+]
+\setsansfont{SourceHanSansSC}[
+    Path = Fonts/,
+    Extension = .otf ,
+    UprightFont = *-Regular ,
+    BoldFont = *-Bold,
+]
+\renewcommand{\footnotesize}{\fontsize{7pt}{0pt}} 
+\newcommand{\normalall}{\rm\fontsize{8pt}{0pt}\color{black}}  
+\usepackage{color}
+\usepackage{graphicx}  %生成图片
+\usepackage{geometry} %设置页面排版
+\geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in, papersize={21cm,29.7cm}}
+\usepackage[super]{nth} %生成序数词
+\bibliographystyle{IEEEtran}
+\usepackage{metalogo} %生成TeX标志
+\usepackage{fancybox} %生成带阴影的盒子
+\shadowsize=2pt %配置盒子
+\usepackage{flafter}%使得所有浮动体不能被放置在其浮动环境之前
+\usepackage{picinpar} %生成文本环绕
+\usepackage{indentfirst}%生成段落
+\usepackage[toc]{multitoc}%双栏目录
+\makeatletter\renewcommand{\verbatim@font}{\footnotesize \color{blue}\texttt} \makeatletter%修改verbatim环境格式
+%生成章节中文名和盒子
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+\usepackage{titlesec}
+\renewcommand{\bibname}{参考文献}
+\renewcommand{\contentsname}{目录}
+\renewcommand{\appendixname}{附录}
+\titleformat{\chapter}[frame]{\bf\sf \Huge}{\small 第 \thechapter 章}{0pt}{}
+\titleformat{\section}[frame]{\bf\sf  \LARGE}{\small 第 \thesection 节}{0pt}{}
+\titleformat{\subsection}[frame]{\bf\sf  \Large}{\small  第\thesubsection 小节}{0pt}{}
+\titleformat{\subsubsection}[frame]{\bf\sf \large}{\small 第\thesubsubsection 小小节}{0pt}{}
+\linespread{1.2} %行距命令
+\usepackage{eso-pic}%背景图像命令
+\usepackage[backref]{hyperref} %生成书签，这个应被放在末尾
+\hypersetup{hidelinks,bookmarks=true,bookmarksopen=true,pdftitle=电教委员完全（不）技术指南,pdfauthor=YuZJ Lab}
+\begin{document}
+\setcounter{tocdepth}{5}
+\begin{titlepage}
+\sffamily
+\color{white}
+\AddToShipoutPictureBG*{\includegraphics[width=21cm,height=29.7cm]{pic/face.png}}
+\vspace*{10mm}
+		\begin{center}
+				\bfseries\doublebox{\parbox{18cm}{\centering
+					\Ovalbox{\centering\parbox{17cm}{\centering\Huge  电教委员（不）完全技术指南\normalsize\\\vspace*{1mm}An (In)Complete Technical Reference for Computer }}\\\vspace*{5mm}\large 作者：YuZJ \\\vspace*{5mm} 编译日期：\today}}
+		\end{center}
+\vspace*{10mm}
+\shadowbox{\parbox{12cm}{“工欲善其事，必先利其器”，对于我们来说，掌握如何高效率地使用计算机是十分重要的。为了方便信息化教学的开展，我结合自己的工作经历，不自量力，“年来著书一种”，为希望掌握关于如何高效地使用教室计算机的初级和高级技巧的电教委员或者其余希望提高计算机技能的教师、学生及其他教职人员编写了这份文件。}}
+\end{titlepage}\normalall
+\frontmatter
+\scriptsize\tableofcontents
+\mainmatter
+\input{Preface}
+\input{Basis}
+\input{Windows}
+\input{GNULinux}
+\backmatter
+\appendix
+\input{Appendix}
+\bibliography{Reference}
+\end{document}
