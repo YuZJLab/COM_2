@@ -4,9 +4,9 @@
 %邮箱theafamily@126.com（最后连接于2019年06月20日17:32:17）。
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \part{Perform Daily-Teaching Task under GNU/Linux}
-\section{Windows操作系统上的高级反病毒技巧}
+\chapter{Windows操作系统上的高级反病毒技巧}
 当一般的反病毒软件无法将病毒清除时，你就应该考虑使用GNU/Linux反病毒\footnote{当然你也可以重装系统。但这么做无法清除系统盘以外的病毒。}。
-\subsection{使用以GNU/Linux为操作系统的计算机急救工具}
+\section{使用以GNU/Linux为操作系统的计算机急救工具}
 GNU/Linux可用于Windows反病毒原因是：Windows二进制文件与GNU/Linux二进制文件的结构是不同的（具体请参考其他专业书籍），因此Windows的EXE病毒大多数情况下无法在GNU/Linux上运行（使用Wine \footnote{一种类似于虚拟机的技术，它可允许Windows应用程序在GNU/Linux，BSD等操作系统上运行。} 或其他类似技术除外），也就是说，Windows下的病毒一般无法感染GNU/Linux操作系统。\par
 大多数反病毒软件厂商都提供了“急救盘”，用于给无法启动或严重感染的计算机反病毒。大多数急救盘基于GNU/Linux \footnote{如Dr.Web和AVIRA基于Ubuntu 14（Dr.Web凭借Wine运行），Kaspersky基于Gentoo Linux x86\_64，ESET基于其它GNU/Linux操作系统。}，也有少部分（如Avast!）基于Windows。\par
 现将以Kaspersky Rescure Disk以演示GNU/Linux反病毒。至于如何安装GNU/Linux并反病毒请参见\pageref{sec:avgl}页\ref{sec:avgl}\par
@@ -30,14 +30,14 @@ GNU/Linux可用于Windows反病毒原因是：Windows二进制文件与GNU/Linux
 现在选择查杀范围。单击“change parameters”，你将发现图3所示对话框。其中“System memory”指“系统内存”，“Startup objects”指启动项，“Boot sectors”指启动扇区，“System drive”指系统盘（一般是“C:\textbackslash”）。你还可以单击“Add object”添加其它文件或磁盘。单击“Start scan”开始扫描\footnote{需要消耗一（大）段时间并占用大量系统资源}。如果发现病毒，KVRT将在GNU/Linux下删除它们。
 除了反病毒，KRD还提供了网络浏览器Firefox、终端、任务管理器Htop与Task Manager（参见\pageref{sec:pm}页\ref{sec:pm}）、图像查看器Ristretto Imagine Viewer、文件管理器Midnight Commander与Thunar File Manager、文本编辑器Mousepad等。默认以root用户登录。其余设置较为复杂，请参照“高级”章。
 In this chapter, we'll use Lubuntu 19.04 to teach computer administrators how to install GNU/Linux alongside Windows, simple GNU/Linux settings and use GNU/Linux to satisfy daily teaching task. The reason why this chapter is written in English is that most GNU/Linux documents are in English.\par
-\section{Introduction: }
+\chapter{Introduction}
 Because of the different design philosophy, the usage of GNU/Linux differs with Windows in many aspects. Please ensure that you've read the following contents before proceeding into the next section:
 \begin{enumerate}
 	\item You've completed Vim Tutor and you'd know the basic usage of vi/vim such as open, close or save a file. Most GNU/Linux distribution has Vi installed by default even if you're under a CIL interface. If not, learn them NOW!
 	\item You've backed up all your data. Always backup your data--GNU/Linux \textbf{ASSUMES} that you know what you're doing all the time even if you actually not.
 \end{enumerate}
 Please be aware that I'm not saying ``GNU/Linux is better than Windows'' or any other bullshit of this kind. To myself, what matters most is efficiency under the people who are using these tools. Although GNU/Linux can be very good at setting up servers, it can also be DISASTROUS for a pool trained computer programmer.
-\section{Use GNU/Linux Under Windows Platform: CygWin}
+\chapter{Use GNU/Linux Under Windows Platform: CygWin}
 The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the filesystem of both versions of WSL is weird. However, if you use Cygwin, you'll not have such a problem. CygWin is a program which allows GNU/Linux program to be executed under Windows by re-compiling their source code. The official site of CygWin is \url{http://www.cygwin.com/}(Date: 2019-07-06,16:22:55)。Download the installation package first and do as follows:
 \begin{enumerate}
 	\item Click ``Install from Internet'' to install by using online mirrors.
@@ -48,7 +48,7 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 	\item Add /bin, /sbin, /usr/bin to PATH variable of MS Windows or use ``export'' command if you don't want to allow CMD/Powershell to use CygWin's command.
 	\item There's no APT/YUM/PacMan. If you want to add/remove a package, just run the installation again.
 \end{enumerate}
-\section{GNU/Linux and Its Distributions}
+\chapter{GNU/Linux and Its Distributions}
 \label{sec:gnulinux} GNU/Linux产生于Minix，而Minix产生于Unix。具体产生历史不再赘述。\par
 首先，GNU/Linux是以Linux为内核，辅以GNU\footnote{GNU（GNU is Not Unix的递归缩写）是一个由理查德·斯托曼为推广自由软件发起的运动（自由软件运动）的一部分。它产生了一些如 Gnu Emacs、gcc（GNU Compiler Collection，即GNU编译器套件，包含 C、C++、Objective-C、Fortran、Ada、Go、D 等语言的编译器及这些语言的运行库，由 Richard Stallman 于 1987 年发布，最新版本 7.4）、GIMP（GNU Image Manipulation Program，图像处理软件，号称“GNU/Linux下的 PhotoShop”）等自由软件。具体请参看附录中的“GNU宣言”。}工具集的操作系统。在自由软件界，“GNU/Linux”是一种较为保守且“政治正确”的说法。我们将在本书中使用这种说法。\par
 （通俗地讲，）发行版是你可以下载安装的GNU/Linux版本。基于学习难度、兼容性及易用性，我们主要使用以下GNU/Linux发行版：
@@ -65,7 +65,7 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 	\item [【Pure OS】] 一个认证“完全自由”的发行版。官方软件源存在软件过少和下载速度慢的问题。但如果你是自由软件运动的铁杆支持者，你可以使用它。
 	\item [【（半）国产操作系统】]这里不再赘述。
 \end{description}
-\subsubsection{GNU/Linux的优点}
+\subsection{GNU/Linux的优点}
 \begin{enumerate}
 	\item  适用于配置较低的或生产较早的机器。运行速度快（比如说\LaTeX 编译速度）。\par
 	\item 自由软件支持者可以选用（仅限于其中的部分发行版，参见【自由的GNU/Linux发行版】\url{http://www.gnu.org/distros/free-distros.html}（最后连接于2019年06月20日18:16:24））。\par
@@ -73,15 +73,15 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 	\item 具有功能十分强大的软件（如“rm”——个删除文件的命令行工具）。
 	\item 几乎不可能中毒。
 \end{enumerate}
-\subsubsection{GNU/Linux的缺点}
+\subsection{GNU/Linux的缺点}
 \begin{enumerate}
 	\item 入门门槛高。
 	\item 硬件驱动少（尤其是完全使用自由软件时）。原因在于自由软件开发者有限，自由的硬件厂商有限因此在新型号的机器上某些驱动无法被加载。如Debian GNU/Linux对于最新硬件的兼容性就弱于Ubuntu Linux。
 	\item 软件数量有限（这里的意思是说，比较“大众化”的软件（如微信）有限（但是有有道词典、搜狗输入法、WPS2019办公软件）），并且对“.exe”的可执行文件支持极差（即使采用Wine或其它类似技术）。	
 \end{enumerate}
-\subsection{（半）国产操作系统概况}
+\section{（半）国产操作系统概况}
 国产操作系统主要以GNU/Linux或BSD为内核。在MS Windows进入中国前曾经繁荣过一段时间。但目前其民用桌面操作系统在国内占有的市场份额极小，大部分国产操作系统为政府或军事机构服务。现列举一些著名的操作系统：
-\subsubsection{Deepin Linux}
+\subsection{Deepin Linux}
 \url{https://www.deepin.org/}\par
 \cite{deepininfo}深度操作系统基于Linux内核，以桌面应用为主的开源GNU/Linux操作系统，支持笔记本、台式机和一体机。深度操作系统（deepin）包含深度桌面环境（DDE）和近30款深度原创应用，及数款来自开源社区的应用软件，支撑广大用户日常的学习和工作。另外，通过深度商店还能够获得近千款应用软件的支持，满足你对操作系统的扩展需求。深度操作系统由专业的操作系统研发团队和深度技术社区（www.deepin.org）共同打造，其名称来自深度技术社区名称“deepin”一词，意思是对人生和未来深刻的追求和探索。
 \paragraph{实测}
@@ -90,7 +90,7 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 \begin{center}
 	\includegraphics[scale=0.5]{pic/deepin}
 \end{center}
-\subsubsection{Ubuntu Kylin}
+\subsection{Ubuntu Kylin}
 \url{https://www.ubuntukylin.com/}\par
 优麒麟（Ubuntu Kylin）是由天津麒麟信息技术有限公司主导开发的全球开源项目，其宗旨是通过研发用户友好的桌面环境以及特定需求的应用软件，为全球 Linux 桌面用户带来非凡的全新体验！\par
 优麒麟操作系统是 Ubuntu 官方衍生版，得到来自 Debian、Ubuntu、Mate、LUPA 等国际社区及众多国内外社区爱好者的广泛参与和热情支持。其开发贡献者可参见Ubuntu Kylin开发者团队列表。\cite{ukinfo}
@@ -99,7 +99,7 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 \begin{center}
 	\includegraphics[scale=0.4]{pic/uk}
 \end{center} \par
-\section{安装GNU/Linux：以Lubuntu19.04为例}
+\chapter{安装GNU/Linux：以Lubuntu19.04为例}
 需要注意的是：GNU/Linux不同发行版的安装方法各不相同，因此在安装其它发行版（如Arch Linux）时就应该格外注意下文所述方法并不是“放诸四海而皆准”的。警告！安装时不要联网（这次主要是为了防止安装器从原始软件源下载文件——这将会使安装过程难以忍受的长）！\par
 首先你需要一张Ubuntu Linux的启动光盘或U盘。我仍旧推荐TUNA源：\url{https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/lubuntu/releases/19.04/release/lubuntu-19.04-desktop-amd64.iso}（最后连接于2019年06月20日18:44:45）。之后使用与Windows相同的方法写入光盘（或U盘）。现在你将计算机开启，将光盘插入光驱后重启。你将被引导到光盘启动。你将看到（如果你使用UEFI启动，你将看不到此界面。此时你应在“GNU Grub”界面选择“Try Ubuntu 19.04”）左图所示界面。选择“English”（不推荐安装中文的GNU/Linux操作系统，这将会使终端乱码）并敲两下回车键。在一段时间的等待后，你将看到：
 \begin{center}
@@ -131,10 +131,10 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 	\includegraphics[scale=0.6]{pic/lubinst12}
 \end{center} \par
 设置用户。我们选择“SGComputers”作为用户名。再设置密码，不设置自动登录（“Automatically login”）。确认后即可安装了。与Debian GNU/Linux、RHEL或Cent OS不同的是Ubuntu习惯先刷入整个操作系统再删除软件包而不是先安装基本系统再安装软件包。
-\section{GNU/Linux开箱设置}
-\subsection{基本概念及操作}
+\chapter{GNU/Linux开箱设置}
+\section{基本概念及操作}
 这一章将会介绍GNU/Linux的一些基本知识。你可以阅读以下内容的man帮助（见下）：intro，ascii，fstab，mount，chmod，filesystem。我还推荐青木修的《Debian 参考手册》\url{https://www.debian.org/doc/manuals/debian-reference/}（最后连接于2019年06月20日18:47:54）和《Debian维护指南》\url{https://www.debian.org/doc/manuals/debmake-doc/}（最后连接于2019年06月20日18:46:56）及【C语言中文网-->Linux学习教程，Linux入门教程（超详细）】，地址\url{http://c.biancheng.net/linux_tutorial/}（最后连接于2019年06月20日17:31:40）。\par
-\subsubsection{登录系统，（伪）终端及shell} 
+\subsection{登录系统，（伪）终端及shell} 
 \cite{intro1}\par
 显然到了这一步，你已经安装好基本的操作系统了。现在你已经将其重启，并在GNU Grub里选择刚安装的操作系统。
 \begin{center}
@@ -170,7 +170,7 @@ sgcomputers@debian:~$
 	\includegraphics[scale=0.9]{pic/term1} \includegraphics[scale=0.9]{pic/term2}
 \end{center} \par
 现在教你一个有用的命令：“\verb|shutdown now|”，作用是关机。“\verb|shutdown -r now|”或“\verb|reboot|”则为重启。还有，你可以在一个（伪）终端中使用上下键显示之前的命令，或者依据之前的命令在输入命令的一部分时敲击Tab键自动补全。
-\subsubsection{用户管理（注意！重要内容！）}
+\subsection{用户管理（注意！重要内容！）}
 \cite{DebianRef}\par
 在GNU/Linux中，你会发现某些操作（如“\verb|apt install aptitude|”）是普通用户无法执行的。此时你就需要root用户。\par
 与Windows操作系统不同（比如说Windows操作系统上权力最大的用户不是管理员（“Administrator”）而是系统本身（“System”）），GNU/Linux上有一个权力无限大的用户，它就是root。你可以使用root来忽略文件权限地阅读任何文件，执行任何命令，以及其它神奇的事情（例如使用“\verb|rm|”命令格式化磁盘。）。\par
@@ -179,7 +179,7 @@ sgcomputers@debian:~$
 	1.确保你输入了正确的命令！GNU/Linux的命令是大小写敏感的。\par
 	2.不要使用root用户登录桌面环境。\par
 	3.警告！不要与任何人透露root密码！}\par
-\subsubsection{获取帮助}
+\subsection{获取帮助}
 \cite{manman}\par
 当发现有问题时，你需要参见帮助。以下是一些常见方法：\par
 \paragraph{man}
@@ -206,7 +206,7 @@ Manual page apt(8) line 1 (press h for help or q to quit)
 如果你需要一个man的图形前端，使用apt\footnote{参见\pageref{sec:apt}页\ref{sec:apt}}安装以下软件包：xman或gman（依赖man2html，需手动安装）。你可以在伪终端使用“\verb|gman|”或“\verb|xman|”命令显示它们的图形界面。我更倾向于gman。它能够修改manpath（man文件的目录）（而不是使用export命令或修改“.bashrc”命令）并使用不同的文档浏览器。
 \paragraph{info}
 info是另一种帮助系统。这里暂时略去。在（伪）终端中输入“info”查看更多内容。你也可以使用“whatis foo”寻找有关“foo”的帮助。
-\subsubsection{环境变量}
+\subsection{环境变量}
 现在我们已经知道可以在Shell中输入命令并执行它。那么Shell是如何执行命令的？其实除了几个内建命令（如\verb|cd|），大多数命令都是特定文件夹中的可执行文件。如\verb|ls|就位于/bin。这些特定文件夹都被记录在PATH环境变量中。\par
 那么如何修改GNU/Linux中的环境变量呢？你需要修改对应用户的（每个用户都有一个，你需要一个一个修改）“.bashrc”文件。现在我们要将“/usr/local/texlive/2019/bin/x86\_64-linux”\footnote{如果你喜欢\LaTeX 排版，对于这个路径你不会陌生。}加入PATH变量，切换到对应用户，并输入命令：
 \begin{verbatim}
@@ -240,13 +240,13 @@ PATH="/usr/local/texlive/2019/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin
 如果你的错误操作使计算机丢失了环境变量，你可以再次修改.bashrc改回来。或者，如果你需要100\% 保险，你可以将命令改为：
 \verb|export PATH=/usr/local/texlive/2019/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:[此处省略一些内容]:$PATH|。仅仅加上了一些原有的环境变量。\par
 我希望你已经将vim学得够好了。如果你不希望使用vim，请输入“\verb|echo "export PATH=/usr/local/texlive/2019/bin/x86\_64-linux:\$PATH" >> $\sim$/.bashrc|”，为什么这条命令会起作用参见\pageref{sec:nf}页\ref{sec:nf}）
-\subsubsection{批处理}
+\subsection{批处理}
 \label{sec:bat}如果你想要将两条命令写在一起，你可以使用“\verb| && |”（注意，使用“\verb|&&|”连接的命令仅当前面一个命令没有返回值（一般是执行成功）才执行后一个命令！）或“\verb|;|”（无此限制）。如“\verb|sudo apt update && sudo apt upgrade|”，这两条命令写在一起将产生极好的效果（具体请参见\pageref{sec:apt}页\ref{sec:apt}）。我们也可以先使用vim新建一个“.sh”文件（希望你vim已经学得足够好了。没有？参见\pageref{sec:nf}页\ref{sec:nf}），将命令一行一行写进去，使用“\verb|chmod +x [文件名]|”实现可运行，再“\verb|./[文件名]|”来运行它。\par
 bash还提供了选择语句、循环语句等多种高级功能，这里不再赘述。\par
 如何调整命令输出的内容（比如说，如果你使用“\verb|ls -A -R /|”命令后屏幕会发疯（不要尝试））？一方面我们可以将命令输出的结果保存在文件中（参见\pageref{sec:nf}页\ref{sec:nf}），另一方面我们可以使用重定向符“\verb/|/”，作用是将前一个命令输出的结果输入后一个命令。如：“\verb/ps -A  all | grep [查找内容]/”就是将“\verb|ps -A all|”的输出输入到“\verb|grep [查找内容]|”。其他常用的命令有“\verb|more|”与“\verb|less|”，参见\pageref{sec:nf}页\ref{sec:nf}）。
-\subsection{软件包管理器：以APT为例}
+\section{软件包管理器：以APT为例}
 \label{sec:apt}APT是一个Debian及其衍生版 （包括但不限于：Ubuntu Linux及其衍生版，Pure OS，Deepin Linux）中默认的强大的软件包管理器。它可用于从远程服务器及本地的软件源上安装Debian软件包（*.deb）。
-\subsubsection{首先，切换软件源！}
+\subsection{首先，切换软件源！}
 不同的软件源下载速度不同，因此我们应该使用快速的软件源。如果你安装了图形界面，进入“Software Sources”或者“Sofyware\& Updates”，一个大部分Debian及其衍生版会安装的小工具。截图：
 \begin{center}
 	\includegraphics[scale=0.4]{pic/src1}	\includegraphics[scale=0.4]{pic/src2}
@@ -254,7 +254,7 @@ bash还提供了选择语句、循环语句等多种高级功能，这里不再�
 进入“Download From”，选择“Other...”中的中国的服务器（如TUNA源。我选择了网易源）。单击“Close”，软件包索引文件就会重新加载。\par
 如果你没有这个工具，请修改Sources.list。\par
 对于安装了Debian操作系统的电教委员，请在Debian官网获取详细信息后选择是否安装Testing以取代Stable获得更好的体验。严厉禁止电教委员（即使是大牛级的）使用Unstable。
-\subsubsection{APT}
+\subsection{APT}
 \cite{manAPT}\par
 APT为软件包管理系统提供了一个高级的终端界面，且包含了一些比默认工具（如apt-get或apt-cache之类特殊化的APT工具）更容易交互使用的选项。（注意，某些命令会在apt-get或apt-cache中介绍。 \par “[软件包名]”仅代表“某个软件包”，并不针对某一特殊软件包）\footnote{来自于man命令输出的结果。我将尽可能贴切地翻译。 }\par apt命令包含一些来自于apt-get及apt-cache之类特殊化的APT工具的命令，如“\verb|apt install [软件包名]|”来自于“\verb|apt-get install [软件包名]|”，“\verb|apt list|”或“\verb|apt show [软件包名]|”来自于apt-cache。\par
 \paragraph{update} 
@@ -497,7 +497,7 @@ python3-apt/disco,now 1.8.4 amd64 [installed]
 synaptic/disco,now 0.84.5 amd64 [installed]
 ##大量内容被省略了。
 \end{verbatim}
-\subsubsection{dpkg}
+\subsection{dpkg}
 \cite{mandpkg}\par
 dpkg是一个、管理Debian软件包的工具。它拥有一个友好的用户界面aptitude。dpkg本身完全通过命令行控制，命令包含有且仅有一个动作及零或多个选项。软件包按照状态（states）及标记（selection states）分类。（有一些不常用的内容被省略了。）状态包括：未安装（not-installed），仅有配置文件（config-files），安装未完成（half-installed），已解包但未完成配置（unpacked），已安装（installed）等。标记包括：将安装（install），锁定（hold）（当参数“ \verb|--force-hold|”被指定时，这些软件包也会被处理），将被删除（deinstall），将被完整删除（purge）\par
 动作：\verb|-i |（我认为安装软件包方面只讲这个动作就足够了。其它卸载等操作我们使用apt）或\verb|--install|将安装软件包。一个完整的安装过程包含：从软件包中解压缩控制文件，检查是否有旧版本（若存在，执行旧版本的“prerm”脚本），执行“preinst”脚本（若存在），备份旧版本（若有）并解包新版本（原位置），执行新版本（若存在旧版本）的“postrm”脚本，配置软件包（使用“\verb|--configure|”选项查看它的过程）。若出现依赖关系问题，请在安装完成后使用“\verb|apt -f install|”来修正它。\par
@@ -645,7 +645,7 @@ A small and efficient tool that lets you mirror a part of or
 \begin{center}
 	\includegraphics[scale=0.4]{pic/gdebi.png}
 \end{center}
-\subsubsection{apt-get}
+\subsection{apt-get}
 \cite{manaptget}\par
 apt-get是处理软件包的命令行工具，它有时作为用户的使用使用APT库的其它工具的“后端”。存在一些如“aptitude”或“synaptic”的前端工具。某些与apt相同的命令不再赘述。具体为：\verb|update|、\verb|upgrade|、\verb|dist-update|、\verb|autoremove|。这里只列举了一些常用的命令。\par
 \paragraph{install}
@@ -730,11 +730,11 @@ Processing triggers for gnome-menus (3.13.3-11ubuntu1.1) ...
 “\verb|apt-get download [软件包名]|”将下载软件包到当前目录。（一个愚蠢的建议：你可以使用“\verb|apt-get download *|”制作镜像源。{\color{red}不要这么做。}）
 \paragraph{clean}
 “\verb|apt-get clean|”删除（除了lock文件）“/var/cache/apt/archives/”与“/var/cache/apt/archives/partial/”文件夹中已下载的软件包。
-\subsubsection{apt-cdrom}
+\subsection{apt-cdrom}
 \cite{manaptcd}\par
 apt-cdrom被用来添加新的只读CD到apt的sources.list。它还具有修正一些小小的烧录错误（我们将数据写入cd-r等可写的光盘的操作称作“烧录”或“刻录”）的功能。注意：若你的盘片为一个集合（如Debian的DVD安装版就有3张盘片），你需要依次扫描所有盘片。\par
 用法：“\verb|apt-cdrom add [-d=[mntpoint]]|”。它会自动扫描插入的盘片。你也可以使用“\verb|-d|”选项指定挂载点为[mntpoint]。\par
-\subsubsection{apt-mirror}
+\subsection{apt-mirror}
 描述：apt-mirror是一个能够制作全部或部分Debian GNU/Linux发行版或任何apt源的镜像的小而高效的工具。它使用“/etc/apt/mirror.list”作为配置文件。默认地它使用官方的Debian或Ubuntu镜像源。如果你需要，可以改变它。配置示例（你会发现它的结构与sources.list十分相似）：
 \begin{verbatim}
 ##示例：Debian操作系统下的配置
@@ -747,12 +747,12 @@ deb http://user:pass@example.com:8080/debian stable main contrib non-free
 deb-src http://example.com/debian stable main contrib non-free
 ##下载源代码
 \end{verbatim}
-\subsubsection{apt-mark}
+\subsection{apt-mark}
 \cite{manaptmark}\par
 apt-mark是一种用来标记软件包状态的工具。\par
 用法：\verb|apt-mark [软件包名称] [参数]|
 [参数]：“\verb|auto|”（在“\verb|apt autoremove|”时，若没有被标记为“\verb|manual|”的软件包依赖，它们将会被移除。），“\verb|manual|”（在“\verb|apt autoremove|”时，将不会被自动移除。{\color{red}这个命令可以防止“\verb|apt autoremove|”对系统造成不可逆的致命破坏。}），“\verb|hold|”（保护软件包不被自动升级，移除或安装。），“\verb|unhold|”（与“\verb|hold|”相反。）
-\subsubsection{图形化的APT：以Synaptic为例}
+\subsection{图形化的APT：以Synaptic为例}
 显然当图形界面可用时，大多数人会选择图形界面。因此这一章将会介绍图形界面。
 synaptic中文名称为“新立德软件包软利器”。截图（Ubuntu版本，0.84.4）：
 \begin{center}
@@ -761,9 +761,9 @@ synaptic中文名称为“新立德软件包软利器”。截图（Ubuntu版本
 获得方法：“\verb|apt install synaptic|” \par
 启动方法（首先你需要安装图形界面）：在伪终端中输入“\verb|synaptic|”或在相关桌面环境中启动（不需要root权限，系统将会询问密码）。\par
 注意事项：没有。几乎纯傻瓜式操作。
-\subsubsection{安装缺失的固件：对于Debian GNU/Linux}
+\subsection{安装缺失的固件：对于Debian GNU/Linux}
 在使用无非自由固件的Debian GNU/Linux时，某些固件是不可用的。现在提供修复（部分）。其实即使安装全部的非自由固件，Debian GNU/Linux的针对最新硬件的硬件兼容性也是较差的。你可以选用硬件兼容性更好的Ubuntu、Mint或Deep in。固件的方法。注意，如果网卡出错（这经常发生），你需要有线连接。设置好软件源（注意！需要“\verb|nonfree|”）后运行“\verb|sudo apt update|”，使用“\verb|sudo apt install firmware-*|”即可安装全部非自由固件。
-\subsubsection{命令行界面查找安装软件包}
+\subsection{命令行界面查找安装软件包}
 首先要告诉你--下面只是一个例子。最后一步不要安装vsftpd。我们会用到它的。
 \begin{verbatim}
 比如说，我们要查找并安装一个ftp服务器解决方案。
@@ -802,7 +802,7 @@ Origin: Ubuntu
 sgcomputers@sgcomputers:~$ sudo apt install vsftpd
 ##安装。
 \end{verbatim}
-\subsection{中文输入法和终端：以搜狗拼音输入法和fbterm为例}
+\section{中文输入法和终端：以搜狗拼音输入法和fbterm为例}
 如果你现在使用Ctrl+Alt+F[x]来切换虚拟控制台，你会发现准确无误英文输出（毫无乱码）。但如果你安装了中文操作系统，你就会发现乱码（如下图）（任何在上一章中学得好的人都能猜出输出的内容）。此时就需要安装“fbterm”软件包以解决此问题。
 \begin{center}
 	\includegraphics[scale=0.8]{pic/fbt1}
@@ -813,9 +813,9 @@ sgcomputers@sgcomputers:~$ sudo apt install vsftpd
 \begin{center}
 	\includegraphics[scale=0.7]{pic/fbt2}
 \end{center}
-\section{-文件管理：图形和终端界面}
-\subsection{文件系统：基础}
-\subsubsection{类Unix文件系统}
+\chapter{-文件管理：图形和终端界面}
+\section{文件系统：基础}
+\subsection{类Unix文件系统}
 GNU/Linux的文件组织方式与Windows不同。GNU/Linux上，设备、文件夹等内容也被视为文件（文件夹是特殊的文件）。我们将这种方式称为“类Unix文件系统”。如果你会获取android设备的root权限，你会发现android也使用类似的文件组织方式那么GNU/Linux是如何管理它们的呢？\par
 GNU/Linux上有一个根目录（/ ），一切文件都被“挂载”（mount）在根目录上。其中重要的目录有：
 \begin{verbatim}
@@ -849,7 +849,7 @@ GNU/Linux上有一个根目录（/ ），一切文件都被“挂载”（mount�
 /var ##可变文件
 \end{verbatim} \par
 注意，同一个目录下的文件夹无法与文件重名。
-\subsubsection{绝对路径与相对路径}
+\subsection{绝对路径与相对路径}
 \label{sec:path}先讲一讲绝对路径。诸如“/media/win10/Users/SGComputers/AppData/Roaming/Adobe/Flash Player/NativeCache”或“C:\textbackslash Users\textbackslash SGComputers\textbackslash AppData\textbackslash Roaming\textbackslash Adobe\textbackslash Flash Player\textbackslash NativeCache”（阅读下一节后你会知道它们其实是同一个目录）的，起始于根目录（或磁盘根目录（C:\textbackslash），如果你使用Windows的话）路径就是绝对路径。相对路径就是相对于一个有效路径（这个路径可以是相对路径或绝对路径，但必须是有效的）的路径。相对路径最终是可以还原为绝对路径的。比如说有如下绝对路径：
 \begin{verbatim}
 /
@@ -859,15 +859,15 @@ GNU/Linux上有一个根目录（/ ），一切文件都被“挂载”（mount�
 \end{verbatim} \par
 那么，“/a/b/c”相对于“/a/b”就是“c”目录。\par
 相对路径十分有用。它可以避免我们多次重复键入绝对路径。具体参见\pageref{sec:cd}页\ref{sec:cd}。
-\subsection{-常用命令}
-\subsubsection{pwd}
+\section{-常用命令}
+\subsection{pwd}
 这个命令用于显示当前工作目录的绝对路径。如：
 \begin{verbatim}
 sgcomputers@sgcomputers-pc:~$ pwd
 /home/sgcomputers
 \end{verbatim} \par
 注意不要与“\verb|passwd|”命令搞混。
-\subsubsection{touch}
+\subsection{touch}
 \label{sec:nf}“\verb|touch|”命令可以新建文件（不过它的用途不只是新建文件）。如：
 \begin{verbatim}
 sgcomputers@sgcomputers-pc:~$ ls
@@ -886,7 +886,7 @@ sgcomputerssgcomputers:~/Documents$ echo "echo Yeah!"> d
 ##“>”是一个重定向符，用于将输出内容写入到一个文件中（删除原有内容）。
 ##追加内容请使用“>>”。
 \end{verbatim}
-\subsubsection{ls}
+\subsection{ls}
 \cite{manls}\par
 列出目录内含内容。请注意是“\verb|ls|”不是“\verb|sl|”，否则你会得到一辆开过屏幕的蒸汽机车（在安装了“sl”软件包的情况下。官方说明为该命令旨在帮助那些记忆力可怜的人）\footnote{当然它也可以帮助那些无聊的人——你可以试一试在Vim中打出这个图案——或者使用bash编出类似的程序！}。
 \begin{center}
@@ -956,7 +956,7 @@ drwxr-xr-x  4 root root   4096 Apr 19 17:37 ..
 -rw-r--r--  1 sgcomputers sgcomputers    220 Apr 19 17:37 .bash_logout
 ##省略一大部分
 \end{verbatim}
-\subsubsection{cd}
+\subsection{cd}
 \label{sec:cd}切换工作目录（比如说“sgcomputers@sgcomputers-pc:/\$ ”，此时工作目录就是“/”。工作目录位于“[用户名]@[计算机名]：”与“\$”（root用户是“\#”）中间）。{\color{red}注意！GNU/Linux区分大小写！}如：
 \begin{verbatim}
 ##现在我们位于sgcomouters的“家”目录，即“/home/sgcomputers”。
@@ -1009,7 +1009,7 @@ sgcomputers@sgcomputers-pc:/media/win10/Users/SGComputers/AppData
 
 sgcomputers@sgcomputers-pc:~$ 
 \end{verbatim}
-\subsubsection{rm}
+\subsection{rm}
 {\color{red}警告！这是一个删除命令！这个命令的不正确操作可能会对操作系统产生不可逆的致命破坏！如果可行，请使用图形界面！}\par
 \cite{manrm} 现在开始正式教学。\verb|rm|是一个用来删除文件或目录的指令。以下是详细用法：
 \begin{verbatim}
@@ -1032,7 +1032,7 @@ rm：是否删除普通空文件 'a'？ Y
 ##加上“-i”后，“rm”会先询问。
 
 \end{verbatim}
-\subsubsection{mkdir}
+\subsection{mkdir}
 制造一个目录（新建文件夹）。如：
 \begin{verbatim}
 sgcomputers@sgcomputers-pc:~$ ls -l
@@ -1060,7 +1060,7 @@ total 32
 drwxrwxr-x 2 sgcomputers sgcomputers 4096 6月  19 18:03 Desktop
 ##省略一些内容
 \end{verbatim}
-\subsubsection{cp}
+\subsection{cp}
 复制文件。用法：
 \begin{verbatim}
 cp [源文件] [目的文件]
@@ -1072,12 +1072,12 @@ cp [源文件] [目的目录]
 ##等价命令“ln [源文件] [链接]”
 ##硬链接与软链接的区别过于复杂，这里不再赘述。
 \end{verbatim}
-\subsubsection{ln}
+\subsection{ln}
 \cite{ln}\par
 正宗创建链接命令，用法在上面。选项“\verb|-s|”用来创件软链接（又称“符号链接”）（类似于于Windows的“快捷方式”）。注意！软链接的源文件必须写成绝对路径！硬链接不能链接目录或跨文件系统。
-\subsubsection{mv}
+\subsection{mv}
 移动文件，相当于图形界面剪切-粘贴。再进行文件备份时十分有用。用法类似于\verb|cp|（但是没有“\verb| -r|”），这里不再赘述。
-\subsubsection{文件系统的常用命令}
+\subsection{文件系统的常用命令}
 那么我们如何挂载其它设备（如，挂载未挂载的硬盘及u盘？NTFS文件系统的磁盘一般不会自动挂载。除非修改fstab文件）？此时我们就应该使用\verb|mount|及\verb|umount|命令。在图形界面的文件管理器上（如pcmanfm，dolphin，Konqueror或nemo）你可以在对应的设备上单击即可挂载。但我们不推荐使用此方法：它无法自定义挂载点。\par
 \paragraph{mount命令}
 \cite{manmnt}\par
@@ -1142,7 +1142,7 @@ lrwxrwxrwx 1 root root 10 6月  16  2019 f86fcaf9-2d5c-4560-a844-66a758a953c5 ->
 \end{verbatim} \par
 第二列，即“/”指挂载点。后面几列较为复杂（文件系统--“ntfs-3g”，挂载选项--默认“defaults”，自动备份--NTFS免备份设0，开机检查--免检设0），请参考fstab的man帮助，不再赘述。\par
 所以，我们只需要在文件末端添上“UUID=9AFA3F56FA3F2E3F  /media/win10 ntfs-3g defaults   0 0”并重启（仔细检查！！！）即可。
-\subsubsection{文件权限的相关命令}
+\subsection{文件权限的相关命令}
 文件权限大致上分“读”（r）、“写”（w）与“执行”（w）三种。你可以使用“\verb|chmod|”命令改变它。标准用法：“\verb|chmod [用户][运算符][权限] [文件] [参数]|”。可使用参数“\verb|-R|”递归更改目录权限。如：
 \begin{verbatim}
 sgcomputerssgcomputers:~/Documents$ echo "echo Yeah!"> d
@@ -1196,7 +1196,7 @@ drwxrwxr-x 4 sgcomputers sgcomputers 4096 Jun 26 08:17 COM_Zh_CN
 -rwxrwxr-x 1 root root   11 Jun 26 09:04 d
 \end{verbatim} \par
 这是非常好用的命令，能够在不删除数据的情况下防止学生打开游戏（当然，“不法分子”也会利用这个命令防止老师读取游戏文件夹。技术是把双刃剑，因此请妥善掌握你的root密码）。
-\subsubsection{打开文件并显示里面的内容}
+\subsection{打开文件并显示里面的内容}
 你当然可以使用“\verb|vim [文件名]|”来打开文件，但对于vim学习得不好的同学来说恐怕事情会复杂得多：vim一打开就无法退出了（这种情况经常在初学者身上发生。如果你被卡住了，请单击“ESC”，键入“\verb|:qa!|”并回车）！我们使用以下命令：\verb|cat|、\verb|more|与\verb|less|。\par
 我们先用“\verb|ls -l -A -R > 1|”得到一个较大的文件“1”。命令“\verb|cat 1 -n|”（标准用法：“\verb|cat [文件名] [参数]|”，参数“\verb|-n|”会显示行号）将会使屏幕发疯。现在使用“\verb|more 1|”：
 \begin{verbatim}
@@ -1228,7 +1228,7 @@ drwxrwxr-x 31 sgcomputers sgcomputers   4096 Jun 25 18:11 .config
 8  drwxrwxr-x 31 sgcomputers sgcomputers   4096 Jun 25 18:11 .config
 --More--
 \end{verbatim}
-\subsubsection{-处理压缩文件}
+\subsection{-处理压缩文件}
 GNU/Linux中常见的压缩文件算法是tar（*.tar）、gz（*.gz *.tar.gz *.tgz *.z *.tar.z *.taz）、bzip2（*.bz2 *.tar.bz2 *.tbz）、deflate（*.zip）与LZMA（*.7z *.xz *.zip *.tar.xz *.txz *.lzma *.tlz）。RAR是专有软件，在GNU/Linux上面不常见。\par
 现在解释一下那些扩展名的由来：tgz、txz、tbz、tlz、taz分别是tar.gz、tar.xz、tar.bz2、tar.lzma、tar.z的缩写，其效果是相同的。一般tar压缩算法不减小文件的体积，但可包含多个文件；gzip、bzip2与xz算法能减小文件体积，但无法处理两个以上的文件。因此GNU/Linux的开发者们就经常将一个文件夹压缩为tar格式后再使用gzip算法压缩，这就产生了tar.gz的扩展名。\par
 \paragraph{-xz及其衍生命令}
@@ -1314,21 +1314,21 @@ deleting: IP▒▒ַ▒▒▒▒▒▒/.gitignore
 标准语法“\verb|7z [模式] [开关] [文件名] [参数]|”，模式包含“\verb|a|”（创建压缩文件/向压缩文件中添加文件）、“\verb|d|”（从压缩文件删除）、“\verb|e|”（解压缩，不顾压缩文件内部的树结构将所有文件解压到一个目录）、“\verb|u|”（升级压缩文件）、“\verb|t|”（测试压缩文件）、“\verb|l|”（显示详细信息）、“\verb|x|”（解压缩并保留树结构）。开关我们只需要了解“\verb|-y|”（对所有问题回答“是”）即可。
 \paragraph{-tar}
 \verb|tar|命令除了产生tar包外，还能调用其余压缩算法。
-\subsection{图形化文件管理器}
+\section{图形化文件管理器}
 你现在已经有一个PCManFM的文件管理器了。如果你喜欢cinnamon的文件管理器，安装“nautilus”。KDE，“dolphin”。注意，默认的文件管理器有一个bug：请到Edit-Preference-advanced中修改默认伪终端（这东西的英文你应该知道了）。你可以使用“ark”或“xarchiver”来管理压缩文件（请保证gz、p7zip等软件包已经安装）。
-\subsection{终端文件管理器MC}
+\section{终端文件管理器MC}
 MC全称“Midnight Commandar”，是一个强大的终端界面文件管理器。使用apt安装“\verb|mc|”后用“\verb|mc|”启动，你将得到：
 \begin{center}
 	\includegraphics[scale=0.7]{pic/mc}
 \end{center} \par
 图形界面伪终端支持鼠标操作。终端界面需要fbterm（如果你的语言是中文）。注意下方有一行数字[x]，你需要按F[x]来实现。如退出：F10。
-\section{进程管理}
+\chapter{进程管理}
 \label{sec:pm}图形界面工具有gnome-system-monitor、ksysguard、htop（命令行启动）与qps。这些工具使用简单，不再赘述。以下为ksysguard与htop的截图。
 \begin{center}
 	\includegraphics[scale=0.7]{pic/ksysg}	\includegraphics[scale=0.7]{pic/htop}
 \end{center} \par
 下面介绍命令方法：
-\subsection{ps}
+\section{ps}
 显示进程（以root权限运行）。如：
 \begin{verbatim}
 sgcomputers@sgcomputers:~/COM_Zh_CN/TeX$ ps all
@@ -1366,15 +1366,15 @@ sgcomputers@sgcomputers:~/COM_Zh_CN/TeX$ sudo ps -A all | grep apt
 0  1000 17120  4328  20   0  11940   920 pipe_w S+   pts/0      0:00 grep --color=auto apt
 ##原来是新立得软件包管理器。
 \end{verbatim}
-\subsection{-pidof}
-\subsection{kill}
+\section{-pidof}
+\section{kill}
 用来强制终结进程。用法：kill -9 [pid]。其中[pid]由ps命令给出。如：如果我们想终结上一个例子中新立得的进程，我们可以：“\verb|sudo kill -9 15075|”。\par
 一般我们以root权限运行此命令，并且只在一个你熟悉的应用程序失去响应或需要终结一个失败的apt（如，启动时自动更新）使用这个命令。{\color{red}不要终结你不熟悉的进程，它可能是系统进程！}
-\subsection{-killall}
-\section{GNU/Linux下的反病毒软件}
+\section{-killall}
+\chapter{GNU/Linux下的反病毒软件}
 \label{sec:avgl}这一章将会介绍运行于GNU/Linux的反病毒软件ClamAV。当然如果你需要类似于Windows的反病毒体验，你可以使用ESET，Dr. Web或FSopt（付费）。\par
 在使用前，你需要到软件源安装它。注意！ClamAV不提供实时保护！
-\subsection{优点及不足}
+\section{优点及不足}
 优点：
 \begin{enumerate}
 	\item 大部分GNU/Liux发行版均可用
@@ -1387,8 +1387,8 @@ sgcomputers@sgcomputers:~/COM_Zh_CN/TeX$ sudo ps -A all | grep apt
 	\item 在GNU/Linux机器上资源占用极大。其CygWin版本好多了。
 	\item 查杀速度较慢。
 \end{enumerate}
-\subsection{命令行模式}
-\subsubsection{clamscan}
+\section{命令行模式}
+\subsection{clamscan}
 \cite{mancs}\par
 这是用于查杀的命令。命令用法：\verb|clamscan [选项] [目录，文件或省略]|。\par
 [选项]列表：\par
@@ -1432,7 +1432,7 @@ Time: 45.656 sec (0 m 45 s)
 \end{verbatim} \par
 {\color{red}注意，我非常建议你使用root权限！否则大部分病毒会移除失败！\par 误报率较高，建议不要使用“\verb|--remove=yes|”或“\verb|--move=[dir]|”选项。}\par
 我刚刚对我的计算机进行了反病毒。命令“\verb|clamscan --stdout -r  --log=/home/sgcomputers/Documents/2.log --copy=/home/sgcomputers/Documents|”，查杀999829个文件，142126个目录，总读取78855.88 MB，用时346分钟。
-\subsubsection{freashclam}
+\subsection{freashclam}
 \cite{mancf}\par
 这个命令联网更新病毒数据库。命令用法：\verb|freashclam [选项] |\par
 [选项]列表：\par
@@ -1465,24 +1465,24 @@ sgcomputers@sgcomputers:/sbin$sudo service clamav-freshclam stop
 ##使用以下命令重启：
 sgcomputers@sgcomputers:/sbin$sudo service clamav-freshclam start
 \end{verbatim}
-\subsection{图形界面：ClamTK}
+\section{图形界面：ClamTK}
 不推荐。可以使用apt安装。截图如下：
 \begin{center}
 	\includegraphics[scale=0.5]{pic/ctk}
 \end{center} \par
 为获得最佳杀毒效果，你需要在root终端下启动它（就像我现在这样）。你需要在“settings”中设置使“scan diretories recursively”（递归扫描文件夹）再设置“update assistant”使“I would like to update signatures myself”（手动接受更新）并应用（apply）。之后你就可以“scan a directory”来递归扫描目录了。
-\section{-自动化操作：crontab}
-\section{Wine}
+\chapter{-自动化操作：crontab}
+\chapter{Wine}
 Wine——一种能够让Windows程序运行于GNU/Linux的程序。\par
 官网【WineHQ - 在 Linux，BSD，Solaris 和 macOS 上运行 Windows 应用】\url{https://www.winehq.org/}（最后连接于2019年6月21日14:21:57）。在\url{https://wiki.winehq.org/Ubuntu_zhcn}（最后连接于2019年6月21日14:23:01）有详细的安装方法，这里不再赘述。\par
 不建议在GNU/Linux上使用官方的Wine。原因：1.Wine官方服务器下载速度极慢。2.Wine效果比较卡。3.中文需要特殊配置，否则易产生乱码。
-\section{媒体播放器}
+\chapter{媒体播放器}
 我们同样使用vlc作为默认媒体播放器。配置较低的机器请选择MPV。\par
 如果你需要一个现代化的音乐播放器，你可以安装rhythmbox。如果你需要一个终端界面下的音乐播放器，请选择moc（使用“\verb|mocp|”命令启动）。以下为截图。
 \begin{center}
 	\includegraphics[scale=0.9]{pic/moc}
 \end{center}
-\section{GNU/Linux的教学实现}
+\chapter{GNU/Linux的教学实现}
 这一章将会谈到如何使用GNU/Linux实现日常教学任务。\par
 1.安装操作系统：我们选择Lubuntu Linux 19.04或Ubuntu 18.10或Linux Mint 19 或Deepin Linux。。注意，请安装图形界面：cinnamon或lxde（它们与Windows操作系统界面风格更接近，因此将会被更多人接受）。请安装非自由固件及第三方媒体解码器和驱动程序。安装过程不再赘述。下同。对于初学者，我十分推荐Linux Mint Cinnamon。\par
 2.配置软件源，使用“\verb|sudo apt update && sudo apt upgrade -y|”更新软件包索引文件和软件包并安装以下软件（如果你使用了Debian GNU/Linux10 最小安装，你还要安装man、less与sudo）：
@@ -1527,16 +1527,16 @@ htop ##任务管理器，可选，或gnome-system-monitor
 \end{verbatim} \par
 3.移除其它软件包（谨慎操作！）（如果你安装了Lubuntu，你可以移除qtpass、compton、2048-qt、ibus*、inkscape、abiword、gnumeric、noblenote、transmission*、trojita*、quassel、qpdfview、mpv、discover*、plasma-discover、qapt-deb-installer、qps、muon、partitionmanager），再用“\verb|apt autoremove|”完善依赖关系，最后使用synaptic（新立得软件包管理器）完全移除（purge）“not installed(residual config)”（未安装（残存配置））的软件包。\par
 4.配置搜狗拼音输入法。
-\section{给我强大的生产力！}
+\chapter{给我强大的生产力！}
 在GNU/Linux下面也可以使用Windows中提到的工具。但是注意：
 \begin{enumerate}
 	\item 如果你从软件源中下载Filezilla，你将得到一个英文版。建议使用官方的deb软件包。
 	\item 如果需要使用Telnet，请安装“telnet”软件包。之后使用“\verb|telnet [服务器地址]|”即可。
 	\item GNU/Linux下面可用的Git图形界面稍微少了一点，建议使用SmartGit或deepgit（英文版，两者是同一个生产厂商出品的）。你需要在它的官网\url{https://www.syntevo.com/smartgit/}（最后连接于2019年7月28日18:01:48）上申请一张非商业许可证\url{https://www.syntevo.com/cn/smartgit/register-non-commercial/}（最后连接于2019年7月29日9:14:22）。
 \end{enumerate}
-\section{救命！我的系统炸了！}
+\chapter{救命！我的系统炸了！}
 回忆一下你进行的操作后按照以下步骤排障：
-\subsection{启动管理器工作正常吗？}
+\section{启动管理器工作正常吗？}
 如果启动管理器工作正常，你就应该发现安装的操作系统排列在一个窗口里。此时请进入GNU/Linux操作系统。如果不是这样，请检查：\par
 1.请确定不是主板原因，比如说主板启动自检发出了很长的“嘟——”（或者是“嘀——”）说明你的内存坏了。如果主板正常并且你发现了一个“\verb|grub rescure>|”的shell，进入下一环节。\par
 2.硬盘都插好了吗？正在启动的硬盘是否安装了grub？\par
@@ -1550,11 +1550,11 @@ htop ##任务管理器，可选，或gnome-system-monitor
 （3）使用“\verb|set root|”与\verb|“set prefix|”命令设置启动目录。\par
 （4）使用“\verb|insmod|”命令设置normal.nod。\par
 （5）使用“\verb|normal|”并回车启动grub。
-\subsection{进入了initramfs？}
+\section{进入了initramfs？}
 请参考下一步提示信息：如果告诉你“\verb|a manual fsck is needed|”，请使用fsck命令对根目录及其它相关目录进行检查（一路y过来即可）。如果要求你输入root密码，那么可能是fstab文件出错，使用vim修改一下。
-\section{强大的生产力所需的网络架构：以Ubuntu Server 19.10为操作系统搭建服务器}
+\chapter{强大的生产力所需的网络架构：以Ubuntu Server 19.10为操作系统搭建服务器}
 这一部分是针对电教员的。对于一所学校来说，强大的网络架构是强大生产力的保证。但在开始之前，你首先需要安装一台具有固定IP的Ubuntu Server 19.04（或者其它类似的操作系统）。
-\subsection{防火墙与固定IP}
+\section{防火墙与固定IP}
 请使用文本编辑器编辑“/etc/netplan/”目录下“[网卡名称].yaml”的文件。你将得到：
 \begin{verbatim}
 network:
@@ -1582,10 +1582,10 @@ ufw defaut [allow/deny/reject]##选择默认政策。
 ufw logging [on/off]##是否使用日志。
 ufw delete [规则]##删除规则。
 \end{verbatim}
-\subsection{使用VSFTPD配置FTP服务器}
+\section{使用VSFTPD配置FTP服务器}
 VSFTPD（非常安全FTP守护进程）是一个在GNU/Linux平台被广泛使用的ftp服务器。下面以Ubuntu Server 19.04为例教你如何使用VSFTPD。\par
 案例背景：现在我们需要为教师配置FTP服务，具体要求为：教师都要有一个私有云盘（完全控制）和公用区域（仅下载）。我们还需要一个管理员账户管理所有的公共文件。
-\subsubsection{配置文件系统：将FTP放在分别的磁盘上}
+\subsection{配置文件系统：将FTP放在分别的磁盘上}
 \begin{verbatim}
 root@server:/etc#mkdir /var/ftp
 ##新建FTP根目录
@@ -1607,7 +1607,7 @@ root@server:/# chmod a-r-w-x /etc/vsftpd*
 之后，我们需要使用图形界面或者命令行方式建立一个ftp分区并将其添加到“/etc/fstab”文件自动挂载，其挂载点应为“/var/ftp”。使用“mount -a”挂载它。就像：\\
 \verb|UUID=00000000-0000-0000-0000-00000000000 /var/ftp/main ext4 defaults 0 0|\par
 现在你可以完成新建文件夹了。
-\subsubsection{配置VSFTPD基础设置}
+\subsection{配置VSFTPD基础设置}
 此时我建议你先使用“\verb|su|”命令切换到root账户。这能节省时间。使用APT下载安装后，当前的VSFTPD最高版本为3.0.3，配置文件位于“/etc/vsftpd.conf”。使用文本编辑器打开它并更改为：
 \begin{verbatim}
 listen=YES
@@ -1661,7 +1661,7 @@ logout
 exit
 \end{verbatim}\par
 来确保无法通过Telnet或SSH远程登录这个用户。
-\subsubsection{配置VSFTPD认证设置}
+\subsection{配置VSFTPD认证设置}
 为了使用“可插拔认证模块（PAM）”验证用户，增加“/etc/pam.d/vsftp.vu”。
 \begin{verbatim}
 auth required pam_userdb.so db=/etc/vuser
@@ -1702,15 +1702,15 @@ download_enable=YES
 anonymous_enable=YES
 anon_other_write_enable=YES
 \end{verbatim}
-\subsubsection{调试}
+\subsection{调试}
 \begin{verbatim}
 root@server:/#service vsftpd start
 \end{verbatim}\par
 开始服务，现在使用你FTP客户端试验上传、下载、删除文件等操作。如果你需要配置多个用户，只需要重复以上操作即可。请注意“main”目录的拥有者应为“ftplink”，并且拥有全部权限：“drwx------  6 ftplink ftplink 4096 Sep 13 13:23 main”。
-\subsubsection{更强大的服务器}
+\subsection{更强大的服务器}
 \paragraph{需要在浏览器中查看ftp服务？}您可以将公共服务放在http服务上！我们以Apache2为例。首先，使用软件源下载安装apache2软件包。在“/etc/fstab”中增加\verb|/var/ftp/main/Public /var/www/html/Public  none bind|。这样只需要键入“http://[服务器地址]/Public”即可访问！请注意在“/etc/apache2/apache2.conf”末尾添加“IndexOptions Charset=UTF-8”与“IndexOptions NameWidth=*”以解决文件名乱码以及文件名长度过长导致无法完全显示等问题。
 \paragraph{阻止病毒传播！}使用ClamAV + Crontab即可。
-\subsection{在Windows下配置FTP服务器}
+\section{在Windows下配置FTP服务器}
 你不需要使用ServU，有一个自由免费的软件可以替代它——Filezilla Server。你不需要使用Windows Server（它的IIS已经可以搭建优秀的服务器了），一台具有固定IP的Winsows10即可！
 \begin{center}
 	\includegraphics[scale=0.6]{pic/fzs}
@@ -1718,16 +1718,16 @@ root@server:/#service vsftpd start
 从上图中可以看到整个服务器是完全图形界面的。现在请跟我做：\par
 1.打开防火墙。找到“控制面板”-“系统和安全”-“Windows Defender防火墙”-“允许应用通过Windows防火墙”，单击“更改设置”-“允许其他应用”，添加Filezilla Server（它应为于C:\textbackslash Program Files (x86)\textbackslash FileZilla Server\textbackslash FileZilla Server.exe）。“确定”保存。\par
 2.现在开始配置服务器。双击图标进入服务器，对弹出框单击“Connect”（就是要连接本地服务器）。现在进入“Edit”-“Users”添加用户。在“General”页中单击“Add”添加用户和密码，在“Shared folders”页针对每一个用户添加目录和对应的权限即可。这样一个简单地FTP服务器就设置好了。
-\subsection{-使用Telnetd/SSHD配置远程登录服务器}
+\section{-使用Telnetd/SSHD配置远程登录服务器}
 如果你仅仅满足于Telnet（“远程登录”）这种上个世纪的、不安全的解决方式，这太简单了。安装“telnetd”（CentOS是“telnet-server”）软件包并设置防火墙即可。但请注意，你的命令将会明文传输——包括你的密码！此时只需要一个抓包软件即可截获你的密码。\par
 为了更加安全与更加强大，我们选择ssh。ssh是“Secure Shell”的缩写，一切采用密文！我们需要在
-\subsection{-使用SSHD与Git配置Git服务器}
+\section{-使用SSHD与Git配置Git服务器}
 现在将使用sshd与git配置git版本控制服务器。首先使用软件源安装这两个应用，设置好防火墙并使用“\verb|sudo service sshd start|”开启sshd服务。大部分命令与上一节创建FTP服务器类似，这里不再赘述。
-\subsubsection{初始化}
+\subsection{初始化}
 同样的，我还是建议使用一块挂载到“/gitserver”的磁盘分区。\par
 先使用“\verb|useradd git|”新建用户“git”并修改密码，新建“/home/git/.ssh”目录并在里面创建“ authorized\_keys”文件。为了允许授权的用户访问服务器，请各位授权的用户运行“ssh-keygen”命令并将产生的“id\_rsa.pub”公钥文件发送到电教员手中（比如说，使用FTP或者scp命令），电教员将它们中的内容添加到“ authorized\_keys”文件末尾，一条公钥一行。\par
 为了防止入侵，请修改“/etc/passwd”文件的“git”用户对应的一行末尾“/bin/bash”为“/usr/bin/git-shell”，使他大致呈现“git:x:xxxx:xxxx:xxx:/home/git:/usr/bin/git-shell”（某些内容用x表示）。
-\subsubsection{创建仓库}
+\subsection{创建仓库}
 使用远程方式创建仓库。新建一个“gitadd”用户并将其默认shell改为“/home/gitadd/init”，在该文件中写入以下内容并添加执行权限：
 \begin{verbatim}
 #!/bin/bash
@@ -1754,6 +1754,6 @@ exit &>>/dev/null
 ##退出登录。
 \end{verbatim}
 再在“/etc/sudores”中加入“\verb|gitadd  ALL=(git)NOPASSWD:/bin/gitadd|”“\verb|gitadd  ALL=(git)NOPASSWD:/bin/ls|”。防止验证失败。
-\subsection{从此告别U盘}
+\section{从此告别U盘}
 我相信所有的电教员一定很反感U盘在教育教学中的使用：U盘以经成为了病毒以及游戏软件的“特快车道”。通过完善的网络配置即可除去U盘在教育教学中的使用。\par
 首先，请使用硬件或软件方法禁用学生机的USB接口。之后搭建一个高速FTP服务器，确保每台教师机和学生机都能登录服务器。这样教学资源可以通过学校内网传输。

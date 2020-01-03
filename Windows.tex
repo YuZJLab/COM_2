@@ -196,6 +196,67 @@
 你需要设置自动更新。如果你的工作组有Windows更新服务器，请请教电教员。否则，如果连接外网，Windows将自动更新。Windows更新将会提供最新的安全补丁，安装它们有利于提升电脑安全性。以前横扫世界的“冲击波”病毒只攻击没有安装特定型号补丁的旧型号Windows操作系统。不建议从第三方（如火绒“漏洞修复”）安装补丁。
 \chapter{反病毒软件}
 安装反病毒（antivirus）软件是重要的。它能够有效防止计算机病毒。
+\section{病毒及其分类}
+Virus
+Norton protection helps block harmful software that replicates itself and spreads itself to other devices.
+
+Worm
+Norton protection helps block malware that replicates itself without using a host file (unlike viruses, who use a file).
+
+Malware
+Norton protection has defenses for all types of malicious software, including viruses, Trojans, worms, etc.
+
+Ransomware
+Norton protection helps protect against malware that encrypts a computer’s contents and then demands a ransom to restore them.
+
+Spyware
+Norton protection detects software that tracks and sends personally identifiable information or confidential information to third parties.
+
+Adware
+Norton protection helps block malware that’s designed to display unwanted advertisements. 
+
+Malvertising
+Norton protection detects when malware is hidden behind online ads.
+
+Trojan horse
+Norton protection helps block Trojans that appear to be something they are not, often containing a backdoor component for future access
+
+Phishing
+Norton protection has tools to detect phishing attempts, which are seemingly safe links that take users to malicious sites that gather personal data and login credentials, and can be found within websites, emails or even ads.
+
+Pharming
+Similar to phishing attacks, Norton protection detects pharming attacks that redirect users from a legitimate site to a malicious one.
+
+Browser hijacker
+Norton protection helps protect your browser against malware that changes your browser's settings, or re-directs your web traffic.
+
+Rootkit
+Norton protection helps protect against rookits that can enable an unauthorized user to gain control of a computer system without being detected.
+
+Spam emails
+Norton protection filters out spam emails on Outlook email clients.
+
+Banking Trojans
+Norton protection helps block and remove trojans that are known to target banking sessions.
+
+Coin-miner
+Norton protection helps block malware that uses someone else’s computing resources to run a coin mining script without the user’s consent (e.g. cryptojacking).
+
+Downloader
+Norton protection helps block online threats that call their C\&C (command and control center) in order to download additional malicious payloads.
+
+Exploits
+Norton protection helps block specific techniques that are abused by malware.
+
+Fileless threats
+Modern online threats leave no traces in file system by leveraging scripts and in-memory execution. Norton protection detects and helps remove them.
+
+Formjacking attack
+Norton protection helps block attempts to steal credit cards at online checkout.
+
+Keyloggers
+Norton protection helps stop online threats that attempt to steal keystrokes.
+
 \section{如何选择？}
 首先，最重要的当然是性能，其次是费用（免费优先），再次是易用性。我们可以从反病毒软件评测机构如AVtest \url{https://www.av-test.org/en/}（最后连接于2019年06月20日18:18:09）中得到他们的数据（以下数据来源：\url{https://www.av-test.org/en/antivirus/home-windows/}（最后连接于2019年06月20日18:20:04））：
 \begin{center}
@@ -254,7 +315,7 @@
 地址：\url{https://www.360.cn/}（最后连接于2019年06月20日18:35:04）。\par
 优点：中国用户支持极好（废话，本来就是国产的嘛），可以被Wine（易崩溃）来为GNU/Linux反病毒。多引擎联合查杀（安装有国外强大引擎），基于人工智能技术（360安全大脑）。\par
 缺点：误报率较高，比如说我使用VB6.0编的小程序几乎都被报为病毒；如不经系统地设置会出现弹窗（有点烦；这似乎是国产软件的通病），安装体积较大。
-\footnote{争议：360宣布退出AV-C事件。360官方宣布内容如下：传统杀毒评测标准落后云时代，我们正式退出AV-C 。日前国外杀毒评测机构AV-C联合AV-TEST、VB100宣称，360杀毒评测版本的引擎设置与国内普通用户版本不同，取消360在2015年评测奖项。对此我们认为，AV-C的传统杀毒测试方法已远远落后于云安全时代，双方无法就评测标准达成一致，360决定退出AV-C评测，并特此声明： 一、此次事件分歧是传统杀毒与云安全的评测标准之争。AV-C等机构成立于上世纪90年代，其评测标准也是基于传统杀毒技术而制定的。在AV-C看来，杀毒软件就应该是“特征码引擎+病毒库”，放在全世界任何一个角落都要测试出相同的结果，根本不认同云安全软件根据不同国家、不同地区配置更适应当地用户需求的引擎和云查杀防护策略； 二、360免费安全国际化触动传统杀毒行业利益。360杀毒以免费云安全模式在中国颠覆了传统杀毒市场。为开拓国际市场，360杀毒参加AV-C等国外评测，并多次获得全球最佳评级，测试版本的引擎设置一直公开体现在评测报告中，没有任何作弊行为。然而就在360免费安全国际化进程提速，并披露了国外用户数超过一亿的消息之后，国外的传统杀毒行业感受到了巨大挑战，AV-C也突然转变态度发出质疑，此举令我们无法接受； 三、AV-C传统评测标准远离用户真实需求。以国内某著名艺人网银被盗100万元的真实案件为例，不法分子骗其经纪人卸载了360杀毒，再要求受害者从钓鱼网站下载使用Teamviewer（一款世界知名的远程控制软件），从而控制其电脑盗取巨额网银资金。如果按AV-C评测标准，Teamviewer是合法软件，不应该“查杀”。而360杀毒集成了多引擎，其中QVM人工智能引擎对未知威胁的防护能力远远优于传统杀毒引擎，360云安全会根据文件下载途径、软件行为等信息综合判断并查杀被恶意利用的Teamviewer，这是传统评测所无法体现的、真正的安全保护；四、由于无法就评测标准和AV-C达成一致，360决定退出该项评测。事实上，赛门铁克、Comodo之前已退出AV-C，美国新兴的终端安全公司Bit9根本就没有参加这类评测。凭借全球领先的云安全技术和优秀的用户体验，360免费安全产品有信心在国际市场复制中国奇迹。 我们相信，最终的裁判是用户。 \par 不同观点：1.引用“科技行者”网站【360与AV-C之争背后 云安全时代评测标准需要革命】：\url{http://www.cnetnews.com.cn/2015/0504/3051837.shtml}（最后连接2019年6月19日11:27:53）。 （由于与360声明大致精神相符，以下内容已经被概括）AV-C标准落后，无法适用于云安全时代；360多杀毒引擎是为了更好实现地域化；中国杀毒产品的国际化正在受到落后的国际评测机制的制约；（以下为直接引用原文）“走出去是中国企业在国内做大做强之后的必然选择，360在确立自己的国际化战略之后，选择参加AV-C等国际评测，通过国际评测的成绩来增加产品在国际市场的影响力，在AV-C的评测标准无法准确衡量产品真正水平的情况下，不得不针对评测标准对产品进行妥协性设置，在不自觉中被AV-C这样的评测机构绑架，这也是360国际化付出的代价。国家互联网应急中心处长周勇林表示，中国市场与欧美杀软企业主导的外部市场已经形成了迥异的生态系统，中国杀软的商业模式是外国所不能适应的，但却被证明是有效的，很有竞争力；更重要的是，从企业综合实力看，中国企业做安全业务具备了动摇欧美老牌企业的体力甚至技术实力，因此，站在对方的立场上看，具备一定实力且熟练掌握新商业模式的中国杀软是很可怕的怪物，中国的杀软企业被“高度重视”是必然的，是可以理解的。希望360与AV-C的冲突事件，能够给中国企业国际化积累经验教训，目前国内杀毒软件厂商依然对国际评测趋之若鹜，但忽略了AV-C等国外评测机构与国外杀毒厂商是利益共同体这一事实，中国安全厂商想要进一步进入国际市场，势必与国际安全厂商成为竞争者，打压中国安全厂商是AV-C等机构的必然选择。互联网行业专家方兴东认为，中国安全企业的快速崛起和即将走出去的势头，必将严重威胁西方传统的安全企业，在话语权和主导权受制于人的情况下，中国要实现网络强国，强大的网络安全产业是重要基石，在产品、规则和评测等方面掌握话语权和主导权，也是必由之路。这需要我们尽快建立并扶植中国自主的云安全时代安全软件评测机构，建立安全软件的评测标准，掌握国际安全市场话语权。”。 \par  2.引用“太平洋汽车网”网站【退出AV-C 360愚弄了谁？】：\url{https://www.pcauto.com.cn/drivers/654/6545901.html}（最后连接2019年6月19日11:28:02）。（以下内容皆直接引用原文）奇虎360送检的产品与用户实际使用的产品并不相同；最终360承认了其产品在送测时被提前进行了修改；360的这份声明无疑是对广大360用户赤裸裸的愚弄；“AV-C成立于上世纪90年代，几乎与互联网同步发展，在杀毒检测领域有着丰富的经验，并已成为全球最权威的杀毒软件测评机构。AV-C测试方法是冻结杀毒引擎与病毒数据库三个月，并用最近三个月出现的最新病毒作为测试样本以检验软件杀毒能力，这种方法适用任意国家和地区，因为通过互联网传播的病毒并没有地域限制，而且该方法保证了对杀毒软件查杀最新病毒能力测试的准确性。360为了掩盖自身的问题强制将该问题转化为传统杀毒与云安全的标准之争是混淆视听。二、AV-C是非营利性公益组织，也是公认的国际性独立性测试机构，说360因为动了传统杀毒利益而挨刀显然站不住脚，因为AV-C并不代表着谁。而且，360以一家之言将非云查杀分为传统杀毒不过是为了抬高身份，事实上瑞金、卡巴斯基、金山、腾讯等都推出了云安全服务，AV-C也并没有收回他们的测评资质，360危机之时也不忘宣传自己也算罕见。三、Teamviewer不过是一个远程控制软件，只有双方同意的情况下方可使用，在各大软件下载网站都可轻易下载，因为使用Teamviewer而被盗显然不是软件本身的问题。事实上并没有哪家杀毒软件把它定义为非法软件，除了360。四、世界排名靠前的杀毒软件都不会拒绝AV-C的测评资质，也并不是所有的杀毒软件都可以接受AV-C的检测(因为AV-C测试门槛很高)，赛门铁克、Comodo杀毒软件的退出不过是因为在AV-C的测评排名中比较靠后而已，以此来作为抨击AV-C的依据有失公允。”；“如果说AV-C评测落后，360从一开始就不会将自己产品送检，而在360产品出现问题并曝光之后才发布这样一份声明，其动机就已让人产生怀疑”。}
+\footnote{争议：360宣布退出AV-C事件。360官方宣布内容如下：传统杀毒评测标准落后云时代，我们正式退出AV-C 。日前国外杀毒评测机构AV-C联合AV-TEST、VB100宣称，360杀毒评测版本的引擎设置与国内普通用户版本不同，取消360在2015年评测奖项。对此我们认为，AV-C的传统杀毒测试方法已远远落后于云安全时代，双方无法就评测标准达成一致，360决定退出AV-C评测，并特此声明： 一、此次事件分歧是传统杀毒与云安全的评测标准之争。AV-C等机构成立于上世纪90年代，其评测标准也是基于传统杀毒技术而制定的。在AV-C看来，杀毒软件就应该是“特征码引擎+病毒库”，放在全世界任何一个角落都要测试出相同的结果，根本不认同云安全软件根据不同国家、不同地区配置更适应当地用户需求的引擎和云查杀防护策略； 二、360免费安全国际化触动传统杀毒行业利益。360杀毒以免费云安全模式在中国颠覆了传统杀毒市场。为开拓国际市场，360杀毒参加AV-C等国外评测，并多次获得全球最佳评级，测试版本的引擎设置一直公开体现在评测报告中，没有任何作弊行为。然而就在360免费安全国际化进程提速，并披露了国外用户数超过一亿的消息之后，国外的传统杀毒行业感受到了巨大挑战，AV-C也突然转变态度发出质疑，此举令我们无法接受； 三、AV-C传统评测标准远离用户真实需求。以国内某著名艺人网银被盗100万元的真实案件为例，不法分子骗其经纪人卸载了360杀毒，再要求受害者从钓鱼网站下载使用Teamviewer（一款世界知名的远程控制软件），从而控制其电脑盗取巨额网银资金。如果按AV-C评测标准，Teamviewer是合法软件，不应该“查杀”。而360杀毒集成了多引擎，其中QVM人工智能引擎对未知威胁的防护能力远远优于传统杀毒引擎，360云安全会根据文件下载途径、软件行为等信息综合判断并查杀被恶意利用的Teamviewer，这是传统评测所无法体现的、真正的安全保护；四、由于无法就评测标准和AV-C达成一致，360决定退出该项评测。事实上，赛门铁克、Comodo之前已退出AV-C，美国新兴的终端安全公司Bit9根本就没有参加这类评测。凭借全球领先的云安全技术和优秀的用户体验，360免费安全产品有信心在国际市场复制中国奇迹。 我们相信，最终的裁判是用户。 \par 不同观点：1.引用“科技行者”网站【360与AV-C之争背后 云安全时代评测标准需要革命】：\url{http://www.cnetnews.com.cn/2015/0504/3051837.shtml}（最后连接2019年6月19日11:27:53）。 （由于与360声明大致精神相符，以下内容已经被概括）AV-C标准落后，无法适用于云安全时代；360多杀毒引擎是为了更好实现地域化；中国杀毒产品的国际化正在受到落后的国际评测机制的制约；（以下为直接引用原文）“走出去是中国企业在国内做大做强之后的必然选择，360在确立自己的国际化战略之后，选择参加AV-C等国际评测，通过国际评测的成绩来增加产品在国际市场的影响力，在AV-C的评测标准无法准确衡量产品真正水平的情况下，不得不针对评测标准对产品进行妥协性设置，在不自觉中被AV-C这样的评测机构绑架，这也是360国际化付出的代价。国家互联网应急中心处长周勇林表示，中国市场与欧美杀软企业主导的外部市场已经形成了迥异的生态系统，中国杀软的商业模式是外国所不能适应的，但却被证明是有效的，很有竞争力；更重要的是，从企业综合实力看，中国企业做安全业务具备了动摇欧美老牌企业的体力甚至技术实力，因此，站在对方的立场上看，具备一定实力且熟练掌握新商业模式的中国杀软是很可怕的怪物，中国的杀软企业被“高度重视”是必然的，是可以理解的。希望360与AV-C的冲突事件，能够给中国企业国际化积累经验教训，目前国内杀毒软件厂商依然对国际评测趋之若鹜，但忽略了AV-C等国外评测机构与国外杀毒厂商是利益共同体这一事实，中国安全厂商想要进一步进入国际市场，势必与国际安全厂商成为竞争者，打压中国安全厂商是AV-C等机构的必然选择。互联网行业专家方兴东认为，中国安全企业的快速崛起和即将走出去的势头，必将严重威胁西方传统的安全企业，在话语权和主导权受制于人的情况下，中国要实现网络强国，强大的网络安全产业是重要基石，在产品、规则和评测等方面掌握话语权和主导权，也是必由之路。这需要我们尽快建立并扶植中国自主的云安全时代安全软件评测机构，建立安全软件的评测标准，掌握国际安全市场话语权。”。 \par  2.引用“太平洋汽车网”网站【退出AV-C 360愚弄了谁？】：\url{https://www.pcauto.com.cn/drivers/654/6545901.html}（最后连接2019年6月19日11:28:02）。（以下内容直接引用原文）奇虎360送检的产品与用户实际使用的产品并不相同；最终360承认了其产品在送测时被提前进行了修改；360的这份声明无疑是对广大360用户赤裸裸的愚弄；“AV-C成立于上世纪90年代，几乎与互联网同步发展，在杀毒检测领域有着丰富的经验，并已成为全球最权威的杀毒软件测评机构。AV-C测试方法是冻结杀毒引擎与病毒数据库三个月，并用最近三个月出现的最新病毒作为测试样本以检验软件杀毒能力，这种方法适用任意国家和地区，因为通过互联网传播的病毒并没有地域限制，而且该方法保证了对杀毒软件查杀最新病毒能力测试的准确性。360为了掩盖自身的问题强制将该问题转化为传统杀毒与云安全的标准之争是混淆视听。二、AV-C是非营利性公益组织，也是公认的国际性独立性测试机构，说360因为动了传统杀毒利益而挨刀显然站不住脚，因为AV-C并不代表着谁。而且，360以一家之言将非云查杀分为传统杀毒不过是为了抬高身份，事实上瑞金、卡巴斯基、金山、腾讯等都推出了云安全服务，AV-C也并没有收回他们的测评资质，360危机之时也不忘宣传自己也算罕见。三、Teamviewer不过是一个远程控制软件，只有双方同意的情况下方可使用，在各大软件下载网站都可轻易下载，因为使用Teamviewer而被盗显然不是软件本身的问题。事实上并没有哪家杀毒软件把它定义为非法软件，除了360。四、世界排名靠前的杀毒软件都不会拒绝AV-C的测评资质，也并不是所有的杀毒软件都可以接受AV-C的检测(因为AV-C测试门槛很高)，赛门铁克、Comodo杀毒软件的退出不过是因为在AV-C的测评排名中比较靠后而已，以此来作为抨击AV-C的依据有失公允。”；“如果说AV-C评测落后，360从一开始就不会将自己产品送检，而在360产品出现问题并曝光之后才发布这样一份声明，其动机就已让人产生怀疑”。}
 \begin{center}
 	\includegraphics[scale=0.3]{pic/360}
 \end{center} \par
