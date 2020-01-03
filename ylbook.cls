@@ -574,17 +574,17 @@
     \Huge \bfseries  #1\par\nobreak
     \vskip 40\p@
   }}
-\newcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
-                                   {2.3ex \@plus.2ex}%
+\newcommand\section{\@startsection {section}{1}{\z@}
+                                   {0ex}%
+                                   {0ex}%
                                    {}}
 \newcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
+                                     {0ex}%
+                                     {0ex}%
                                      {}}
 \newcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
+                                     {0ex}%
+                                     {0ex}%
                                      {}}
 \newcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
                                     {3.25ex \@plus1ex \@minus.2ex}%
@@ -766,9 +766,7 @@
     \else
       \@restonecolfalse
     \fi
-    \chapter*{\contentsname
-        \@mkboth{%
-           \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+    \chapter{\contentsname}%
     \@starttoc{toc}%
     \if@restonecol\twocolumn\fi
     }
@@ -841,8 +839,7 @@
 \newdimen\bibindent
 \setlength\bibindent{1.5em}
 \newenvironment{thebibliography}[1]
-     {\chapter*{\bibname}%
-      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+     {\chapter{\bibname}
       \list{\@biblabel{\@arabic\c@enumiv}}%
            {\settowidth\labelwidth{\@biblabel{#1}}%
             \leftmargin\labelwidth
@@ -857,7 +854,7 @@
       \widowpenalty4000%
       \sfcode`\.\@m}
      {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}%
+       {\@latex@warning{空的参考文献。}}%
       \endlist}
 \newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
 \let\@openbib@code\@empty
@@ -918,4 +915,5 @@
 \else
   \onecolumn
 \fi
+\renewcommand{\verbatim@font}{\footnotesize \color{blue}\texttt}
 \endinput

@@ -3,7 +3,7 @@
 %使用CC-BY-NC-SA授权。一份完整版本的许可证已位于附录。这个版本原始作者YuZJ，
 %邮箱theafamily@126.com（最后连接于2019年06月20日17:32:17）。
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[a4paper,twocolumn,twoside,openany,draft]{ylbook}
+\documentclass[a4paper,twocolumn,twoside,openany,final]{ylbook}
 \usepackage[LoadFandol=false]{xeCJK} %中文支持
 \usepackage{fontspec}
 \setmainfont{SourceHanSerifSC}[
@@ -32,7 +32,6 @@
 \usepackage{picinpar} %生成文本环绕
 \usepackage{indentfirst}%生成段落
 \usepackage[toc]{multitoc}%双栏目录
-\makeatletter\renewcommand{\verbatim@font}{\footnotesize \color{blue}\texttt} \makeatletter%修改verbatim环境格式
 \usepackage{titlesec}
 \titleformat{\chapter}[frame]{\bf\sf \Huge}{\small 第 \thechapter 章}{0pt}{}
 \titleformat{\section}[frame]{\normalfont\bfseries\sffamily\LARGE}{\small 第 \thesection 节}{0pt}{}
