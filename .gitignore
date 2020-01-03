@@ -22,4 +22,4 @@ $RECYCLE.BIN/
 *.fdb_latexmk
 *.syntex.gz
 *.brf
-.tps
+*.tps

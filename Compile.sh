@@ -4,6 +4,7 @@ rm -f *.bbl
 rm -f *.blg
 rm -f *.toc
 rm -f *.out
+rm -f *.tmp
 rm -f *.fls
 rm -f *.brf
 rm -f *.fdb_latexmk
@@ -22,6 +23,7 @@ rm -f *.bbl
 rm -f *.blg
 rm -f *.toc
 rm -f *.out
+rm -f *.tmp
 rm -f *.fls
 rm -f *.brf
 rm -f *.fdb_latexmk

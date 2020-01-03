@@ -1,18 +1,3 @@
-%%
-%% This is file `book.cls',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% classes.dtx  (with options: `book')
-%% 
-%% This is a generated file.
-%% 
-%% The source is maintained by the LaTeX Project team and bug
-%% reports for it can be opened at https://latex-project.org/bugs.html
-%% (but please observe conditions on bug reports sent to that address!)
-%% 
-%% 
 %% Copyright (C) 1993-2019
 %% The LaTeX3 Project and any individual authors listed elsewhere
 %% in this file.
@@ -28,76 +13,24 @@
 %% and version 1.3c or later is part of all distributions of LaTeX
 %% version 2008 or later.
 %% 
-%% This file has the LPPL maintenance status "maintained".
-%% 
-%% This file may only be distributed together with a copy of the LaTeX
-%% base system. You may however distribute the LaTeX base system without
-%% such generated files.
-%% 
-%% The list of all files belonging to the LaTeX base distribution is
-%% given in the file `manifest.txt'. See also `legal.txt' for additional
-%% information.
-%% 
-%% The list of derived (unpacked) files belonging to the distribution
-%% and covered by LPPL is defined by the unpacking scripts (with
-%% extension .ins) which are part of the distribution.
-
-%%This class file is modified by YuZJ. Unmodified parts are deleted.
+%%This class file is modified by YuZJ.
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{ylbook}
               [2019/10/25 v1.4k
- Standard LaTeX document class]
+Standard LaTeX document class
+Modified by YuZJ.]
 \newif\if@restonecol
 \newif\if@titlepage
 \@titlepagetrue
 \newif\if@openright
 \newif\if@mainmatter \@mainmattertrue
-\if@compatibility\else
-\DeclareOption{a4paper}
-   {\setlength\paperheight {297mm}%
-    \setlength\paperwidth  {210mm}}
-\DeclareOption{a5paper}
-   {\setlength\paperheight {210mm}%
-    \setlength\paperwidth  {148mm}}
-\DeclareOption{b5paper}
-   {\setlength\paperheight {250mm}%
-    \setlength\paperwidth  {176mm}}
-\DeclareOption{letterpaper}
-   {\setlength\paperheight {11in}%
-    \setlength\paperwidth  {8.5in}}
-\DeclareOption{legalpaper}
-   {\setlength\paperheight {14in}%
-    \setlength\paperwidth  {8.5in}}
-\DeclareOption{executivepaper}
-   {\setlength\paperheight {10.5in}%
-    \setlength\paperwidth  {7.25in}}
-\DeclareOption{landscape}
-   {\setlength\@tempdima   {\paperheight}%
-    \setlength\paperheight {\paperwidth}%
-    \setlength\paperwidth  {\@tempdima}}
-\fi
-\if@compatibility\else
-\DeclareOption{oneside}{\@twosidefalse \@mparswitchfalse}
-\fi
-\DeclareOption{twoside}{\@twosidetrue  \@mparswitchtrue}
+\setlength\paperheight {297mm}%
+ \setlength\paperwidth  {210mm}
+\@twosidetrue  \@mparswitchtrue
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
-\if@compatibility\else
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
-\fi
-\DeclareOption{titlepage}{\@titlepagetrue}
-\if@compatibility\else
-\DeclareOption{notitlepage}{\@titlepagefalse}
-\fi
-\if@compatibility
 \@openrighttrue
-\else
-\DeclareOption{openright}{\@openrighttrue}
-\DeclareOption{openany}{\@openrightfalse}
-\fi
-\if@compatibility\else
-\DeclareOption{onecolumn}{\@twocolumnfalse}
-\fi
-\DeclareOption{twocolumn}{\@twocolumntrue}
+\@twocolumnfalse
 \DeclareOption{openbib}{%
   \AtEndOfPackage{%
    \renewcommand\@openbib@code{%
@@ -110,7 +43,7 @@
 }
 \ProcessOptions
 \renewcommand\normalsize{%
-   \@setfontsize\normalsize\@xpt{12}
+   \@setfontsize\normalsize\@viiipt\@xpt
    \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
    \abovedisplayshortskip \z@ \@plus3\p@
    \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
@@ -121,7 +54,7 @@
     \MakeRobust\normalsize
 \fi
 \DeclareRobustCommand\small{%
-   \@setfontsize\small\@ixpt{11}%
+   \@setfontsize\small\@viipt\@viiipt%
    \abovedisplayskip 8.5\p@ \@plus3\p@ \@minus4\p@
    \abovedisplayshortskip \z@ \@plus2\p@
    \belowdisplayshortskip 4\p@ \@plus2\p@ \@minus2\p@
@@ -142,122 +75,30 @@
                \itemsep \parsep}%
    \belowdisplayskip \abovedisplayskip
 }
-\DeclareRobustCommand\scriptsize{\@setfontsize\scriptsize\@viipt\@viiipt}
 \DeclareRobustCommand\tiny{\@setfontsize\tiny\@vpt\@vipt}
 \DeclareRobustCommand\large{\@setfontsize\large\@xiipt{14}}
 \DeclareRobustCommand\Large{\@setfontsize\Large\@xivpt{18}}
 \DeclareRobustCommand\LARGE{\@setfontsize\LARGE\@xviipt{22}}
 \DeclareRobustCommand\huge{\@setfontsize\huge\@xxpt{25}}
 \DeclareRobustCommand\Huge{\@setfontsize\Huge\@xxvpt{30}}
-\if@twocolumn
-  \setlength\parindent{1em}
-\else
-  \setlength\parindent{15\p@}
-\fi
+  \setlength\parindent{2em}
 \setlength\smallskipamount{3\p@ \@plus 1\p@ \@minus 1\p@}
 \setlength\medskipamount{6\p@ \@plus 2\p@ \@minus 2\p@}
 \setlength\bigskipamount{12\p@ \@plus 4\p@ \@minus 4\p@}
-\setlength\headheight{12\p@}
-\setlength\headsep   {.25in}
-\setlength\topskip   {10\p@}
+\setlength\headheight{1ex}
+\setlength\headsep{3ex}
+\setlength\topskip{0ex}
 \setlength\footskip{.35in}
-\if@compatibility \setlength\maxdepth{4\p@} \else
-\setlength\maxdepth{.5\topskip} \fi
-\if@compatibility
-  \if@twocolumn
-    \setlength\textwidth{410\p@}
-  \else
-    \setlength\textwidth{4.5in}
-  \fi
-\else
-  \setlength\@tempdima{\paperwidth}
-  \addtolength\@tempdima{-2in}
-  \setlength\@tempdimb{345\p@}
-  \if@twocolumn
-    \ifdim\@tempdima>2\@tempdimb\relax
-      \setlength\textwidth{2\@tempdimb}
-    \else
-      \setlength\textwidth{\@tempdima}
-    \fi
-  \else
-    \ifdim\@tempdima>\@tempdimb\relax
-      \setlength\textwidth{\@tempdimb}
-    \else
-      \setlength\textwidth{\@tempdima}
-    \fi
-  \fi
-\fi
-\if@compatibility\else
-  \@settopoint\textwidth
-\fi
-\if@compatibility
-  \setlength\textheight{41\baselineskip}
-\else
-  \setlength\@tempdima{\paperheight}
-  \addtolength\@tempdima{-2in}
-  \addtolength\@tempdima{-1.5in}
-  \divide\@tempdima\baselineskip
-  \@tempcnta=\@tempdima
-  \setlength\textheight{\@tempcnta\baselineskip}
-\fi
+\setlength\maxdepth{4\p@}
+\setlength\textwidth{6in}
+\setlength\textheight{9.5in}
 \addtolength\textheight{\topskip}
-\if@twocolumn
- \setlength\marginparsep {10\p@}
-\else
-  \setlength\marginparsep{7\p@}
-\fi
+\setlength\marginparsep{0pt}
 \setlength\marginparpush{5\p@}
-\if@compatibility
-   \setlength\oddsidemargin   {.5in}
-   \setlength\evensidemargin  {1.5in}
-   \setlength\marginparwidth {.75in}
-  \if@twocolumn
-     \setlength\oddsidemargin  {30\p@}
-     \setlength\evensidemargin {30\p@}
-     \setlength\marginparwidth {48\p@}
-  \fi
-\else
-  \if@twoside
-    \setlength\@tempdima        {\paperwidth}
-    \addtolength\@tempdima      {-\textwidth}
-    \setlength\oddsidemargin    {.4\@tempdima}
-    \addtolength\oddsidemargin  {-1in}
-    \setlength\marginparwidth   {.6\@tempdima}
-    \addtolength\marginparwidth {-\marginparsep}
-    \addtolength\marginparwidth {-0.4in}
-  \else
-    \setlength\@tempdima        {\paperwidth}
-    \addtolength\@tempdima      {-\textwidth}
-    \setlength\oddsidemargin    {.5\@tempdima}
-    \addtolength\oddsidemargin  {-1in}
-    \setlength\marginparwidth   {.5\@tempdima}
-    \addtolength\marginparwidth {-\marginparsep}
-    \addtolength\marginparwidth {-0.4in}
-    \addtolength\marginparwidth {-.4in}
-  \fi
-  \ifdim \marginparwidth >2in
-     \setlength\marginparwidth{2in}
-  \fi
-  \@settopoint\oddsidemargin
-  \@settopoint\marginparwidth
-  \setlength\evensidemargin  {\paperwidth}
-  \addtolength\evensidemargin{-2in}
-  \addtolength\evensidemargin{-\textwidth}
-  \addtolength\evensidemargin{-\oddsidemargin}
-  \@settopoint\evensidemargin
-\fi
-\if@compatibility
-  \setlength\topmargin{.75in}
-\else
-  \setlength\topmargin{\paperheight}
-  \addtolength\topmargin{-2in}
-  \addtolength\topmargin{-\headheight}
-  \addtolength\topmargin{-\headsep}
-  \addtolength\topmargin{-\textheight}
-  \addtolength\topmargin{-\footskip}     % this might be wrong!
-  \addtolength\topmargin{-.5\topmargin}
-  \@settopoint\topmargin
-\fi
+\setlength\oddsidemargin   {0.75in}
+\setlength\evensidemargin  {0in}
+\setlength\marginparwidth {0in}
+\setlength\topmargin{0in}
 \setlength\footnotesep{6.65\p@}
 \setlength{\skip\footins}{9\p@ \@plus 4\p@ \@minus 2\p@}
 \setlength\floatsep    {12\p@ \@plus 2\p@ \@minus 2\p@}
@@ -300,10 +141,10 @@
 \def\@listvi {\leftmargin\leftmarginvi
               \labelwidth\leftmarginvi
               \advance\labelwidth-\labelsep}
-\setlength\lineskip{1\p@}
-\setlength\normallineskip{1\p@}
+\setlength\lineskip{0.5ex}
+\setlength\normallineskip{0.5ex}
 \renewcommand\baselinestretch{}
-\setlength\parskip{0\p@ \@plus \p@}
+\setlength\parskip{1ex \@plus \p@}
 \@lowpenalty   51
 \@medpenalty  151
 \@highpenalty 301
@@ -359,92 +200,6 @@
     \let\chaptermark\@gobble
     \let\sectionmark\@gobble
     }
-  \if@titlepage
-  \newcommand\maketitle{\begin{titlepage}%
-  \let\footnotesize\small
-  \let\footnoterule\relax
-  \let \footnote \thanks
-  \null\vfil
-  \vskip 60\p@
-  \begin{center}%
-    {\LARGE \@title \par}%
-    \vskip 3em%
-    {\large
-     \lineskip .75em%
-      \begin{tabular}[t]{c}%
-        \@author
-      \end{tabular}\par}%
-      \vskip 1.5em%
-    {\large \@date \par}%       % Set date in \large size.
-  \end{center}\par
-  \@thanks
-  \vfil\null
-  \end{titlepage}%
-  \setcounter{footnote}{0}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\@author\@empty
-  \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
-}
-\else
-\newcommand\maketitle{\par
-  \begingroup
-    \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
-    \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
-    \long\def\@makefntext##1{\parindent 1em\noindent
-            \hb@xt@1.8em{%
-                \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
-    \if@twocolumn
-      \ifnum \col@number=\@ne
-        \@maketitle
-      \else
-        \twocolumn[\@maketitle]%
-      \fi
-    \else
-      \newpage
-      \global\@topnum\z@   % Prevents figures from going at top of page.
-      \@maketitle
-    \fi
-    \thispagestyle{plain}\@thanks
-  \endgroup
-  \setcounter{footnote}{0}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\@author\@empty
-  \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\title\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
-}
-\def\@maketitle{%
-  \newpage
-  \null
-  \vskip 2em%
-  \begin{center}%
-  \let \footnote \thanks
-    {\LARGE \@title \par}%
-    \vskip 1.5em%
-    {\large
-      \lineskip .5em%
-      \begin{tabular}[t]{c}%
-        \@author
-      \end{tabular}\par}%
-    \vskip 1em%
-    {\large \@date}%
-  \end{center}%
-  \par
-  \vskip 1.5em}
-\fi
 \newcommand*\chaptermark[1]{}
 \setcounter{secnumdepth}{2}
 \newcounter {part}
@@ -461,7 +216,7 @@
 \renewcommand\thesubsubsection{\thesubsection.\@arabic\c@subsubsection}
 \renewcommand\theparagraph    {\thesubsubsection.\@arabic\c@paragraph}
 \renewcommand\thesubparagraph {\theparagraph.\@arabic\c@subparagraph}
-\newcommand\@chapapp{\chaptername}
+\newcommand\@chapapp{Chapter}
 \newcommand\frontmatter{%
     \clearpage
   \@mainmatterfalse
@@ -475,6 +230,12 @@
   \@mainmatterfalse
 	\pagenumbering{roman}}
 \newcommand\part{%
+		\setcounter{chapter}{0}
+\if@openright
+\cleardoublepage
+\else
+    \clearpage
+\fi
   \thispagestyle{plain}%
   \if@twocolumn
     \onecolumn
@@ -496,7 +257,7 @@
      \interlinepenalty \@M
      \normalfont
      \ifnum \c@secnumdepth >-2\relax
-       \huge\bfseries \partname\nobreakspace\thepart
+       \huge\bfseries 第 \nobreakspace\thepart 章
        \par
        \vskip 20\p@
      \fi
@@ -519,24 +280,18 @@
               \if@tempswa
                 \twocolumn
               \fi}
-\newcommand\chapter{
+\newcommand\chapter{\par
+\if@twocolumn
 	\clearpage
-                    \thispagestyle{plain}%
+										\fi
                     \global\@topnum\z@
                     \@afterindentfalse
                     \secdef\@chapter\@schapter}
-\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
-                       \if@mainmatter
+\def\@chapter[#1]#2{
                          \refstepcounter{chapter}%
                          \typeout{\@chapapp\space\thechapter.}%
-                         \addcontentsline{toc}{chapter}%
+											\addcontentsline{toc}{chapter}%
                                    {\protect\numberline{\thechapter}#1}%
-                       \else
-                         \addcontentsline{toc}{chapter}{#1}%
-                       \fi
-                    \else
-                      \addcontentsline{toc}{chapter}{#1}%
-                    \fi
                     \chaptermark{#1}%
                     \addtocontents{lof}{\protect\addvspace{10\p@}}%
                     \addtocontents{lot}{\protect\addvspace{10\p@}}%
@@ -657,45 +412,25 @@
                {\list{}{\rightmargin\leftmargin}%
                 \item\relax}
                {\endlist}
-\if@compatibility
+
 \newenvironment{titlepage}
     {%
-      %\cleardoublepage
-      \clearpage
       \if@twocolumn
         \@restonecoltrue\onecolumn
       \else
-        \@restonecolfalse\newpage
+        \@restonecolfalse
       \fi
       \thispagestyle{empty}%
       \setcounter{page}\z@
     }%
-    {\if@restonecol\twocolumn \else \newpage \fi
+    {\if@restonecol\twocolumn \fi
+		\newpage This page is intentionally left blank.\newpage
     }
-\else
-\newenvironment{titlepage}
-    {%
-     %\cleardoublepage
-    \clearpage
-      \if@twocolumn
-        \@restonecoltrue\onecolumn
-      \else
-        \@restonecolfalse\newpage
-      \fi
-      \thispagestyle{empty}%
-      \setcounter{page}\@ne
-    }%
-    {\if@restonecol\twocolumn \else \newpage \fi
-     \if@twoside\else
-        \setcounter{page}\@ne
-     \fi
-    }
-\fi
 \newcommand\appendix{\par
+\@twocolumntrue
   \setcounter{chapter}{0}%
   \setcounter{section}{0}%
-  \gdef\@chapapp{\appendixname}%
-  \gdef\thechapter{\@Alph\c@chapter}}
+	\part{附录}}
 \setlength\arraycolsep{5\p@}
 \setlength\tabcolsep{6\p@}
 \setlength\arrayrulewidth{.4\p@}
@@ -713,7 +448,7 @@
 \def\fps@figure{tbp}
 \def\ftype@figure{1}
 \def\ext@figure{lof}
-\def\fnum@figure{\figurename\nobreakspace\thefigure}
+\def\fnum@figure{图像\nobreakspace\thefigure}
 \newenvironment{figure}
                {\@float{figure}}
                {\end@float}
@@ -761,14 +496,11 @@
 \newcommand\@dotsep{4.5}
 \setcounter{tocdepth}{5}
 \newcommand\tableofcontents{%
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \chapter{\contentsname}%
+\twocolumn
+    \chapter{目录}%
+		\setcounter{chapter}{0}
     \@starttoc{toc}%
-    \if@restonecol\twocolumn\fi
+		\onecolumn
     }
 \newcommand*\l@part[2]{%
   \ifnum \c@tocdepth >-2\relax
@@ -810,16 +542,12 @@
 \newcommand*\l@paragraph{\@dottedtocline{4}{10em}{5em}}
 \newcommand*\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
 \newcommand\listoffigures{%
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \chapter*{\listfigurename}%
+\twocolumn
+    \chapter{\listfigurename}%
       \@mkboth{\MakeUppercase\listfigurename}%
               {\MakeUppercase\listfigurename}%
     \@starttoc{lof}%
-    \if@restonecol\twocolumn\fi
+\onecolumn
     }
 \newcommand*\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
 \newcommand\listoftables{%
@@ -828,7 +556,7 @@
     \else
       \@restonecolfalse
     \fi
-    \chapter*{\listtablename}%
+    \chapter{\listtablename}%
       \@mkboth{%
           \MakeUppercase\listtablename}%
          {\MakeUppercase\listtablename}%
@@ -839,7 +567,7 @@
 \newdimen\bibindent
 \setlength\bibindent{1.5em}
 \newenvironment{thebibliography}[1]
-     {\chapter{\bibname}
+     {\clearpage\chapter{参考文献}
       \list{\@biblabel{\@arabic\c@enumiv}}%
            {\settowidth\labelwidth{\@biblabel{#1}}%
             \leftmargin\labelwidth
@@ -886,16 +614,10 @@
     \parindent 1em%
     \noindent
     \hb@xt@1.8em{\hss\@makefnmark}#1}
-\newcommand\contentsname{目录}
 \newcommand\listfigurename{图像列表}
 \newcommand\listtablename{表格列表}
-\newcommand\bibname{参考文献}
 \newcommand\indexname{索引}
-\newcommand\figurename{图像}
 \newcommand\tablename{表格}
-\newcommand\partname{Part}
-\newcommand\chaptername{Chapter}
-\newcommand\appendixname{附录}
 \def\today{\number\year 年 \ifcase\month\or
   一月\or 二月\or 三月\or 四月\or 五月\or 六月\or
   七月\or 八月\or 九月\or 十月\or 十一月\or 十二月\fi

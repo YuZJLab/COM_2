@@ -3,13 +3,11 @@
 %使用CC-BY-NC-SA授权。一份完整版本的许可证已位于附录。这个版本原始作者YuZJ，
 %邮箱theafamily@126.com（最后连接于2019年06月20日17:32:17）。
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\part{Perform Daily-Teaching Task under GNU/Linux}
-\chapter{Windows操作系统上的高级反病毒技巧}
-当一般的反病毒软件无法将病毒清除时，你就应该考虑使用GNU/Linux反病毒\footnote{当然你也可以重装系统。但这么做无法清除系统盘以外的病毒。}。
-\section{使用以GNU/Linux为操作系统的计算机急救工具}
-GNU/Linux可用于Windows反病毒原因是：Windows二进制文件与GNU/Linux二进制文件的结构是不同的（具体请参考其他专业书籍），因此Windows的EXE病毒大多数情况下无法在GNU/Linux上运行（使用Wine \footnote{一种类似于虚拟机的技术，它可允许Windows应用程序在GNU/Linux，BSD等操作系统上运行。} 或其他类似技术除外），也就是说，Windows下的病毒一般无法感染GNU/Linux操作系统。\par
-大多数反病毒软件厂商都提供了“急救盘”，用于给无法启动或严重感染的计算机反病毒。大多数急救盘基于GNU/Linux \footnote{如Dr.Web和AVIRA基于Ubuntu 14（Dr.Web凭借Wine运行），Kaspersky基于Gentoo Linux x86\_64，ESET基于其它GNU/Linux操作系统。}，也有少部分（如Avast!）基于Windows。\par
-现将以Kaspersky Rescure Disk以演示GNU/Linux反病毒。至于如何安装GNU/Linux并反病毒请参见\pageref{sec:avgl}页\ref{sec:avgl}\par
+\part{Fulfil Daily-Teaching Tasks under GNU/Linux}
+\chapter{Advanced Virus-Removing Tools for Windows}
+The use of GNU/Linux should be taken into consideration if anti-virus software failed to operate under Windows.\par
+The reason why it is possible is that firstly, GNU/Linux can read Windows' file systems. This enabled that anti-virus software to read and delete viruses. Secondly, the structure of binary files which can be executed directly by the operating systems differs which means that it would be impossible for us to execute Windows executables under GNU/Linux without using some advanced methods such as Wine.\par
+``Rescue disks'', which is provided by most anti-virus software manufactures, is used to rescue severely-infected computers. Most of the rescue disks are based on GNU/Linux. For example, Dr Web and AVIRA base their software on Ubuntu 14.4 and Kaspersky on Gentoo Linux. Now we will use Kaspersky Rescue Disk to show how to remove Windows' virus under GNU/Linux.\par
 现在你将计算机开启，将光盘插入光驱后重启。你将被引导到光盘启动。你将发现：
 \begin{center}
 	\includegraphics[scale=0.7]{pic/krd1}
@@ -46,10 +44,10 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 	\item Choose ``TUNA'' or ``USTC'' as mirror cite where you download software package.
 	\item Install ``Best'' configuration and bash, bzip2, clamav (optional), coreunits, cygwin, dash, gcc-* (optional), man-db, shutdown (optional), tar, vim, xz, p7zip, zip. Please be aware that install any package related with X-Windows System is not recommended.
 	\item Add /bin, /sbin, /usr/bin to PATH variable of MS Windows or use ``export'' command if you don't want to allow CMD/Powershell to use CygWin's command.
-	\item There's no APT/YUM/PacMan. If you want to add/remove a package, just run the installation again.
+	\item There's no APT/YUM/PacMan. If you want to add/remove a package, just run the installer again.
 \end{enumerate}
 \chapter{GNU/Linux and Its Distributions}
-\label{sec:gnulinux} GNU/Linux产生于Minix，而Minix产生于Unix。具体产生历史不再赘述。\par
+\label{sec:gnulinux} GNU/Linux is a kind of ``Unix-like'' operating system that uses 
 首先，GNU/Linux是以Linux为内核，辅以GNU\footnote{GNU（GNU is Not Unix的递归缩写）是一个由理查德·斯托曼为推广自由软件发起的运动（自由软件运动）的一部分。它产生了一些如 Gnu Emacs、gcc（GNU Compiler Collection，即GNU编译器套件，包含 C、C++、Objective-C、Fortran、Ada、Go、D 等语言的编译器及这些语言的运行库，由 Richard Stallman 于 1987 年发布，最新版本 7.4）、GIMP（GNU Image Manipulation Program，图像处理软件，号称“GNU/Linux下的 PhotoShop”）等自由软件。具体请参看附录中的“GNU宣言”。}工具集的操作系统。在自由软件界，“GNU/Linux”是一种较为保守且“政治正确”的说法。我们将在本书中使用这种说法。\par
 （通俗地讲，）发行版是你可以下载安装的GNU/Linux版本。基于学习难度、兼容性及易用性，我们主要使用以下GNU/Linux发行版：
 \begin{description}
@@ -65,7 +63,8 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 	\item [【Pure OS】] 一个认证“完全自由”的发行版。官方软件源存在软件过少和下载速度慢的问题。但如果你是自由软件运动的铁杆支持者，你可以使用它。
 	\item [【（半）国产操作系统】]这里不再赘述。
 \end{description}
-\subsection{GNU/Linux的优点}
+\section{GNU/Linux的优点及缺点}
+优点：
 \begin{enumerate}
 	\item  适用于配置较低的或生产较早的机器。运行速度快（比如说\LaTeX 编译速度）。\par
 	\item 自由软件支持者可以选用（仅限于其中的部分发行版，参见【自由的GNU/Linux发行版】\url{http://www.gnu.org/distros/free-distros.html}（最后连接于2019年06月20日18:16:24））。\par
@@ -73,7 +72,7 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 	\item 具有功能十分强大的软件（如“rm”——个删除文件的命令行工具）。
 	\item 几乎不可能中毒。
 \end{enumerate}
-\subsection{GNU/Linux的缺点}
+缺点：
 \begin{enumerate}
 	\item 入门门槛高。
 	\item 硬件驱动少（尤其是完全使用自由软件时）。原因在于自由软件开发者有限，自由的硬件厂商有限因此在新型号的机器上某些驱动无法被加载。如Debian GNU/Linux对于最新硬件的兼容性就弱于Ubuntu Linux。
