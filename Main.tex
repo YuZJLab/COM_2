@@ -3,8 +3,7 @@
 %使用CC-BY-NC-SA授权。一份完整版本的许可证已位于附录。这个版本原始作者YuZJ，
 %邮箱theafamily@126.com（最后连接于2019年06月20日17:32:17）。
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[draft]{ylbook}
-\usepackage{xeCJK} %中文支持
+\documentclass[draft,chinese]{ylbook}
 \setCJKmainfont{SourceHanSerifSC}[
     Path = Fonts/,
     Extension = .otf ,
@@ -17,21 +16,12 @@
     UprightFont = *-Regular,
     BoldFont = *-Bold,
 ]
-\usepackage{color}
-\usepackage{graphicx}  %生成图片
 \usepackage[super]{nth} %生成序数词
 \bibliographystyle{IEEEtran}
 \usepackage{metalogo} %生成TeX标志
 \usepackage{fancybox} %生成带阴影的盒子
 \shadowsize=2pt %配置盒子
-\usepackage{flafter}%使得所有浮动体不能被放置在其浮动环境之前
 \usepackage{picinpar} %生成文本环绕
-\usepackage{indentfirst}%生成段落
-\usepackage{titlesec}
-\titleformat{\chapter}[frame]{\Huge}{\small 第 \thechapter 章}{0pt}{}
-\titleformat{\section}[frame]{\LARGE}{\small 第 \thesection 节}{0pt}{}
-\titleformat{\subsection}[frame]{\large}{\small  第\thesubsection 小节}{0pt}{}
-\titleformat{\subsubsection}[frame]{}{\small 第\thesubsubsection 小小节}{0pt}{}
 \usepackage{eso-pic}%背景图像命令
 \usepackage[backref]{hyperref} %生成书签，这个应被放在末尾
 \hypersetup{hidelinks,bookmarks=true,bookmarksopen=true,pdftitle=电教委员完全（不）技术指南,pdfauthor=YuZJ Lab}
