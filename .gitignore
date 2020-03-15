@@ -10,6 +10,7 @@ $RECYCLE.BIN/
 # GNU Emacs
 *#
 *~
+.idea
 # TeX Files
 *.log
 *.aux
@@ -20,5 +21,7 @@ $RECYCLE.BIN/
 *.out
 *.fls
 *.fdb_latexmk
-*.syntex.gz
+*.gz
 *.brf
+*.tps
+*.xdv
