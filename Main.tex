@@ -16,6 +16,7 @@
     UprightFont = *-Regular,
     BoldFont = *-Bold,
 ]
+\usepackage{showframe}
 \usepackage[super]{nth} %生成序数词
 \bibliographystyle{IEEEtran}
 \usepackage{metalogo} %生成TeX标志
@@ -23,17 +24,17 @@
 \shadowsize=2pt %配置盒子
 \usepackage{picinpar} %生成文本环绕
 \usepackage{eso-pic}%背景图像命令
-\usepackage[backref]{hyperref} %生成书签，这个应被放在末尾
-\hypersetup{hidelinks,bookmarks=true,bookmarksopen=true,pdftitle=电教委员完全（不）技术指南,pdfauthor=YuZJ Lab}
+\usepackage{indentfirst}
+\usepackage[backref,hidelinks,bookmarks=true,bookmarksopen=true,pdftitle=电教委员完全（不）技术指南,pdfauthor=YuZJ Lab]{hyperref} %生成书签，这个应被放在末尾
 \begin{document}
 \begin{titlepage}
-\sffamily
 %\color{white}
 \AddToShipoutPictureBG*{\includegraphics[width=21cm,height=29.7cm]{pic/face.png}}
 \vspace*{10mm}
+\title{电教委员（不）完全技术指南}
 		\begin{center}
-				\bfseries\doublebox{\parbox{14cm}{\centering
-					\Ovalbox{\centering\parbox{13.7cm}{\centering\Huge  电教委员（不）完全技术指南\normalsize\\\vspace*{1mm}An (In)Complete Technical Reference for Computer }}\\\vspace*{5mm}\large 作者：YuZJ \\\vspace*{5mm} 编译日期：\today}}
+				\bfseries\doublebox{\parbox{\textwidth}{\centering
+					\Ovalbox{\centering\parbox{0.9\textwidth}{\centering\fontsize{30}{40}\selectfont 电教委员（不）完全技术指南\normalsize\\\vspace*{1mm}\LARGE An (In)Complete Technical Reference\\for Computer Administrators}}\\\vspace*{5mm}\large 作者：YuZJ \\\vspace*{5mm} 编译日期：\today}}
 		\end{center}
 \vspace*{10mm}
 \shadowbox{\parbox{12cm}{“工欲善其事，必先利其器”，对于我们来说，掌握如何高效率地使用计算机是十分重要的。为了方便信息化教学的开展，我结合自己的工作经历，不自量力，“年来著书一种”，为希望掌握关于如何高效地使用教室计算机的初级和高级技巧的电教委员或者其余希望提高计算机技能的教师、学生及其他教职人员编写了这份文件。}}

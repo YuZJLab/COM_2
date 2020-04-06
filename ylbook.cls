@@ -43,6 +43,9 @@
 \normalsize
 \if@chinese\RequirePackage{xeCJK}\RequireXeTeX\fi
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Font Size
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifx\MakeRobust\@undefined \else
 	\MakeRobust\normalsize
@@ -75,6 +78,11 @@
 \DeclareRobustCommand\LARGE{\@setfontsize\LARGE\@xviipt{22}}
 \DeclareRobustCommand\huge{\@setfontsize\huge\@xxpt{25}}
 \DeclareRobustCommand\Huge{\@setfontsize\Huge\@xxvpt{30}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Margin
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \setlength\parindent{2em}
 \setlength\smallskipamount{3\p@ \@plus 1\p@ \@minus 1\p@}
 \setlength\medskipamount{6\p@ \@plus 2\p@ \@minus 2\p@}
@@ -84,14 +92,18 @@
 \setlength\topskip{0ex}
 \setlength\footskip{.35in}
 \setlength\maxdepth{4\p@}
-\setlength\textwidth{6in}
+\setlength\textwidth{6.2in}
 \setlength\textheight{9.5in}
 \addtolength\textheight{\topskip}
-\setlength\marginparsep{0pt}
-\setlength\marginparpush{5\p@}
-\if@twoside \setlength\oddsidemargin{0.75in}\else\setlength\oddsidemargin{0in}\fi
+\if@twoside
+\setlength\oddsidemargin{-0.5in}
+\setlength\evensidemargin{0.5in}
+\else
+\setlength\oddsidemargin{0in}
 \setlength\evensidemargin{0in}
-\setlength\marginparwidth{0in}
+\fi
+\setlength\marginparwidth{0pt}
+\setlength\marginparsep{0pt}
 \setlength\topmargin{0in}
 \setlength\footnotesep{6.65\p@}
 \setlength{\skip\footins}{9\p@ \@plus 4\p@ \@minus 2\p@}
@@ -107,6 +119,11 @@
 \setlength\@dblfpsep{8\p@ \@plus 2fil}
 \setlength\@dblfpbot{0\p@ \@plus 1fil}
 \setlength\partopsep{2\p@ \@plus 1\p@ \@minus 1\p@}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set List Items
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \def\@listi{\leftmargin\leftmargini
 	\parsep 4\p@ \@plus2\p@ \@minus\p@
 	\topsep 8\p@ \@plus2\p@ \@minus4\p@
@@ -152,6 +169,11 @@
 \setcounter{dbltopnumber}{2}
 \renewcommand\dbltopfraction{.7}
 \renewcommand\dblfloatpagefraction{.5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Chapter Names
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \if@twoside
 	\def\ps@headings{%
 	\let\@oddfoot\@empty\let\@evenfoot\@empty
@@ -234,6 +256,9 @@
 \renewcommand\thesubsubsection{\thesubsection.\@arabic\c@subsubsection}
 \renewcommand\theparagraph{\thesubsubsection.\@arabic\c@paragraph}
 \renewcommand\thesubparagraph{\theparagraph.\@arabic\c@subparagraph}
+\if@web
+\@mainmattertrue
+\else
 \newcommand\frontmatter{%
 	\@mainmatterfalse
 \pagenumbering{roman}}
@@ -243,12 +268,12 @@
 \newcommand\backmatter{%
 	\@mainmatterfalse
 \pagenumbering{roman}}
-\if@web
-\global\let\frontmatter\relax
-\global\let\mainmatter\relax
-\global\let\backmatter\relax
-\@mainmattertrue
 \fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Part
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newcommand\part{%
 	\if@web
 	\par
@@ -263,6 +288,7 @@
 			\@tempswafalse
 		\fi
 	\secdef\@part\@spart}
+
 \def\@part[#1]#2{%
 	\ifnum \c@secnumdepth >-2\relax
 		\refstepcounter{part}%
@@ -310,6 +336,11 @@
 	\if@tempswa
 		\twocolumn
 	\fi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newcommand\chapter{\par
   \global\@topnum\z@
   \@afterindentfalse
@@ -366,31 +397,21 @@
 		\Huge \bfseries  #1\par\nobreak
 		\vskip 40\p@
 	}}
-\newcommand\section{\@startsection {section}{1}{\z@}
-  {0ex}%
-  {0ex}%
-  {}}
-\newcommand\subsection{\@startsection{subsection}{2}{\z@}%
-	{0ex}%
-	{0ex}%
-	{}}
-\newcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-	{0ex}%
-	{0ex}%
-	{}}
-\newcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-	{3.25ex \@plus1ex \@minus.2ex}%
-	{-1em}%
-	{\normalfont\normalsize\bfseries\sffamily}}
-\newcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-	{3.25ex \@plus1ex \@minus .2ex}%
-	{-1em}%
-	{\normalfont\normalsize\bfseries\sffamily}}
+\newcommand\section{\@startsection{section}{1}{\z@}{0ex}{0ex}{}}
+\newcommand\subsection{\@startsection{subsection}{2}{\z@}{0ex}{0ex}{}}
+\newcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}{0ex}{0ex}{}}
+\newcommand\paragraph{\@startsection{paragraph}{4}{\z@}{3.25ex \@plus1ex \@minus.2ex}{-1em}{\normalfont\normalsize\bfseries\sffamily}}
+\newcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}{3.25ex \@plus1ex \@minus .2ex}{-1em}{\normalfont\normalsize\bfseries\sffamily}}
 \if@twocolumn
 	\setlength\leftmargini  {2em}
 \else
 	\setlength\leftmargini  {2.5em}
 \fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Setr Lable Item
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \leftmargin  \leftmargini
 \setlength\leftmarginii  {2.2em}
 \setlength\leftmarginiii {1.87em}
@@ -449,6 +470,11 @@
 {\list{}{\rightmargin\leftmargin}%
 	\item\relax}
 {\endlist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Title Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newenvironment{titlepage}
 {%
 \if@web\thispagestyle{headings}\else\thispagestyle{empty}\fi
@@ -478,6 +504,11 @@
 		\newpage
 	\fi
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newcommand\appendix{\par
 	\setlength\lineskip{0.2ex}
 	\setlength\parskip{0.5ex}
@@ -541,6 +572,11 @@
 		\hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
 	\fi
 	\vskip\belowcaptionskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Font
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
 \DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
 \DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
@@ -553,6 +589,11 @@
 \newcommand\@pnumwidth{1.55em}
 \newcommand\@tocrmarg{2.55em}
 \newcommand\@dotsep{4.5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Toc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \setcounter{tocdepth}{5}
 \newcommand\tableofcontents{%
 	\setcounter{chapter}{-1}
@@ -583,8 +624,6 @@
 \newcommand*\l@chapter[2]{%
 	\ifnum \c@tocdepth >\m@ne
 		\addpenalty{-\@highpenalty}%
-		\vskip 1.0em \@plus\p@
-		\setlength\@tempdima{1.5em}%
 		\begingroup
 		\parindent \z@ \rightskip \@pnumwidth
 		\parfillskip -\@pnumwidth
@@ -673,6 +712,11 @@
 \parindent 1em%
 \noindent
 \hb@xt@1.8em{\hss\@makefnmark}#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Names
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \if@chinese
 	\newcommand\listfigurename{图像列表}
 	\newcommand\listtablename{表格列表}
@@ -708,6 +752,11 @@
 	\onecolumn
 \fi
 \renewcommand{\verbatim@font}{\color{blue}\ttfamily}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set Titles
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \RequirePackage{titlesec}
 \if@chinese

@@ -10,18 +10,18 @@ The reason why it is possible is that firstly, GNU/Linux can read Windows' file 
 ``Rescue disks'', which is provided by most anti-virus software manufactures, is used to rescue severely-infected computers. Most of the rescue disks are based on GNU/Linux. For example, Dr Web and AVIRA base their software on Ubuntu 14.4 and Kaspersky on Gentoo Linux. Now we will use Kaspersky Rescue Disk to show how to remove Windows' virus under GNU/Linux.\par
 现在你将计算机开启，将光盘插入光驱后重启。你将被引导到光盘启动。你将发现：
 \begin{center}
-	\includegraphics[scale=0.7]{pic/krd1}
+	\includegraphics[width=0.7\linewidth]{pic/krd1}
 \end{center} \par
 此时，快速按下ESC键（它应位于你键盘左上角），进入左图所示界面，选择“English”--英语，敲击回车，进入右图界面。此时你应该选择“Kaspersky Rescure Disk, Graphic Mode”（图形界面）\footnote{下面“Limited graphic mode”为限制的图形界面，“Hardware info”为探测硬件信息，“Boot from hard disk”为从硬盘启动（意思就是说，启动硬盘里已经安装的操作系统），“Reboot”与“Shutdown”指重启与关机。当然高手请随意。}
 \begin{center}
-	\includegraphics[scale=0.25]{pic/krd2}	\includegraphics[scale=0.25]{pic/krd3}\\
-	\includegraphics[scale=0.35]{pic/krd4}	\includegraphics[scale=0.35]{pic/krd5}
+	\includegraphics[width=0.7\linewidth]{pic/krd2}	\includegraphics[width=0.7\linewidth]{pic/krd3}\\
+	\includegraphics[width=0.7\linewidth]{pic/krd4}	\includegraphics[width=0.7\linewidth]{pic/krd5}
 \end{center} \par
 这就启动好了。KRD提示你整个系统正在内存上运行，所有新病毒库、日志、隔离等在关机后都将丢失。之后你会看见右图界面：我们使用卡巴斯基病毒移除工具（Kaspersky Virus Removal Tool，KVRT）演示它们的使用。下载：\url{https://www.kaspersky.com.cn/downloads/thank-you/free-virus-removal-tool}（最后连接于2019年06月20日18:44:31，网速较慢）。
 \begin{center}
-	\includegraphics[scale=0.5]{pic/kvrt_eula.PNG}        \includegraphics[scale=0.6]{pic/kvrt_ready.PNG}\\
-	\includegraphics[scale=0.6]{pic/kvrt_conf.PNG}
-	\includegraphics[scale=0.4]{pic/kvrt_ing.PNG}    \includegraphics[scale=0.4]{pic/kvrt_compl.PNG}
+	\includegraphics[width=0.7\linewidth]{pic/kvrt_eula.PNG}        \includegraphics[width=0.7\linewidth]{pic/kvrt_ready.PNG}\\
+	\includegraphics[width=0.7\linewidth]{pic/kvrt_conf.PNG}
+	\includegraphics[width=0.7\linewidth]{pic/kvrt_ing.PNG}    \includegraphics[width=0.7\linewidth]{pic/kvrt_compl.PNG}
 \end{center} \par
 上图分别是KVRT显示最终用户许可声明及隐私保护条例，准备查杀，配置扫描范围，正在查杀，查杀完成的界面。\par
 首先你应该同意最终用户许可声明及隐私保护条例（注意，你首先应该看过它）。选中两个复选框再单击“Accept”即可。之后它会“初始化”（initialization）一段时间，并显示“准备好”界面。注意到上面黄色的一块区域了吗？它的出现说明这个版本已经过时了，你可以选择重新下载最新版。\par
@@ -87,7 +87,7 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 免费下载安装，安装较为方便。APT镜像源较多，更新较快。同样拥有WineQQ与Electric WeChat，体验接近Ubuntu（桌面除外）。适合用于教学。\par
 缺陷：一部分预装软件的界面（如深度软件安装器）过于简洁，不够强大。应用程序卸载不需要root权限。桌面的形式不适用于高效率教学生活，较难适应。
 \begin{center}
-	\includegraphics[scale=0.5]{pic/deepin}
+	\includegraphics[width=0.7\linewidth]{pic/deepin}
 \end{center}
 \subsection{Ubuntu Kylin}
 \url{https://www.ubuntukylin.com/}\par
@@ -96,18 +96,18 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 \paragraph{实测}
 免费下载安装。除了切换桌面，增加默认安装WPS、搜狗拼音输入法等外，与Ubuntu区别不大。适合用于教学。确实针对中国消费者做了不少优化。
 \begin{center}
-	\includegraphics[scale=0.4]{pic/uk}
+	\includegraphics[width=0.7\linewidth]{pic/uk}
 \end{center} \par
 \chapter{安装GNU/Linux：以Lubuntu19.04为例}
 需要注意的是：GNU/Linux不同发行版的安装方法各不相同，因此在安装其它发行版（如Arch Linux）时就应该格外注意下文所述方法并不是“放诸四海而皆准”的。警告！安装时不要联网（这次主要是为了防止安装器从原始软件源下载文件——这将会使安装过程难以忍受的长）！\par
 首先你需要一张Ubuntu Linux的启动光盘或U盘。我仍旧推荐TUNA源：\url{https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/lubuntu/releases/19.04/release/lubuntu-19.04-desktop-amd64.iso}（最后连接于2019年06月20日18:44:45）。之后使用与Windows相同的方法写入光盘（或U盘）。现在你将计算机开启，将光盘插入光驱后重启。你将被引导到光盘启动。你将看到（如果你使用UEFI启动，你将看不到此界面。此时你应在“GNU Grub”界面选择“Try Ubuntu 19.04”）左图所示界面。选择“English”（不推荐安装中文的GNU/Linux操作系统，这将会使终端乱码）并敲两下回车键。在一段时间的等待后，你将看到：
 \begin{center}
-	\includegraphics[scale=0.5]{pic/lubinst1}	\includegraphics[scale=0.4]{pic/lubinst2}
+	\includegraphics[width=0.7\linewidth]{pic/lubinst1}	\includegraphics[width=0.7\linewidth]{pic/lubinst2}
 \end{center} \par
 现在你在Lubuntu Live的桌面上。Live系统可以让你体验Lubuntu系统。在这里对系统的任何更改都不会被保存（当然，如果你更改了硬盘，那就不是一回事了）。双击“Install Lubuntu 19.04”以启动安装程序。你将看到左图界面。设置语言，时区与键盘。这些选项保持默认即可。
 \begin{center}
-	\includegraphics[scale=0.4]{pic/lubinst3}	\includegraphics[scale=0.4]{pic/lubinst7}\\
-	\includegraphics[scale=0.4]{pic/lubinst5}
+	\includegraphics[width=0.7\linewidth]{pic/lubinst3}	\includegraphics[width=0.7\linewidth]{pic/lubinst7}\\
+	\includegraphics[width=0.7\linewidth]{pic/lubinst5}
 \end{center} \par
 现在开始高难度操作：硬盘分区。首先你应该看到左图，界面右上方有一个下拉列表让你选择硬盘。选择另一块硬盘后，你将看到右图。\par
 现在介绍一下我们有可能用到的单选框中的选项：
@@ -117,17 +117,17 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 	\item Manual partitioning：手动分区。就是你了！
 \end{itemize}
 \begin{center}
-	\includegraphics[scale=0.4]{pic/lubinst6}	\includegraphics[scale=0.4]{pic/lubinst7}
+	\includegraphics[width=0.7\linewidth]{pic/lubinst6}	\includegraphics[width=0.7\linewidth]{pic/lubinst7}
 \end{center} \par
 现在你应该选择另外一块硬盘，完成后界面位于左图。首先单击“New partition table”新建GPT分区表如右图（这里抱歉地说一下：我的计算机Windows选用了MBR分区，GNU/Linux选用GPT分区，是由于主板已经有更换——请放心，BIOS-Legacy能够从GPT分区启动GNU/Linux，但无法启动Windows。因此如果你的主板不支持BIOS-UEFI，请不要使用工具将MBR转换为GPT。否则Windows将无法启动）：
 \begin{center}
-	\includegraphics[scale=0.4]{pic/lubinst8}	\includegraphics[scale=0.4]{pic/lubinst9}\\
-	\includegraphics[scale=0.4]{pic/lubinst10}	\includegraphics[scale=0.4]{pic/lubinst11}
+	\includegraphics[width=0.7\linewidth]{pic/lubinst8}	\includegraphics[width=0.7\linewidth]{pic/lubinst9}\\
+	\includegraphics[width=0.7\linewidth]{pic/lubinst10}	\includegraphics[width=0.7\linewidth]{pic/lubinst11}
 \end{center} \par
 选中“Free Space”（空白空间），单击“Create”新建分区。先建立根目录（/）分区。注意到“Monut point”（挂载点）选项了吗？在那里修改为/。这是GNU/Linux最重要的分区，分配60000MB。再以相同的方法建立“/home”分区，分配40000MB。剩余约2GB建立一个“Swap”（这是在“File system”，文件系统中设置的，设置为“Linuxswap”）分区。该分区将被当成内存使用，因此不需要特别大。一般6GB已经是上限了。\par
 再单击“Next”之前，请确保“Boot loader”（启动引导器）被安装在了安装Windows的硬盘。这主要是为了防止在BIOS中再次调整启动磁盘。
 \begin{center}
-	\includegraphics[scale=0.6]{pic/lubinst12}
+	\includegraphics[width=0.7\linewidth]{pic/lubinst12}
 \end{center} \par
 设置用户。我们选择“SGComputers”作为用户名。再设置密码，不设置自动登录（“Automatically login”）。确认后即可安装了。与Debian GNU/Linux、RHEL或Cent OS不同的是Ubuntu习惯先刷入整个操作系统再删除软件包而不是先安装基本系统再安装软件包。
 \chapter{GNU/Linux开箱设置}
@@ -137,7 +137,7 @@ The reason why I don't recommend WSL (Windows Subsystem of Linux) is that the fi
 \cite{intro1}\par
 显然到了这一步，你已经安装好基本的操作系统了。现在你已经将其重启，并在GNU Grub里选择刚安装的操作系统。
 \begin{center}
-	\includegraphics[scale=0.6]{pic/lubstart}
+	\includegraphics[width=0.7\linewidth]{pic/lubstart}
 \end{center} \par
 如果你安装了图形界面（GUI，graphical user interfaces）和相关桌面环境，你将面对一个友好的图形界面（显示管理器gdm3或litegdm）。但如果你一不小心没有安装图形界面（比如说，你安装了Arch Linux，Ubuntu Server或不带图形界面的Debian GNU/Linux），一个终端界面（或称终端界面，CLI，command line interfaces）将会被启动，然后打印出（以Debian GNU/Linux不稳定分支为例）：
 \begin{verbatim}
@@ -166,7 +166,7 @@ sgcomputers@debian:~$
 在大多数界面下（如在“fbterm”界面中就不行），你可以使用“Ctrl”+“Alt”+“F[x]（[x]为具体数字）”来切换虚拟控制台。你可以使用它们执行多个任务。\par
 那么什么是终端（Terminal）？简而言之，终端就是你能够输入命令的地方。比如说“终端界面”（见左图）。那么在图形界面下我如何输入命令呢？此时你就需要一个“终端模拟器”（又称“伪终端”）（Terminal Emulator）。比如说右图就是Lubuntu默认伪终端QTerminal。
 \begin{center}
-	\includegraphics[scale=0.9]{pic/term1} \includegraphics[scale=0.9]{pic/term2}
+	\includegraphics[width=0.7\linewidth]{pic/term1} \includegraphics[width=0.7\linewidth]{pic/term2}
 \end{center} \par
 现在教你一个有用的命令：“\verb|shutdown now|”，作用是关机。“\verb|shutdown -r now|”或“\verb|reboot|”则为重启。还有，你可以在一个（伪）终端中使用上下键显示之前的命令，或者依据之前的命令在输入命令的一部分时敲击Tab键自动补全。
 \subsection{用户管理（注意！重要内容！）}
@@ -248,7 +248,7 @@ bash还提供了选择语句、循环语句等多种高级功能，这里不再�
 \subsection{首先，切换软件源！}
 不同的软件源下载速度不同，因此我们应该使用快速的软件源。如果你安装了图形界面，进入“Software Sources”或者“Sofyware\& Updates”，一个大部分Debian及其衍生版会安装的小工具。截图：
 \begin{center}
-	\includegraphics[scale=0.4]{pic/src1}	\includegraphics[scale=0.4]{pic/src2}
+	\includegraphics[width=0.7\linewidth]{pic/src1}	\includegraphics[width=0.7\linewidth]{pic/src2}
 \end{center} \par
 进入“Download From”，选择“Other...”中的中国的服务器（如TUNA源。我选择了网易源）。单击“Close”，软件包索引文件就会重新加载。\par
 如果你没有这个工具，请修改Sources.list。\par
@@ -642,7 +642,7 @@ A small and efficient tool that lets you mirror a part of or
 ##省略大部分内容。
 \end{verbatim}
 \begin{center}
-	\includegraphics[scale=0.4]{pic/gdebi.png}
+	\includegraphics[width=0.7\linewidth]{pic/gdebi.png}
 \end{center}
 \subsection{apt-get}
 \cite{manaptget}\par
@@ -755,7 +755,7 @@ apt-mark是一种用来标记软件包状态的工具。\par
 显然当图形界面可用时，大多数人会选择图形界面。因此这一章将会介绍图形界面。
 synaptic中文名称为“新立德软件包软利器”。截图（Ubuntu版本，0.84.4）：
 \begin{center}
-	\includegraphics[scale=0.5]{pic/synaptic.png} 	
+	\includegraphics[width=0.7\linewidth]{pic/synaptic.png} 	
 \end{center} \par
 获得方法：“\verb|apt install synaptic|” \par
 启动方法（首先你需要安装图形界面）：在伪终端中输入“\verb|synaptic|”或在相关桌面环境中启动（不需要root权限，系统将会询问密码）。\par
@@ -804,13 +804,13 @@ sgcomputers@sgcomputers:~$ sudo apt install vsftpd
 \section{中文输入法和终端：以搜狗拼音输入法和fbterm为例}
 如果你现在使用Ctrl+Alt+F[x]来切换虚拟控制台，你会发现准确无误英文输出（毫无乱码）。但如果你安装了中文操作系统，你就会发现乱码（如下图）（任何在上一章中学得好的人都能猜出输出的内容）。此时就需要安装“fbterm”软件包以解决此问题。
 \begin{center}
-	\includegraphics[scale=0.8]{pic/fbt1}
+	\includegraphics[width=0.7\linewidth]{pic/fbt1}
 \end{center} \par
 请注意，fbterm需要在root权限下启动（\verb|sudo fbterm|）。如果需要绕过此限制，使用“\verb|sudo usermod -a -G video [username]|”更改video组即可。\par
 现在安装中文界面语言。使用apt安装软件包“language-selector-gnome”，你的菜单上就会多出一个“Language Support”（语言支持）软件包。如果完整性检查失败，选择“remind me later”（稍后提示）。现在在“Install/remove language”（添加或删除语言）添加“Chinese Simplyfied”（中文（简体））并输入密码（如果需要）。在主界面的列表框中将汉语（中国）移动至首位并单击“Apply System-wide”并注销（菜单“Leave”-“Logout”）重新登录，你就有中文界面了。别忘了再次进入语言支持以安装完整的语言包。\par
 现在安装输入法。首先安装fcitx并移除ibus*。之后使用firefox网络浏览器查找访问\url{https://pinyin.sogou.com/linux/?r=pinyin}（最后连接于2019年06月20日18:48:32），（也许你需要先设置默认搜索引擎为“百度”），下载64位包，使用dpkg安装它（也许还要使用“\verb|sudo apt -f install|”修复依赖关系）。重启。从菜单中启动fcitx配置，单击底部的“+”号添加搜狗拼音输入法与键盘-英语（美国）并用底部“-”号删除其它输入法，设置“额外的激活输入法快捷键”为“两侧Shift”。重启。然后开始享受输入法吧。（搜狗输入法启动略慢）
 \begin{center}
-	\includegraphics[scale=0.7]{pic/fbt2}
+	\includegraphics[width=0.7\linewidth]{pic/fbt2}
 \end{center}
 \chapter{-文件管理：图形和终端界面}
 \section{文件系统：基础}
@@ -889,7 +889,7 @@ sgcomputerssgcomputers:~/Documents$ echo "echo Yeah!"> d
 \cite{manls}\par
 列出目录内含内容。请注意是“\verb|ls|”不是“\verb|sl|”，否则你会得到一辆开过屏幕的蒸汽机车（在安装了“sl”软件包的情况下。官方说明为该命令旨在帮助那些记忆力可怜的人）\footnote{当然它也可以帮助那些无聊的人——你可以试一试在Vim中打出这个图案——或者使用bash编出类似的程序！}。
 \begin{center}
-	\includegraphics[scale=2.2]{pic/sl}
+	\includegraphics[width=0.7\linewidth]{pic/sl}
 \end{center} \par
 \begin{verbatim}
 sgcomputers@sgcomputers:~$ ls
@@ -1318,13 +1318,13 @@ deleting: IP▒▒ַ▒▒▒▒▒▒/.gitignore
 \section{终端文件管理器MC}
 MC全称“Midnight Commandar”，是一个强大的终端界面文件管理器。使用apt安装“\verb|mc|”后用“\verb|mc|”启动，你将得到：
 \begin{center}
-	\includegraphics[scale=0.7]{pic/mc}
+	\includegraphics[width=0.7\linewidth]{pic/mc}
 \end{center} \par
 图形界面伪终端支持鼠标操作。终端界面需要fbterm（如果你的语言是中文）。注意下方有一行数字[x]，你需要按F[x]来实现。如退出：F10。
 \chapter{进程管理}
 \label{sec:pm}图形界面工具有gnome-system-monitor、ksysguard、htop（命令行启动）与qps。这些工具使用简单，不再赘述。以下为ksysguard与htop的截图。
 \begin{center}
-	\includegraphics[scale=0.7]{pic/ksysg}	\includegraphics[scale=0.7]{pic/htop}
+	\includegraphics[width=0.7\linewidth]{pic/ksysg}	\includegraphics[width=0.7\linewidth]{pic/htop}
 \end{center} \par
 下面介绍命令方法：
 \section{ps}
@@ -1467,7 +1467,7 @@ sgcomputers@sgcomputers:/sbin$sudo service clamav-freshclam start
 \section{图形界面：ClamTK}
 不推荐。可以使用apt安装。截图如下：
 \begin{center}
-	\includegraphics[scale=0.5]{pic/ctk}
+	\includegraphics[width=0.7\linewidth]{pic/ctk}
 \end{center} \par
 为获得最佳杀毒效果，你需要在root终端下启动它（就像我现在这样）。你需要在“settings”中设置使“scan diretories recursively”（递归扫描文件夹）再设置“update assistant”使“I would like to update signatures myself”（手动接受更新）并应用（apply）。之后你就可以“scan a directory”来递归扫描目录了。
 \chapter{-自动化操作：crontab}
@@ -1479,7 +1479,7 @@ Wine——一种能够让Windows程序运行于GNU/Linux的程序。\par
 我们同样使用vlc作为默认媒体播放器。配置较低的机器请选择MPV。\par
 如果你需要一个现代化的音乐播放器，你可以安装rhythmbox。如果你需要一个终端界面下的音乐播放器，请选择moc（使用“\verb|mocp|”命令启动）。以下为截图。
 \begin{center}
-	\includegraphics[scale=0.9]{pic/moc}
+	\includegraphics[width=0.7\linewidth]{pic/moc}
 \end{center}
 \chapter{GNU/Linux的教学实现}
 这一章将会谈到如何使用GNU/Linux实现日常教学任务。\par
@@ -1712,7 +1712,7 @@ root@server:/#service vsftpd start
 \section{在Windows下配置FTP服务器}
 你不需要使用ServU，有一个自由免费的软件可以替代它——Filezilla Server。你不需要使用Windows Server（它的IIS已经可以搭建优秀的服务器了），一台具有固定IP的Winsows10即可！
 \begin{center}
-	\includegraphics[scale=0.6]{pic/fzs}
+	\includegraphics[width=0.7\linewidth]{pic/fzs}
 \end{center} \par
 从上图中可以看到整个服务器是完全图形界面的。现在请跟我做：\par
 1.打开防火墙。找到“控制面板”-“系统和安全”-“Windows Defender防火墙”-“允许应用通过Windows防火墙”，单击“更改设置”-“允许其他应用”，添加Filezilla Server（它应为于C:\textbackslash Program Files (x86)\textbackslash FileZilla Server\textbackslash FileZilla Server.exe）。“确定”保存。\par
