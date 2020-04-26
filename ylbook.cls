@@ -14,7 +14,7 @@
 %% PREPARATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\NeedsTeXFormat{LaTeX2e}[1999/12/01]\ProvidesClass{ylbook}[2020-08-04 v2.1 YLBook]
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]\ProvidesClass{ylbook}[2020-08-04 v2.3 YLBook]
 
 \RequirePackage{times}
 \RequirePackage{url}
@@ -34,60 +34,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setlength\parindent{2em}
-\setlength\smallskipamount{3\p@ \@plus 1\p@ \@minus 1\p@}
-\setlength\medskipamount{6\p@ \@plus 2\p@ \@minus 2\p@}
-\setlength\bigskipamount{12\p@ \@plus 4\p@ \@minus 4\p@}
-\setlength\headheight{1ex}
-\setlength\headsep{3ex}
-\setlength\topskip{0ex}
-\setlength\footskip{.35in}
-\setlength\maxdepth{4\p@}
-\setlength\textwidth{6.2in}
-\setlength\textheight{9in}
-\if@twoside
-    \setlength\oddsidemargin{-0.5in}
-    \setlength\evensidemargin{0.5in}
-\else
-    \setlength\oddsidemargin{0in}
-    \setlength\evensidemargin{0in}
-\fi
-\setlength\marginparwidth{0pt}
-\setlength\marginparsep{0pt}
-
-\setlength\parindent{2em}
 \RequirePackage{indentfirst}
+\if@web
+	\RequirePackage[inner=1in,outer=1in]{geometry}
+\else
+	\RequirePackage[inner=1.5in,outer=0.5in]{geometry}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% WEB
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\@mainmattertrue
 \if@web
     \renewcommand\familydefault{\sfdefault}
-    \@mainmattertrue\pagenumbering{arabic}
-    \renewcommand{\cleardoublepage}{\clearpage}
-
-    \renewcommand\part{%
-    \clearpage
-	\if@twocolumn
-		\onecolumn
-	    \@tempswatrue
-	\else
-		\@tempswafalse
-	\fi
-    \secdef\@part\@spart}
-
-    \def\@endpart{\if@tempswa\twocolumn\fi\vspace*{30\p@}\par}
-
-    \renewcommand\chapter{\par
-    \thispagestyle{plain}%
-    \global\@topnum\z@
-    \@afterindentfalse
-    \secdef\@chapter\@schapter}
-
-\else
-    \renewcommand\frontmatter{\@mainmatterfalse\pagenumbering{roman}}
-    \renewcommand\mainmatter{\@mainmattertrue\pagenumbering{arabic}}
-    \renewcommand\backmatter{\@mainmatterfalse\pagenumbering{roman}}
+	\pagenumbering{arabic}
+	\renewcommand{\cleardoublepage}{\relax}
+	\renewcommand\frontmatter{\relax}
+    \renewcommand\mainmatter{\relax}
+	\renewcommand\backmatter{\relax}
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -107,9 +72,26 @@
     \renewcommand\tablename{表}
     \renewcommand\partname{}
     \renewcommand\chaptername{}
-    \renewcommand\appendixname{Appendix}
-    
-    \def\@chapter[#1]#2{
+	\renewcommand\appendixname{附录}
+
+	\def\today{\number\year 年 \ifcase\month\or
+	一月\or 二月\or 三月\or 四月\or 五月\or 六月\or
+	七月\or 八月\or 九月\or 十月\or 十一月\or 十二月\fi
+	\number\day 日}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CHAPTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if@web
+	\renewcommand\chapter{\par
+	\global\@topnum\z@
+	\@afterindentfalse
+	\secdef\@chapter\@schapter}
+\fi
+\if@chinese
+	\def\@chapter[#1]#2{
 	\refstepcounter{chapter}%
 	\typeout{第 \thechapter 章：}%
 	\addcontentsline{toc}{chapter}%
@@ -119,10 +101,6 @@
 	\addtocontents{lot}{\protect\addvspace{10\p@}}%
 	\@makechapterhead{#2}}
 \fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% CHAPTER
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\@makechapterhead#1{%
 \vspace*{50\p@}
@@ -150,11 +128,35 @@
 \def\@makeschapterhead#1{%
 \vspace*{50\p@}%
 {\parindent \z@ \raggedright
-	\huge\bfseries #1\par\nobreak
-    \vspace*{40\p@}
+\huge\bfseries #1\par\nobreak
+\vspace*{40\p@}
 }}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% TITLE
+%% PART
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if@web
+	\renewcommand\part{%
+	\clearpage
+	\if@twocolumn
+		\onecolumn
+		\@tempswatrue
+	\else
+		\@tempswafalse
+	\fi
+	\secdef\@part\@spart}
+
+	\def\@endpart{\if@tempswa\twocolumn\fi\vspace*{30\p@}\par}
+\else
+	\def\@endpart{\vfil\newpage
+	\if@twoside\if@openright\null\thispagestyle{empty}\newpage\fi\fi
+	\if@tempswa\twocolumn\fi}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SECTIONING
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \RequirePackage{titlesec}
@@ -167,5 +169,35 @@
 	\titleformat{\subsection}[frame]{\bf\sf\large}{\small SubSection \thesubsection}{0pt}{}
 	\titleformat{\subsubsection}[frame]{\bf\sf}{\small SubSubSection \thesubsubsection}{0pt}{}
 \fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TITLE PAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{fancybox,color,eso-pic}
+	\shadowsize=2pt
+	\newcommand{\intro}[1]{\def\@intro{#1}}
+	\newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+	\newcommand{\backpic}[1]{\def\@backpic{#1}}
+	\renewcommand\maketitle{
+		\begin{titlepage}
+			\ifx\@backpic\@empty\else\AddToShipoutPictureBG*{\includegraphics[width=\paperwidth ,height=\paperheight]{\@backpic}}\fi
+			\sffamily
+			\if@web\else\vspace*{10mm}\fi
+			\begin{center}
+				\bfseries\doublebox{\parbox{14cm}{\centering
+						\Ovalbox{\centering\parbox{13.7cm}{\centering\Huge \@title\large\\\vspace*{1mm}\@subtitle }}\\\vspace*{5mm}\large \@author \\\vspace*{5mm}\if@chinese 编译于 \else Compiled at\fi \today}}
+			\end{center}
+			\vspace*{10mm}
+			\shadowbox{\parbox{8cm}{\@intro}}
+		\end{titlepage}
+		\setcounter{footnote}{0}%
+		\vspace*{20mm}
+		\global\let\maketitle\relax
+		\global\let\intro\relax
+		\global\let\@intro\relax
+		\global\let\subtitle\relax
+		\global\let\@subtitle\relax
+}
 
 \endinput
